@@ -1,0 +1,20 @@
+name: Only allow develop -> main
+
+on:
+  pull_request:
+    branches:
+      - main   # base branch (the branch being merged INTO)
+
+jobs:
+  enforce-source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure PR source branch is develop
+        run: |
+          echo "Base branch:  ${{ github.base_ref }}"
+          echo "Head branch:  ${{ github.head_ref }}"
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "❌ This PR must come from 'develop' (got '${{ github.head_ref }}')"
+            exit 1
+          fi
+          echo "✅ Source branch is develop"
