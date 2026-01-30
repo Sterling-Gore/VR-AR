@@ -2,8 +2,8 @@ name: Only allow develop -> main
 
 on:
   pull_request:
-    branches:
-      - main   # base branch (the branch being merged INTO)
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   enforce-source-branch:
