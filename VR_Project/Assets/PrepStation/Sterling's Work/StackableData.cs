@@ -86,6 +86,7 @@ public class StackableData : MonoBehaviour
             UpdateColliderScale();
             UpdateColliderDistanceFromMainIngredient();
             SizeDeloadingBoxCollider();
+            LockPositionAndRotationOfModels();
         }
 
     }
@@ -140,5 +141,13 @@ public class StackableData : MonoBehaviour
         float distance = (snapColliderHeight * 0.5f) + (ingredientHeight * 0.5f);
         aboveCollider.transform.localPosition = new Vector3(abovePosition.x, distance, abovePosition.z);
         belowCollider.transform.localPosition = new Vector3(belowPosition.x, -1 * distance, belowPosition.z);
+    }
+
+    private void LockPositionAndRotationOfModels()
+    {
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        mainIngredient.transform.localPosition = Vector3.zero;
+        mainIngredient.transform.localRotation = Quaternion.identity;
     }
 }
