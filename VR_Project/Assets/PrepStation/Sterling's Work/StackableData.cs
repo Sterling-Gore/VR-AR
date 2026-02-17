@@ -74,6 +74,7 @@ public class StackableData : MonoBehaviour
     {
         CalculateIngredientHeight();
         CalculateSnapColliderHeight();
+        SizeDeloadingBoxCollider();
     }
 
     private void Update()
@@ -84,6 +85,7 @@ public class StackableData : MonoBehaviour
             CalculateSnapColliderHeight();
             UpdateColliderScale();
             UpdateColliderDistanceFromMainIngredient();
+            SizeDeloadingBoxCollider();
         }
         
     } 
@@ -123,6 +125,14 @@ public class StackableData : MonoBehaviour
     {
         aboveCollider.transform.localScale = new Vector3(colliderWidth, colliderHeight, colliderWidth);
         belowCollider.transform.localScale = new Vector3(colliderWidth, colliderHeight, colliderWidth);
+    }
+
+    private void SizeDeloadingBoxCollider()
+    {
+        Bounds bounds = mainIngredient.GetComponent<MeshCollider>().sharedMesh.bounds;
+        float radius = Mathf.Min(bounds.extents.x, bounds.extents.y);
+        Vector3 colliderSize = mainIngredient.GetComponent<BoxCollider>().size;
+        mainIngredient.GetComponent<BoxCollider>().size = new Vector3(radius*Mathf.Sqrt(2), colliderSize.y, radius*Mathf.Sqrt(2));
     }  
 
     private void UpdateColliderDistanceFromMainIngredient()

@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 318871984}
   - component: {fileID: 318871985}
+  - component: {fileID: 318871986}
   m_Layer: 0
   m_Name: Patty_BelowCollider
   m_TagString: Untagged
@@ -172,6 +173,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &318871986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318871983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9247730a69b98741a1190fdfaa31681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientSnapCollider
+  ingredient: {fileID: 1338650032}
+  isAbove: 0
 --- !u!1 &358401418
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +494,8 @@ GameObject:
   m_Component:
   - component: {fileID: 777514870}
   - component: {fileID: 777514871}
+  - component: {fileID: 777514872}
+  - component: {fileID: 777514873}
   m_Layer: 0
   m_Name: FoodObject
   m_TagString: Untagged
@@ -495,7 +512,7 @@ Transform:
   m_GameObject: {fileID: 777514869}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.125, y: 3.078, z: 2.344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -529,6 +546,44 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &777514872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777514869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f9ef46e944bf64195a5ce811db19ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
+  ingredientStack:
+  - {fileID: 1338650027}
+  rb: {fileID: 777514871}
+  stackHeight: 0
+--- !u!64 &777514873
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777514869}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &920063448
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 920063449}
   - component: {fileID: 920063450}
+  - component: {fileID: 920063451}
   m_Layer: 0
   m_Name: Patty_AboveCollider
   m_TagString: Untagged
@@ -582,6 +638,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &920063451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920063448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9247730a69b98741a1190fdfaa31681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientSnapCollider
+  ingredient: {fileID: 1338650032}
+  isAbove: 1
 --- !u!1 &981455846
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,8 +725,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1338650028}
-  - component: {fileID: 1338650030}
   - component: {fileID: 1338650031}
+  - component: {fileID: 1338650032}
   m_Layer: 0
   m_Name: patty
   m_TagString: Untagged
@@ -673,7 +743,7 @@ Transform:
   m_GameObject: {fileID: 1338650027}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.693, y: 3.346, z: 2.449}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -682,20 +752,6 @@ Transform:
   - {fileID: 318871984}
   m_Father: {fileID: 777514870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1338650030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1338650027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
-  aboveCollider: {fileID: 920063450}
-  belowCollider: {fileID: 318871985}
 --- !u!114 &1338650031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -709,7 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableData
   toggleGizmo: 1
-  gizmoSize: 0.0184
+  gizmoSize: 0.0125
   mainIngredient: {fileID: 2044423799}
   overrideIngredientDistance: 0
   ingredientDistance: 0.05
@@ -720,6 +776,24 @@ MonoBehaviour:
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
   ingredientHeight: 0.086753845
+--- !u!114 &1338650032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338650027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  meshCollider: {fileID: 2044423805}
+  deloadCollider: {fileID: 2044423806}
+  aboveCollider: {fileID: 920063450}
+  belowCollider: {fileID: 318871985}
+  parentStack: {fileID: 777514872}
+  stackableData: {fileID: 1338650031}
 --- !u!1 &2044423799
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,6 +806,7 @@ GameObject:
   - component: {fileID: 2044423803}
   - component: {fileID: 2044423802}
   - component: {fileID: 2044423805}
+  - component: {fileID: 2044423806}
   m_Layer: 0
   m_Name: PattyMeat
   m_TagString: Untagged
@@ -833,6 +908,27 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &2044423806
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044423799}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.7071068, y: 2, z: 0.7071068}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2130937981
 GameObject:
   m_ObjectHideFlags: 0
