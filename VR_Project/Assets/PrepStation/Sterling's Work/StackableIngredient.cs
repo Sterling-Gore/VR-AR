@@ -19,6 +19,6 @@ public class StackableIngredient : MonoBehaviour
 
     private void AttachIngredient()
     {
-
+        // when the ingredient attaches
     }
 }
