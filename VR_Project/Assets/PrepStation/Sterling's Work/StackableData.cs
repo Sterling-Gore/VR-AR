@@ -13,10 +13,10 @@ public class StackableData : MonoBehaviour
     [SerializeField] private GameObject mainIngredient;
     [SerializeField] bool overrideIngredientDistance = false;
     [SerializeField] [Range(0f, .2f)] private float ingredientDistance = 0f;
-    
+
     [Header("Snap Colliders Information")]
     [SerializeField] private GameObject aboveCollider;
-    [SerializeField] private GameObject belowCollider; 
+    [SerializeField] private GameObject belowCollider;
     [SerializeField] [Range(0f, .2f)] private float colliderHeight = 0.2f;
     [SerializeField] [Range(0f, 1f)] private float colliderWidth = 0.2f;
     [SerializeField] bool overrideSnapColliderDistance = false;
@@ -38,9 +38,9 @@ public class StackableData : MonoBehaviour
 
     private void MainIngredientGizmos()
     {
-        Vector3 top = new Vector3(mainIngredient.transform.position.x, mainIngredient.transform.position.y + (ingredientHeight * 0.5f) ,mainIngredient.transform.position.z);
-        Vector3 bottom = new Vector3(mainIngredient.transform.position.x, mainIngredient.transform.position.y - (ingredientHeight * 0.5f) ,mainIngredient.transform.position.z);
-        
+        Vector3 top = mainIngredient.transform.position + (mainIngredient.transform.up * (ingredientHeight* 0.5f));
+        Vector3 bottom = mainIngredient.transform.position - (mainIngredient.transform.up * (ingredientHeight* 0.5f));
+
         //Center Gizmo
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(mainIngredient.transform.position,gizmoSize);
@@ -52,10 +52,10 @@ public class StackableData : MonoBehaviour
 
     private void SnapColliderGizmos()
     {
-        Vector3 aboveTop = new Vector3(aboveCollider.transform.position.x, aboveCollider.transform.position.y + (snapColliderHeight * 0.5f) ,aboveCollider.transform.position.z);
-        Vector3 aboveBottom = new Vector3(aboveCollider.transform.position.x, aboveCollider.transform.position.y - (snapColliderHeight * 0.5f) ,aboveCollider.transform.position.z);
-        Vector3 belowTop = new Vector3(belowCollider.transform.position.x, belowCollider.transform.position.y + (snapColliderHeight * 0.5f) ,belowCollider.transform.position.z);
-        Vector3 belowBottom = new Vector3(belowCollider.transform.position.x, belowCollider.transform.position.y - (snapColliderHeight * 0.5f) ,belowCollider.transform.position.z);
+        Vector3 aboveTop = aboveCollider.transform.position + (aboveCollider.transform.up * (snapColliderHeight * 0.5f));
+        Vector3 aboveBottom = aboveCollider.transform.position - (aboveCollider.transform.up * (snapColliderHeight * 0.5f));
+        Vector3 belowTop = belowCollider.transform.position + (belowCollider.transform.up * (snapColliderHeight * 0.5f));
+        Vector3 belowBottom = belowCollider.transform.position - (belowCollider.transform.up * (snapColliderHeight * 0.5f));
 
         //Center Gizmo
         Gizmos.color = Color.red;
@@ -87,8 +87,8 @@ public class StackableData : MonoBehaviour
             UpdateColliderDistanceFromMainIngredient();
             SizeDeloadingBoxCollider();
         }
-        
-    } 
+
+    }
 
     private void CalculateIngredientHeight()
     {
@@ -97,27 +97,25 @@ public class StackableData : MonoBehaviour
             Bounds bounds = mainIngredient.GetComponent<MeshCollider>().sharedMesh.bounds;
             Vector3 top = mainIngredient.transform.TransformPoint(bounds.center + Vector3.up * bounds.extents.y);
             Vector3 bottom = mainIngredient.transform.TransformPoint(bounds.center + Vector3.down * bounds.extents.y);
-            ingredientHeight = Mathf.Abs(top.y - bottom.y);
+            ingredientHeight = Mathf.Abs( Vector3.Dot(top - bottom, mainIngredient.transform.up) );
         }
         else
         {
             ingredientHeight = ingredientDistance*2;
         }
-        
+
     }
 
     private void CalculateSnapColliderHeight()
     {
         if(!overrideSnapColliderDistance)
         {
-            Bounds aboveColliderBounds = aboveCollider.GetComponent<BoxCollider>().bounds;
-            Vector3 top = aboveColliderBounds.center + Vector3.up * aboveColliderBounds.extents.y;
-            Vector3 bottom = aboveColliderBounds.center + Vector3.down * aboveColliderBounds.extents.y;
-            snapColliderHeight = Mathf.Abs(top.y - bottom.y);
+            Vector3 size = aboveCollider.GetComponent<BoxCollider>().size;
+            snapColliderHeight = size.y * aboveCollider.transform.lossyScale.y;
         }
         else
         {
-            snapColliderHeight = snapColliderDistance*2;    
+            snapColliderHeight = snapColliderDistance*2;
         }
     }
 
@@ -133,7 +131,7 @@ public class StackableData : MonoBehaviour
         float radius = Mathf.Min(bounds.extents.x, bounds.extents.y);
         Vector3 colliderSize = mainIngredient.GetComponent<BoxCollider>().size;
         mainIngredient.GetComponent<BoxCollider>().size = new Vector3(radius*Mathf.Sqrt(2), colliderSize.y, radius*Mathf.Sqrt(2));
-    }  
+    }
 
     private void UpdateColliderDistanceFromMainIngredient()
     {
@@ -142,5 +140,5 @@ public class StackableData : MonoBehaviour
         float distance = (snapColliderHeight * 0.5f) + (ingredientHeight * 0.5f);
         aboveCollider.transform.localPosition = new Vector3(abovePosition.x, distance, abovePosition.z);
         belowCollider.transform.localPosition = new Vector3(belowPosition.x, -1 * distance, belowPosition.z);
-    } 
+    }
 }
