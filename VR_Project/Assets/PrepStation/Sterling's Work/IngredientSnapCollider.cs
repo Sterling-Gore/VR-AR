@@ -9,7 +9,8 @@ public class IngredientSnapCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         StackableIngredient otherIngredient = other.transform.parent.GetComponent<StackableIngredient>();
-        if( otherIngredient != null)
+        IngredientSnapCollider otherCollider = other.GetComponent<IngredientSnapCollider>();
+        if( otherIngredient != null && otherCollider != null && otherCollider.isAbove != this.isAbove)
             ingredient.AttachIngredient(otherIngredient, isAbove);
     }
 }
