@@ -107,3 +107,8 @@ InitTestScene*.unity*
 **/[Bb]uilds/
 **/[Ll]ogs/
 **/[Uu]ser[Ss]ettings/
+
+# Samples
+VR_Project/Packages/com.unity.xr.interaction.toolkit
+VR_Project/Assets/Samples/XR Interaction Toolkit
+VR_Project/Assets/Samples/XR Interaction Toolkit.meta
