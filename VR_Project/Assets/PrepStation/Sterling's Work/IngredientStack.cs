@@ -59,8 +59,8 @@ public class IngredientStack : MonoBehaviour
     {
         Vector3 oldTopPos = oldTop.transform.localPosition;
         Quaternion oldTopRot = oldTop.transform.localRotation;
-        float oldTopHeight = oldTop.GetComponent<StackableIngredient>().ingredientHeight;
-        float newTopHeight = newTop.GetComponent<StackableIngredient>().ingredientHeight;
+        float oldTopHeight = oldTop.GetComponent<StackableData>().ingredientHeight;
+        float newTopHeight = newTop.GetComponent<StackableData>().ingredientHeight;
         newTop.transform.localPosition = new Vector3(oldTopPos.x, oldTopPos.y + ((oldTopHeight + newTopHeight) * 0.5f), oldTopPos.z);
         newTop.transform.localRotation = oldTopRot;
     }

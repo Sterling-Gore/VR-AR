@@ -11,12 +11,10 @@ public class StackableIngredient : MonoBehaviour
     public IngredientStack parentStack;
     [SerializeField] private StackableData stackableData;
 
-    [HideInInspector] public float ingredientHeight { get; private set; }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ingredientHeight = stackableData.ingredientHeight;
+        
     }
 
     // Update is called once per frame
