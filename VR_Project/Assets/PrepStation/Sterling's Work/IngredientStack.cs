@@ -6,17 +6,23 @@ public class IngredientStack : MonoBehaviour
     public List<GameObject> ingredientStack;
     public Rigidbody rb;
 
+//---------------------------------------------------------------//
+/*                      Unity Functions                          */
     void Start()
     {
         UpdateIngredientStack();
     }
 
+//---------------------------------------------------------------//
+/*                      Public Functions                         */
     public void MergeStacks(IngredientStack otherStack, bool isAbove)
     {
-        otherStack.ReparentAndDestory(this.transform, isAbove);
+        otherStack.ReparentAndDestoryEntireStack(this.transform, isAbove);
         UpdateIngredientStack();
     }
 
+//---------------------------------------------------------------//
+/*                      Private Functions                        */
     private void UpdateIngredientStack()
     {
         ConvertIngredientHierarchyToStack();
@@ -59,8 +65,8 @@ public class IngredientStack : MonoBehaviour
     {
         Vector3 oldTopPos = oldTop.transform.localPosition;
         Quaternion oldTopRot = oldTop.transform.localRotation;
-        float oldTopHeight = oldTop.GetComponent<StackableData>().ingredientHeight;
-        float newTopHeight = newTop.GetComponent<StackableData>().ingredientHeight;
+        float oldTopHeight = oldTop.GetComponent<StackableData>().GetIngredientHeight();
+        float newTopHeight = newTop.GetComponent<StackableData>().GetIngredientHeight();
         newTop.transform.localPosition = new Vector3(oldTopPos.x, oldTopPos.y + ((oldTopHeight + newTopHeight) * 0.5f), oldTopPos.z);
         newTop.transform.localRotation = oldTopRot;
     }
@@ -77,7 +83,7 @@ public class IngredientStack : MonoBehaviour
         ingredient.deloadCollider.enabled = false;
     }
 
-    public void ReparentAndDestory(Transform newMergedStack, bool isAbove)
+    public void ReparentAndDestoryEntireStack(Transform newMergedStack, bool isAbove)
     {
         rb.isKinematic = false;
 
@@ -123,7 +129,7 @@ public class IngredientStack : MonoBehaviour
     private void BetterMerge(IngredientStack otherStack, bool isAbove)
     {
         List<GameObject> otherIngredientStack = otherStack.ingredientStack;
-        otherStack.ReparentAndDestory(this.transform, isAbove);
+        otherStack.ReparentAndDestoryEntireStack(this.transform, isAbove);
         bool otherStackIsLarger = otherIngredientStack.Count > ingredientStack.Count;
 
         Debug.Log("---------\nMerging");

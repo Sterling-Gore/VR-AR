@@ -24,8 +24,40 @@ public class StackableData : MonoBehaviour
     //--------------------------------------------------------------------------//
 
     private float snapColliderHeight;
-    [HideInInspector] public float ingredientHeight; 
+    private float ingredientHeight; 
 
+//---------------------------------------------------------------//
+/*                      Unity Functions                          */
+    private void Awake()
+    {
+        CalculateIngredientHeight();
+        CalculateSnapColliderHeight();
+        SizeDeloadingBoxCollider();
+    }
+
+    private void Update()
+    {
+        if (!Application.isPlaying)
+        {
+            CalculateIngredientHeight();
+            CalculateSnapColliderHeight();
+            UpdateColliderScale();
+            UpdateColliderDistanceFromMainIngredient();
+            SizeDeloadingBoxCollider();
+            LockPositionAndRotationOfModels();
+        }
+
+    }
+
+//---------------------------------------------------------------//
+/*                      Public Functions                         */
+    public float GetIngredientHeight()
+    {
+        return this.ingredientHeight;
+    }
+
+//---------------------------------------------------------------//
+/*                      Private Functions                        */
     private void OnDrawGizmos()
     {
         if(toggleGizmo)
@@ -68,27 +100,6 @@ public class StackableData : MonoBehaviour
         Gizmos.DrawSphere(aboveBottom,gizmoSize);
         Gizmos.DrawSphere(belowTop,gizmoSize);
         Gizmos.DrawSphere(belowBottom,gizmoSize);
-    }
-
-    private void Awake()
-    {
-        CalculateIngredientHeight();
-        CalculateSnapColliderHeight();
-        SizeDeloadingBoxCollider();
-    }
-
-    private void Update()
-    {
-        if (!Application.isPlaying)
-        {
-            CalculateIngredientHeight();
-            CalculateSnapColliderHeight();
-            UpdateColliderScale();
-            UpdateColliderDistanceFromMainIngredient();
-            SizeDeloadingBoxCollider();
-            LockPositionAndRotationOfModels();
-        }
-
     }
 
     private void CalculateIngredientHeight()

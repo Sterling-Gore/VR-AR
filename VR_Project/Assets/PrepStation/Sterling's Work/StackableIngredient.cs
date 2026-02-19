@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,18 +13,21 @@ public class StackableIngredient : MonoBehaviour
     public IngredientStack parentStack;
     [SerializeField] private StackableData stackableData;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+//---------------------------------------------------------------//
+/*                      Unity Functions                          */
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
     }
 
+//---------------------------------------------------------------//
+/*                      Public Functions                         */
     public void AttachIngredient(StackableIngredient otherIngredient, bool isAbove)
     {
         if(this.gameObject.GetInstanceID() > otherIngredient.gameObject.GetInstanceID())
