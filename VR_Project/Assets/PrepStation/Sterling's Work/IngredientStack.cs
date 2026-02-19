@@ -13,7 +13,7 @@ public class IngredientStack : MonoBehaviour
 
     public void MergeStacks(IngredientStack otherStack, bool isAbove)
     {
-        otherStack.ReparentAndDestory(transform, isAbove);
+        otherStack.ReparentAndDestory(this.transform, isAbove);
         UpdateIngredientStack();
     }
 
@@ -26,7 +26,7 @@ public class IngredientStack : MonoBehaviour
     private void ConvertIngredientHierarchyToStack()
     {
         List<GameObject> instantiatedIngredientList = new List<GameObject>();
-        foreach (Transform childIngredient in transform)
+        foreach (Transform childIngredient in this.transform)
         {
             childIngredient.GetComponent<StackableIngredient>().parentStack = this;
             instantiatedIngredientList.Add(childIngredient.gameObject);
@@ -100,7 +100,7 @@ public class IngredientStack : MonoBehaviour
             } 
         }
         
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
 
@@ -115,13 +115,15 @@ public class IngredientStack : MonoBehaviour
 
            I ran into issues where the positions werent being duplicated correctly --> 
            --> an item would be slightly off center or wildly off center, so it seems there is some issue with only scanning the small stack.
+
+           I want the ingredients to be slightly rotated and off center, but I need the "betterMerge" to do that.
     /// 
     */
 
     private void BetterMerge(IngredientStack otherStack, bool isAbove)
     {
         List<GameObject> otherIngredientStack = otherStack.ingredientStack;
-        otherStack.ReparentAndDestory(transform, isAbove);
+        otherStack.ReparentAndDestory(this.transform, isAbove);
         bool otherStackIsLarger = otherIngredientStack.Count > ingredientStack.Count;
 
         Debug.Log("---------\nMerging");

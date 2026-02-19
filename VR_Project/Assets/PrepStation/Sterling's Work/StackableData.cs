@@ -145,8 +145,8 @@ public class StackableData : MonoBehaviour
 
     private void LockPositionAndRotationOfModels()
     {
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
+        this.transform.localPosition = Vector3.zero;
+        this.transform.localRotation = Quaternion.identity;
         mainIngredient.transform.localPosition = Vector3.zero;
         mainIngredient.transform.localRotation = Quaternion.identity;
     }
