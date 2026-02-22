@@ -5,7 +5,8 @@ public class IngredientStack : MonoBehaviour
 {
     public Rigidbody rb = null;
     [SerializeField] [Range(0f, 0.03f)] private float maxOffsetDistance = 0.02f;
-    [SerializeField] private bool updateOnStart = false;
+    [SerializeField] private bool updateOnStart = true;
+    [SerializeField] private GameObject EmptyFoodStack;
     private List<GameObject> ingredientStack;
 
 //---------------------------------------------------------------//
@@ -34,13 +35,50 @@ public class IngredientStack : MonoBehaviour
         int thisStackIndex = isAbove ? ingredientStack.Count-1 : 0;
         int otherStackIndex = isAbove ? 0 : otherStack.GetIngredientStack().Count-1;
         if(this.ingredientStack.Count > 1)
-            _SwapToDeloadCollider(this.ingredientStack[thisStackIndex].GetComponent<StackableIngredient>());
+            this.ingredientStack[thisStackIndex].GetComponent<StackableIngredient>().SwapToDeloadCollider();
         if(otherStack.GetIngredientStack().Count > 1)
-            _SwapToDeloadCollider(otherStack.GetIngredientStack()[otherStackIndex].GetComponent<StackableIngredient>());
+            otherStack.GetIngredientStack()[otherStackIndex].GetComponent<StackableIngredient>().SwapToDeloadCollider();
 
         _SnapStacks(this, otherStack, isAbove);
         ingredientStack = _CombineLists(this.ingredientStack, otherStack.GetIngredientStack(), isAbove);
         otherStack.ReparentAndDestoryEntireStack(this.transform, isAbove);
+    }
+
+    // right now this only works for top and bottom ingredient
+    public void RemoveFromStack(int indexToRemove)
+    {
+        // enable the snap collider of ingredient above (if there is an ingredient above)
+        if(indexToRemove < ingredientStack.Count - 1)
+            ingredientStack[indexToRemove+1].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:false);
+            ingredientStack[indexToRemove+1].GetComponent<StackableIngredient>().SwapToMeshCollider();
+        // enable the snap collider of ingredient below (if there is an ingredient below)
+        if(indexToRemove > 0)
+            ingredientStack[indexToRemove-1].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:true);
+            ingredientStack[indexToRemove-1].GetComponent<StackableIngredient>().SwapToMeshCollider();
+        ingredientStack[indexToRemove].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:true);
+        ingredientStack[indexToRemove].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:false);
+
+        GameObject removedIngredient = ingredientStack[indexToRemove];
+        ingredientStack.RemoveAt(indexToRemove);
+        GameObject newStackObject = Instantiate(EmptyFoodStack, EmptyFoodStack.transform.parent);
+        newStackObject.name = $"FoodObject_{newStackObject.GetInstanceID()}";
+        newStackObject.SetActive(true);
+        newStackObject.GetComponent<IngredientStack>().InstantiateNewStack(removedIngredient);
+    }
+
+    public void InstantiateNewStack(GameObject newIngredient)
+    {
+        Vector3 ingredientWorldPos = newIngredient.transform.position;
+        Quaternion ingredientWorldRot = newIngredient.transform.rotation;
+        this.transform.position = ingredientWorldPos;
+        this.transform.rotation = ingredientWorldRot;
+    
+        ingredientStack.Add(newIngredient);
+        newIngredient.transform.SetParent(this.transform);
+        newIngredient.GetComponent<StackableData>().SwitchPositionLock(lockedStatus:false);
+        newIngredient.transform.position = ingredientWorldPos;
+        newIngredient.transform.rotation = ingredientWorldRot;
+        newIngredient.GetComponent<StackableData>().SwitchPositionLock(lockedStatus:true);
     }
 
     public void ReparentAndDestoryEntireStack(Transform newMergedStack, bool isAbove)
@@ -107,12 +145,17 @@ public class IngredientStack : MonoBehaviour
                 currIngredient.GetComponent<StackableData>().SwitchPositionLock(true);
                 if (index != ingredientStack.Count - 1)
                 {
-                    _SwapToDeloadCollider(currIngredient.GetComponent<StackableIngredient>());
+                    currIngredient.GetComponent<StackableIngredient>().SwapToDeloadCollider();
                 }
                 prevIngredient = currIngredient;
 
             }
         }
+        // make sure the top and bottom ingredients use a mesh collider and have their snap colliders active
+        ingredientStack[0].GetComponent<StackableIngredient>().SwapToMeshCollider();
+        ingredientStack[ingredientStack.Count-1].GetComponent<StackableIngredient>().SwapToMeshCollider();
+        ingredientStack[0].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:false);
+        ingredientStack[ingredientStack.Count-1].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:true);
     }
 
     private void _SnapIngredients(GameObject leaderIngredient, GameObject followerIngredient, bool isAbove)
@@ -122,11 +165,19 @@ public class IngredientStack : MonoBehaviour
         followerIngredient.transform.rotation = leaderIngredient.transform.rotation;
         if(isAbove)
         {
+            //disable the snap colliders
+            leaderIngredient.GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:true);
+            followerIngredient.GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:false);
+            //get the position vertex of the faces to be snapped together
             topFacePos = leaderIngredient.GetComponent<StackableData>().GetTopFacePosition();
             bottomFacePos = followerIngredient.GetComponent<StackableData>().GetBottomFacePosition();   
         }
         else
         {
+            //disable the snap colliders
+            leaderIngredient.GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:false);
+            followerIngredient.GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:true);
+            //get the position vertex of the faces to be snapped together
             topFacePos = followerIngredient.GetComponent<StackableData>().GetTopFacePosition();
             bottomFacePos = leaderIngredient.GetComponent<StackableData>().GetBottomFacePosition();   
         }
@@ -144,12 +195,20 @@ public class IngredientStack : MonoBehaviour
         if(isAbove)
         {
             topIndex = leaderStack.GetIngredientStack().Count - 1;
+            //disable the snap colliders
+            leaderStack.GetIngredientStack()[topIndex].GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:true);
+            followerStack.GetIngredientStack()[bottomIndex].GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:false);
+            //get the position vertex of the faces to be snapped together
             topFacePos = leaderStack.GetIngredientStack()[topIndex].GetComponent<StackableData>().GetTopFacePosition();
             bottomFacePos = followerStack.GetIngredientStack()[bottomIndex].GetComponent<StackableData>().GetBottomFacePosition();
         }
         else
         {
             topIndex = followerStack.GetIngredientStack().Count - 1;
+            //disable the snap colliders
+            leaderStack.GetIngredientStack()[bottomIndex].GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:false);
+            followerStack.GetIngredientStack()[topIndex].GetComponent<StackableIngredient>().DisableSnapColliders(aboveCollider:true);
+            //get the position vertex of the faces to be snapped together
             topFacePos = followerStack.GetIngredientStack()[topIndex].GetComponent<StackableData>().GetTopFacePosition();
             bottomFacePos = leaderStack.GetIngredientStack()[bottomIndex].GetComponent<StackableData>().GetBottomFacePosition();
         }
@@ -185,17 +244,5 @@ public class IngredientStack : MonoBehaviour
             newIngredientStack.AddRange(leaderStackList);
         }
         return newIngredientStack;
-    }
-
-    private void _SwapToDeloadCollider(StackableIngredient ingredient)
-    {
-        ingredient.deloadCollider.enabled = true;
-        ingredient.meshCollider.enabled = false;
-    }
-
-    private void _SwapToMeshCollider(StackableIngredient ingredient)
-    {
-        ingredient.meshCollider.enabled = true;
-        ingredient.deloadCollider.enabled = false;
     }
 }

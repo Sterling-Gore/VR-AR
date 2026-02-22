@@ -1,48 +1,50 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class StackableIngredient : MonoBehaviour
 {
-    public MeshCollider meshCollider;
-    public BoxCollider deloadCollider;
-    public Collider aboveCollider;
-    public Collider belowCollider;
+    [Header("Main Ingredient Colliders")]
+    [SerializeField] private MeshCollider meshCollider;
+    [SerializeField] private BoxCollider deloadCollider;
+    [Header("Snap Colliders")]
+    [SerializeField] private Collider aboveSnapCollider;
+    [SerializeField] private Collider belowSnapCollider;
     public IngredientStack parentStack;
-    [SerializeField] private StackableData stackableData;
-
-//---------------------------------------------------------------//
-/*                      Unity Functions                          */
-    void Start()
-    {
-        
-    }
-
-
-    void Update()
-    {
-        
-    }
 
 //---------------------------------------------------------------//
 /*                      Public Functions                         */
+    public void SwapToDeloadCollider()
+    {
+        deloadCollider.enabled = true;
+        meshCollider.enabled = false;
+    }
+
+    public void SwapToMeshCollider()
+    {
+        meshCollider.enabled = true;
+        deloadCollider.enabled = false;
+    }
+
+    public void DisableSnapColliders(bool aboveCollider)
+    {
+        if(aboveCollider)
+            aboveSnapCollider.enabled = false;
+        else
+            belowSnapCollider.enabled = false;
+    }   
+
+    public void EnableSnapColliders(bool aboveCollider)
+    {
+        if(aboveCollider)
+            aboveSnapCollider.enabled = true;
+        else
+            belowSnapCollider.enabled = true;
+    }
+    
     public void AttachIngredient(StackableIngredient otherIngredient, bool isAbove)
     {
         if(this.gameObject.GetInstanceID() > otherIngredient.gameObject.GetInstanceID())
         {
-            if(isAbove && otherIngredient.belowCollider.enabled)
-            {
-                aboveCollider.enabled = false;
-                otherIngredient.belowCollider.enabled = false;
-
-            }
-            else if(!isAbove && otherIngredient.aboveCollider.enabled)
-            {
-                belowCollider.enabled = false;
-                otherIngredient.aboveCollider.enabled = false;
-            }
             parentStack.MergeStacks(otherIngredient.parentStack, isAbove);
         }
     }
@@ -50,10 +52,19 @@ public class StackableIngredient : MonoBehaviour
     [ContextMenu("Detach Ingredient")]
     public void DetachIngredient()
     {
-        // this code is detaching an ingedient at the end -->
-        if (parentStack.ingredientStack.Count > 1) // if there is multiple ingredients combined in the stack
+        List<GameObject> ingredientStack = parentStack.GetIngredientStack();
+        int stackSize = ingredientStack.Count;
+
+        if (stackSize > 1) // if there is multiple ingredients combined in the stack
         {
-            
+            if(aboveSnapCollider.enabled == true) // detach the top most ingredient
+            {
+                parentStack.RemoveFromStack(stackSize-1);
+            }
+            else if(belowSnapCollider.enabled == true) // detach the bottom most ingredient
+            {
+                parentStack.RemoveFromStack(0);
+            }
         }
     }
 
