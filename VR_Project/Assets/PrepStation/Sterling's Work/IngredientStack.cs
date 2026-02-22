@@ -3,44 +3,96 @@ using UnityEngine;
 
 public class IngredientStack : MonoBehaviour
 {
-    public List<GameObject> ingredientStack;
-    public Rigidbody rb;
+    public Rigidbody rb = null;
+    [SerializeField] [Range(0f, 0.03f)] private float maxOffsetDistance = 0.02f;
+    [SerializeField] private bool updateOnStart = false;
+    private List<GameObject> ingredientStack;
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
+   void Awake()
+    {
+        if(rb == null)
+            rb = this.gameObject.GetComponent<Rigidbody>();   
+    }
+
     void Start()
     {
-        UpdateIngredientStack();
+        if(updateOnStart)
+            _UpdateIngredientStack();
     }
 
 //---------------------------------------------------------------//
 /*                      Public Functions                         */
+    public List<GameObject> GetIngredientStack()
+    {
+        return this.ingredientStack;
+    }
+
     public void MergeStacks(IngredientStack otherStack, bool isAbove)
     {
+        int thisStackIndex = isAbove ? ingredientStack.Count-1 : 0;
+        int otherStackIndex = isAbove ? 0 : otherStack.GetIngredientStack().Count-1;
+        if(this.ingredientStack.Count > 1)
+            _SwapToDeloadCollider(this.ingredientStack[thisStackIndex].GetComponent<StackableIngredient>());
+        if(otherStack.GetIngredientStack().Count > 1)
+            _SwapToDeloadCollider(otherStack.GetIngredientStack()[otherStackIndex].GetComponent<StackableIngredient>());
+
+        _SnapStacks(this, otherStack, isAbove);
+        ingredientStack = _CombineLists(this.ingredientStack, otherStack.GetIngredientStack(), isAbove);
         otherStack.ReparentAndDestoryEntireStack(this.transform, isAbove);
-        UpdateIngredientStack();
+    }
+
+    public void ReparentAndDestoryEntireStack(Transform newMergedStack, bool isAbove)
+    {
+        rb.isKinematic = true;
+
+        if(isAbove)
+        {
+            for (int index = 0; index < ingredientStack.Count; index++)
+            {
+                GameObject childIngredient = ingredientStack[index];
+                childIngredient.transform.SetParent(newMergedStack);
+                childIngredient.transform.SetAsLastSibling();
+                childIngredient.GetComponent<StackableIngredient>().parentStack = newMergedStack.GetComponent<IngredientStack>();
+            } 
+        }
+        else
+        {
+            for (int index = ingredientStack.Count-1; index >= 0; index--)
+            {
+                GameObject childIngredient = ingredientStack[index];
+                childIngredient.transform.SetParent(newMergedStack);
+                childIngredient.transform.SetAsFirstSibling();
+                childIngredient.GetComponent<StackableIngredient>().parentStack = newMergedStack.GetComponent<IngredientStack>();
+            } 
+        }
+        
+        Destroy(this.gameObject);
     }
 
 //---------------------------------------------------------------//
 /*                      Private Functions                        */
-    private void UpdateIngredientStack()
+    [ContextMenu("Update Ingredient Stack")]
+    private void _UpdateIngredientStack()
     {
-        ConvertIngredientHierarchyToStack();
-        SnapAllIngredients();
+        _ConvertIngredientHierarchyToStack();
+        _SnapAllIngredients();
     }
 
-    private void ConvertIngredientHierarchyToStack()
+    private void _ConvertIngredientHierarchyToStack()
     {
-        List<GameObject> instantiatedIngredientList = new List<GameObject>();
+        List<GameObject> newIngredientStack = new List<GameObject>();
+
         foreach (Transform childIngredient in this.transform)
         {
             childIngredient.GetComponent<StackableIngredient>().parentStack = this;
-            instantiatedIngredientList.Add(childIngredient.gameObject);
+            newIngredientStack.Add(childIngredient.gameObject);
         }
-        ingredientStack = instantiatedIngredientList;
+        ingredientStack = newIngredientStack;
     }
 
-    private void SnapAllIngredients()
+    private void _SnapAllIngredients()
     {
         if (ingredientStack.Count > 0)
         {
@@ -50,10 +102,12 @@ public class IngredientStack : MonoBehaviour
             for (int index = 1; index < ingredientStack.Count; index++)
             {
                 GameObject currIngredient = ingredientStack[index];
-                SnapIngredient(prevIngredient, currIngredient);
+                currIngredient.GetComponent<StackableData>().SwitchPositionLock(false);
+                _SnapIngredients(prevIngredient, currIngredient, true);
+                currIngredient.GetComponent<StackableData>().SwitchPositionLock(true);
                 if (index != ingredientStack.Count - 1)
                 {
-                    SwapToDeloadCollider(currIngredient.GetComponent<StackableIngredient>());
+                    _SwapToDeloadCollider(currIngredient.GetComponent<StackableIngredient>());
                 }
                 prevIngredient = currIngredient;
 
@@ -61,133 +115,87 @@ public class IngredientStack : MonoBehaviour
         }
     }
 
-    private void SnapIngredient(GameObject oldTop, GameObject newTop)
+    private void _SnapIngredients(GameObject leaderIngredient, GameObject followerIngredient, bool isAbove)
     {
-        Vector3 oldTopPos = oldTop.transform.localPosition;
-        Quaternion oldTopRot = oldTop.transform.localRotation;
-        float oldTopHeight = oldTop.GetComponent<StackableData>().GetIngredientHeight();
-        float newTopHeight = newTop.GetComponent<StackableData>().GetIngredientHeight();
-        newTop.transform.localPosition = new Vector3(oldTopPos.x, oldTopPos.y + ((oldTopHeight + newTopHeight) * 0.5f), oldTopPos.z);
-        newTop.transform.localRotation = oldTopRot;
+        Vector3 topFacePos;
+        Vector3 bottomFacePos;
+        followerIngredient.transform.rotation = leaderIngredient.transform.rotation;
+        if(isAbove)
+        {
+            topFacePos = leaderIngredient.GetComponent<StackableData>().GetTopFacePosition();
+            bottomFacePos = followerIngredient.GetComponent<StackableData>().GetBottomFacePosition();   
+        }
+        else
+        {
+            topFacePos = followerIngredient.GetComponent<StackableData>().GetTopFacePosition();
+            bottomFacePos = leaderIngredient.GetComponent<StackableData>().GetBottomFacePosition();   
+        }
+        _SnapRandomly(leaderIngredient.transform, followerIngredient.transform, topFacePos, bottomFacePos, isAbove);
     }
 
-    private void SwapToDeloadCollider(StackableIngredient ingredient)
+    private void _SnapStacks(IngredientStack leaderStack, IngredientStack followerStack, bool isAbove)
+    {
+        followerStack.rb.isKinematic = true;
+        Vector3 topFacePos;
+        Vector3 bottomFacePos;
+        int topIndex;
+        int bottomIndex = 0;
+        followerStack.transform.rotation = leaderStack.transform.rotation;
+        if(isAbove)
+        {
+            topIndex = leaderStack.GetIngredientStack().Count - 1;
+            topFacePos = leaderStack.GetIngredientStack()[topIndex].GetComponent<StackableData>().GetTopFacePosition();
+            bottomFacePos = followerStack.GetIngredientStack()[bottomIndex].GetComponent<StackableData>().GetBottomFacePosition();
+        }
+        else
+        {
+            topIndex = followerStack.GetIngredientStack().Count - 1;
+            topFacePos = followerStack.GetIngredientStack()[topIndex].GetComponent<StackableData>().GetTopFacePosition();
+            bottomFacePos = leaderStack.GetIngredientStack()[bottomIndex].GetComponent<StackableData>().GetBottomFacePosition();
+        }
+        _SnapRandomly(leaderStack.transform, followerStack.transform, topFacePos, bottomFacePos, isAbove);
+    }
+
+    private void _SnapRandomly(Transform leader, Transform follower, Vector3 topFacePos, Vector3 bottomFacePos, bool isAbove)
+    {
+        float randomYaw = Random.Range(0f, 259f);
+        follower.transform.Rotate(Vector3.up * randomYaw);
+
+        Vector3 randomDir = Vector3.ProjectOnPlane(Random.insideUnitSphere, leader.up).normalized;
+        float distance = Random.Range(0f, maxOffsetDistance);
+        follower.transform.position = isAbove
+            ? topFacePos - (bottomFacePos - follower.transform.position)
+            : bottomFacePos - (topFacePos - follower.transform.position);
+        follower.transform.position += randomDir * distance;
+
+    }
+
+    private List<GameObject> _CombineLists(List<GameObject> leaderStackList, List<GameObject> followerStackList, bool isAbove)
+    {
+        List<GameObject> newIngredientStack;
+    
+        if(isAbove)
+        {
+            newIngredientStack = leaderStackList;
+            newIngredientStack.AddRange(followerStackList);
+        }
+        else
+        {
+            newIngredientStack = followerStackList;
+            newIngredientStack.AddRange(leaderStackList);
+        }
+        return newIngredientStack;
+    }
+
+    private void _SwapToDeloadCollider(StackableIngredient ingredient)
     {
         ingredient.deloadCollider.enabled = true;
         ingredient.meshCollider.enabled = false;
     }
 
-    private void SwapToMeshCollider(StackableIngredient ingredient)
+    private void _SwapToMeshCollider(StackableIngredient ingredient)
     {
         ingredient.meshCollider.enabled = true;
         ingredient.deloadCollider.enabled = false;
-    }
-
-    public void ReparentAndDestoryEntireStack(Transform newMergedStack, bool isAbove)
-    {
-        rb.isKinematic = false;
-
-        if(isAbove)
-        {
-            for (int index = 0; index < ingredientStack.Count; index++)
-            {
-                GameObject ingredient = ingredientStack[index];
-                ingredient.transform.SetParent(newMergedStack);
-                ingredient.transform.SetAsLastSibling();
-            } 
-        }
-        else
-        {
-            for (int index = ingredientStack.Count-1; index >= 0; index--)
-            {
-                GameObject ingredient = ingredientStack[index];
-                ingredient.transform.SetParent(newMergedStack);
-                ingredient.transform.SetAsFirstSibling();
-            } 
-        }
-        
-        Destroy(this.gameObject);
-    }
-
-
-
-
-
-    /*
-    ///
-           -- Potential speed optimization --
-           The thought process here is that instead of iterating through every single ingredient to update the positions per merge --> 
-           --> we instead will only update the positions of the smaller stack being merged in
-
-           I ran into issues where the positions werent being duplicated correctly --> 
-           --> an item would be slightly off center or wildly off center, so it seems there is some issue with only scanning the small stack.
-
-           I want the ingredients to be slightly rotated and off center, but I need the "betterMerge" to do that.
-    /// 
-    */
-
-    private void BetterMerge(IngredientStack otherStack, bool isAbove)
-    {
-        List<GameObject> otherIngredientStack = otherStack.ingredientStack;
-        otherStack.ReparentAndDestoryEntireStack(this.transform, isAbove);
-        bool otherStackIsLarger = otherIngredientStack.Count > ingredientStack.Count;
-
-        Debug.Log("---------\nMerging");
-        Debug.Log("Leader Stack - " + string.Join(", ", ingredientStack));
-        Debug.Log("other Stack - " + string.Join(", ", otherIngredientStack));
-        Debug.Log("~~~");
-
-        switch((isAbove,otherStackIsLarger))
-        {
-            case (false, false):
-                //otherStack is below and otherStack is smaller
-                ingredientStack = MergeStacksBackwards(ingredientStack, otherIngredientStack);
-                break;
-            case (false, true):
-                //otherStack is below and otherStack is larger
-                ingredientStack = MergeStacksForwards(otherIngredientStack, ingredientStack);
-                break;
-            case (true, false):
-                //otherStack is above and otherStack is smaller
-                ingredientStack = MergeStacksForwards(ingredientStack, otherIngredientStack);
-                break;
-            case (true, true):
-                //otherStack is above and otherStack is larger
-                ingredientStack = MergeStacksBackwards(otherIngredientStack, ingredientStack);
-                break;
-        }
-
-        //AllDeloadCollider();
-        Debug.Log("Merged Stack - " + string.Join(", ", ingredientStack));
-        Debug.Log("End Merge\n---------");
-    }
-
-    private List<GameObject> MergeStacksForwards(List<GameObject> biggerStack, List<GameObject> smallerStack)
-    {
-        Debug.Log("Forwards Merge");
-        Debug.Log(string.Join(", ", biggerStack) + " <--> " + string.Join(", ", smallerStack));
-        GameObject belowItem = biggerStack[biggerStack.Count-1];
-        foreach (GameObject aboveItem in smallerStack)
-        {
-            SnapIngredient(belowItem, aboveItem);
-            biggerStack.Add(aboveItem);
-            belowItem = aboveItem;
-        }
-        return biggerStack;
-    }
-
-    private List<GameObject> MergeStacksBackwards(List<GameObject> biggerStack, List<GameObject> smallerStack)
-    {
-        Debug.Log("Backwards Merge");
-        Debug.Log(string.Join(", ", smallerStack) + " <--> " + string.Join(", ", biggerStack));
-        GameObject aboveItem = biggerStack[0];
-        for (int index = smallerStack.Count - 1; index >= 0; index--)
-        {
-            GameObject belowItem = smallerStack[index];
-            SnapIngredient(belowItem, aboveItem);
-            biggerStack.Insert(0,belowItem);
-            aboveItem = belowItem;
-        }
-        return biggerStack;
     }
 }

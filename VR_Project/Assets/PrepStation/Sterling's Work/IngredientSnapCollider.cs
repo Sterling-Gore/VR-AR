@@ -7,7 +7,7 @@ public class IngredientSnapCollider : MonoBehaviour
     [SerializeField] private bool isAbove = false;
     
 //---------------------------------------------------------------//
-/*                      Private Functions                        */
+/*                      Unity Functions                        */
     private void OnTriggerEnter(Collider other)
     {
         StackableIngredient otherIngredient = other.transform.parent.GetComponent<StackableIngredient>();

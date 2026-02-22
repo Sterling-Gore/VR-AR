@@ -25,26 +25,41 @@ public class StackableData : MonoBehaviour
 
     private float snapColliderHeight;
     private float ingredientHeight; 
+    private bool positionLocked = true;
+    private Vector3 lockedPosition;
+    private Quaternion lockedRotation;
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
     private void Awake()
     {
-        CalculateIngredientHeight();
-        CalculateSnapColliderHeight();
-        SizeDeloadingBoxCollider();
+        lockedPosition = transform.localPosition;
+        lockedRotation = transform.localRotation;
+        _CalculateIngredientHeight();
+        _CalculateSnapColliderHeight();
+        _SizeDeloadingBoxCollider();
     }
 
     private void Update()
     {
         if (!Application.isPlaying)
         {
-            CalculateIngredientHeight();
-            CalculateSnapColliderHeight();
-            UpdateColliderScale();
-            UpdateColliderDistanceFromMainIngredient();
-            SizeDeloadingBoxCollider();
-            LockPositionAndRotationOfModels();
+            _CalculateIngredientHeight();
+            _CalculateSnapColliderHeight();
+            _UpdateColliderScale();
+            _UpdateColliderDistanceFromMainIngredient();
+            _SizeDeloadingBoxCollider();
+            _LockPositionAndRotationOfModels();
+        }
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(toggleGizmo)
+        {
+            _MainIngredientGizmos();
+            _SnapColliderGizmos();
         }
 
     }
@@ -56,19 +71,31 @@ public class StackableData : MonoBehaviour
         return this.ingredientHeight;
     }
 
-//---------------------------------------------------------------//
-/*                      Private Functions                        */
-    private void OnDrawGizmos()
+    public Vector3 GetIngredientPosition()
     {
-        if(toggleGizmo)
-        {
-            MainIngredientGizmos();
-            SnapColliderGizmos();
-        }
-
+        return mainIngredient.transform.position;
     }
 
-    private void MainIngredientGizmos()
+    public Vector3 GetTopFacePosition()
+    {
+        return mainIngredient.transform.position + (mainIngredient.transform.up * (ingredientHeight* 0.5f));
+    }
+
+    public Vector3 GetBottomFacePosition()
+    {
+        return mainIngredient.transform.position - (mainIngredient.transform.up * (ingredientHeight* 0.5f));
+    }
+
+    public void SwitchPositionLock(bool lockedStatus)
+    {
+        lockedPosition = transform.localPosition;
+        lockedRotation = transform.localRotation;
+        positionLocked = lockedStatus;
+    }
+
+//---------------------------------------------------------------//
+/*                      Private Functions                        */
+    private void _MainIngredientGizmos()
     {
         Vector3 top = mainIngredient.transform.position + (mainIngredient.transform.up * (ingredientHeight* 0.5f));
         Vector3 bottom = mainIngredient.transform.position - (mainIngredient.transform.up * (ingredientHeight* 0.5f));
@@ -82,7 +109,7 @@ public class StackableData : MonoBehaviour
         Gizmos.DrawSphere(bottom, gizmoSize);
     }
 
-    private void SnapColliderGizmos()
+    private void _SnapColliderGizmos()
     {
         Vector3 aboveTop = aboveCollider.transform.position + (aboveCollider.transform.up * (snapColliderHeight * 0.5f));
         Vector3 aboveBottom = aboveCollider.transform.position - (aboveCollider.transform.up * (snapColliderHeight * 0.5f));
@@ -102,7 +129,7 @@ public class StackableData : MonoBehaviour
         Gizmos.DrawSphere(belowBottom,gizmoSize);
     }
 
-    private void CalculateIngredientHeight()
+    private void _CalculateIngredientHeight()
     {
         if(!overrideIngredientDistance)
         {
@@ -118,7 +145,7 @@ public class StackableData : MonoBehaviour
 
     }
 
-    private void CalculateSnapColliderHeight()
+    private void _CalculateSnapColliderHeight()
     {
         if(!overrideSnapColliderDistance)
         {
@@ -131,13 +158,13 @@ public class StackableData : MonoBehaviour
         }
     }
 
-    private void UpdateColliderScale()
+    private void _UpdateColliderScale()
     {
         aboveCollider.transform.localScale = new Vector3(colliderWidth, colliderHeight, colliderWidth);
         belowCollider.transform.localScale = new Vector3(colliderWidth, colliderHeight, colliderWidth);
     }
 
-    private void SizeDeloadingBoxCollider()
+    private void _SizeDeloadingBoxCollider()
     {
         Bounds bounds = mainIngredient.GetComponent<MeshCollider>().sharedMesh.bounds;
         float radius = Mathf.Min(bounds.extents.x, bounds.extents.y);
@@ -145,7 +172,7 @@ public class StackableData : MonoBehaviour
         mainIngredient.GetComponent<BoxCollider>().size = new Vector3(radius*Mathf.Sqrt(2), colliderSize.y, radius*Mathf.Sqrt(2));
     }
 
-    private void UpdateColliderDistanceFromMainIngredient()
+    private void _UpdateColliderDistanceFromMainIngredient()
     {
         Vector3 abovePosition = aboveCollider.transform.localPosition;
         Vector3 belowPosition = belowCollider.transform.localPosition;
@@ -154,10 +181,13 @@ public class StackableData : MonoBehaviour
         belowCollider.transform.localPosition = new Vector3(belowPosition.x, -1 * distance, belowPosition.z);
     }
 
-    private void LockPositionAndRotationOfModels()
+    private void _LockPositionAndRotationOfModels()
     {
-        this.transform.localPosition = Vector3.zero;
-        this.transform.localRotation = Quaternion.identity;
+        if(positionLocked)
+        {
+            this.transform.localPosition = lockedPosition;
+            this.transform.localRotation = lockedRotation;
+        }
         mainIngredient.transform.localPosition = Vector3.zero;
         mainIngredient.transform.localRotation = Quaternion.identity;
     }
