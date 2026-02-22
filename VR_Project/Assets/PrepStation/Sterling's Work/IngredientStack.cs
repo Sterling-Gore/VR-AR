@@ -7,7 +7,7 @@ public class IngredientStack : MonoBehaviour
     [SerializeField] [Range(0f, 0.03f)] private float maxOffsetDistance = 0.02f;
     [SerializeField] private bool updateOnStart = true;
     [SerializeField] private GameObject EmptyFoodStack;
-    private List<GameObject> ingredientStack;
+    [SerializeField] private List<GameObject> ingredientStack;
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
@@ -49,12 +49,16 @@ public class IngredientStack : MonoBehaviour
     {
         // enable the snap collider of ingredient above (if there is an ingredient above)
         if(indexToRemove < ingredientStack.Count - 1)
+        {
             ingredientStack[indexToRemove+1].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:false);
             ingredientStack[indexToRemove+1].GetComponent<StackableIngredient>().SwapToMeshCollider();
+        }
         // enable the snap collider of ingredient below (if there is an ingredient below)
         if(indexToRemove > 0)
+        {
             ingredientStack[indexToRemove-1].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:true);
             ingredientStack[indexToRemove-1].GetComponent<StackableIngredient>().SwapToMeshCollider();
+        }
         ingredientStack[indexToRemove].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:true);
         ingredientStack[indexToRemove].GetComponent<StackableIngredient>().EnableSnapColliders(aboveCollider:false);
 
