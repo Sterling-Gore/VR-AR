@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Defines all possible cooking states of the patty
 public enum PattyState
 {
     Raw,
@@ -10,48 +11,71 @@ public enum PattyState
 
 public class Patty : MonoBehaviour
 {
+    // =============================
+    // Cooking Configuration
+    // =============================
 
-    [SerializeField, Range(0f, 100f)]
-    private float cookingProgress = 0f;
-
-    public float CookingProgress => cookingProgress;
-    public PattyState State { get; private set; } = PattyState.Raw;
-
-    [Header("State Thresholds (0-100)")]
-    [SerializeField] private float rawMax = 15f;          // 0-15 Raw
-    [SerializeField] private float undercookedMax = 35f;  // 16-35 Undercooked
-    [SerializeField] private float cookedMax = 65f;       // 36-65 Cooked
-    // 66-100 Overcooked
-
-    // How fast pressing cooks the patty
-    [Header("Heating")]
+    // How fast the patty cooks while being pressed
+    [Header("Cooking Settings")]
     [SerializeField] private float heatPerSecond = 5f;
 
+    // Threshold values that determine state transitions
+    [Header("State Thresholds")]
+    [SerializeField] private float rawMax = 15f;           // 0–15
+    [SerializeField] private float undercookedMax = 35f;   // 16–35
+    [SerializeField] private float cookedMax = 65f;        // 36–65
+    [SerializeField] private float maxProgress = 100f;     // Maximum cooking cap
 
-    /// Call this ONLY while the patty is being pressed.
-    /// Pass Time.deltaTime from the caller (Presser).
+   
+    // Internal State Tracking
+    // Current cooking progress (0–100 scale)
+    private float cookingProgress = 0f;
+
+    // Current state of the patty
+    private PattyState currentState = PattyState.Raw;
+
+    // Public read-only accessors
+    public PattyState State => currentState;
+    public float CookingProgress => cookingProgress;
+
+    // Called by Presser
+    // increases cooking progress while the patty is being pressed
     public void ApplyHeat(float deltaTime)
     {
-        if (State == PattyState.Overcooked)
+        
+
+        // Stop increasing heat once overcooked
+        if (currentState == PattyState.Overcooked)
             return;
 
+        // Increase cooking progress based on time
         cookingProgress += heatPerSecond * deltaTime;
-        if (cookingProgress > 100f)
-            cookingProgress = 100f;
 
+        // Clamp progress between 0 and maxProgress
+        cookingProgress = Mathf.Clamp(cookingProgress, 0f, maxProgress);
+
+        // Recalculate state after heating
         UpdateState();
     }
 
     private void UpdateState()
     {
-        Debug.Log($"Patty State: {State} | Progress: {cookingProgress}");
+        // Store previous state to detect changes
+        PattyState previousState = currentState;
+
         if (cookingProgress <= rawMax)
-            State = PattyState.Raw;
+            currentState = PattyState.Raw;
         else if (cookingProgress <= undercookedMax)
-            State = PattyState.Undercooked;
+            currentState = PattyState.Undercooked;
         else if (cookingProgress <= cookedMax)
-            State = PattyState.Cooked;
+            currentState = PattyState.Cooked;
         else
-            State = PattyState.Overcooked;
+            currentState = PattyState.Overcooked;
+
+        // Only log when state changes
+        if (previousState != currentState)
+        {
+            Debug.Log($"Patty state changed: {currentState} | Progress: {cookingProgress:F1}");
+        }
     }
 }
