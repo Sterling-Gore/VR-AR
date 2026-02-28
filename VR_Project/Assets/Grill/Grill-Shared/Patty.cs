@@ -71,7 +71,24 @@ public class Patty : MonoBehaviour
             currentState = PattyState.Cooked;
         else
             currentState = PattyState.Overcooked;
-
+        
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            if (currentState == PattyState.Raw) // pink if raw
+            {
+                renderer.material.color = new Color(1f, 0.7f, 0.7f);
+            }
+            else if (currentState == PattyState.Cooked) // brown if cooked
+            {
+                renderer.material.color = new Color(0.4f, 0.2f, 0.1f);
+            }
+            else if (currentState == PattyState.Overcooked) // black if burnt
+            {
+                renderer.material.color = Color.black;
+            } 
+            
+        }
         // Only log when state changes
         if (previousState != currentState)
         {

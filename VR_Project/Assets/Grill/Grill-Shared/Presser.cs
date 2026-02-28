@@ -1,20 +1,22 @@
 using System.Runtime.CompilerServices;
 using System.Security;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Presser : MonoBehaviour
 {
     // Reference to the patty currently inside the trigger zone
-    private Patty currentPatty;
+    // private Patty currentPatty;
+    private List<Patty> allPattiesOnGrill = new List<Patty>(); // List of patties to handle multiple patties
 
     // Called when a collider enters the trigger area
     private void OnTriggerEnter(Collider other)
     {
         Patty patty = other.GetComponent<Patty>();
 
-        if (patty != null)
+        if (patty != null && !allPattiesOnGrill.Contains(patty))
         {
-            currentPatty = patty;
+            allPattiesOnGrill.Add(patty);
             Debug.Log("Patty entered presser zone");
         }
     }
@@ -24,9 +26,9 @@ public class Presser : MonoBehaviour
     {
         Patty patty = other.GetComponent<Patty>();
 
-        if (patty != null && patty == currentPatty)
+        if (patty != null && !allPattiesOnGrill.Contains(patty))
         {
-            currentPatty = null;
+            allPattiesOnGrill.Remove(patty);
             Debug.Log("Patty left presser zone");
         }
     }
@@ -35,10 +37,7 @@ public class Presser : MonoBehaviour
     private void Update()
     {
 
-        // Only apply heat if a patty is currently inside
-        if (currentPatty != null)
-        {
-            currentPatty.ApplyHeat(Time.deltaTime);
-        }
+        // Apply heat to all patties that are inside the zone
+        foreach (Patty patty in allPattiesOnGrill) {patty.ApplyHeat(Time.deltaTime);}
     }
 }
