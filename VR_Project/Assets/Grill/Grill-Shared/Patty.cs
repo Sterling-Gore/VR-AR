@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // Defines all possible cooking states of the patty
@@ -9,90 +10,95 @@ public enum PattyState
     Overcooked
 }
 
+[System.Serializable]
+public struct CookingThreshold
+{
+    public PattyState state;
+    public float maxProgress;
+    public Color stateColor;
+}
+
+/*
+Patty was refactored to follow both SRP and OCP. Cooked states are now moved to the actual objects, 
+this way we dont have to modify code for when we want more states or want to change the timing thresholds.
+*/
+
 public class Patty : MonoBehaviour
 {
-    // =============================
-    // Cooking Configuration
-    // =============================
-
     // How fast the patty cooks while being pressed
     [Header("Cooking Settings")]
     [SerializeField] private float heatPerSecond = 5f;
+    [SerializeField] private float maxProgress = 100f;
 
-    // Threshold values that determine state transitions
-    [Header("State Thresholds")]
-    [SerializeField] private float rawMax = 15f;           // 0–15
-    [SerializeField] private float undercookedMax = 35f;   // 16–35
-    [SerializeField] private float cookedMax = 65f;        // 36–65
-    [SerializeField] private float maxProgress = 100f;     // Maximum cooking cap
+    // Ties logic to UI, previous iteration violated the Open closed Principle
+    [Header("State Configuration")]
+    [SerializeField] private List<CookingThreshold> cookingThresholds = new List<CookingThreshold>();
 
-   
     // Internal State Tracking
-    // Current cooking progress (0–100 scale)
     private float cookingProgress = 0f;
-
-    // Current state of the patty
     private PattyState currentState = PattyState.Raw;
 
-    // Public read-only accessors
+    // Public accessors for UI or other scripts
     public PattyState State => currentState;
     public float CookingProgress => cookingProgress;
+
+    private void Start()
+    {
+        UpdateVisuals(); // Sets color to be pink by default
+    }
 
     // Called by Presser
     // increases cooking progress while the patty is being pressed
     public void ApplyHeat(float deltaTime)
     {
-        
-
-        // Stop increasing heat once overcooked
         if (currentState == PattyState.Overcooked)
             return;
 
-        // Increase cooking progress based on time
         cookingProgress += heatPerSecond * deltaTime;
-
-        // Clamp progress between 0 and maxProgress
         cookingProgress = Mathf.Clamp(cookingProgress, 0f, maxProgress);
 
-        // Recalculate state after heating
-        UpdateState();
+        DetermineCookedState();
     }
 
-    private void UpdateState()
+    private void DetermineCookedState()
     {
-        // Store previous state to detect changes
         PattyState previousState = currentState;
 
-        if (cookingProgress <= rawMax)
-            currentState = PattyState.Raw;
-        else if (cookingProgress <= undercookedMax)
-            currentState = PattyState.Undercooked;
-        else if (cookingProgress <= cookedMax)
-            currentState = PattyState.Cooked;
-        else
-            currentState = PattyState.Overcooked;
-        
+        foreach (var threshold in cookingThresholds)
+        {
+            if (cookingProgress <= threshold.maxProgress)
+            {
+                currentState = threshold.state;
+                break; 
+            }
+        }
+
+        // Only update visuals if the state actually changed
+        if (previousState != currentState)
+        {
+            UpdateVisuals();
+            Debug.Log($"Patty state changed: {currentState} | Progress: {cookingProgress:F1}");
+        }
+    }
+
+    private void UpdateVisuals()
+    {
         Renderer renderer = GetComponent<Renderer>();
         if (renderer != null)
         {
-            if (currentState == PattyState.Raw) // pink if raw
-            {
-                renderer.material.color = new Color(1f, 0.7f, 0.7f);
-            }
-            else if (currentState == PattyState.Cooked) // brown if cooked
-            {
-                renderer.material.color = new Color(0.4f, 0.2f, 0.1f);
-            }
-            else if (currentState == PattyState.Overcooked) // black if burnt
-            {
-                renderer.material.color = Color.black;
-            } 
-            
+            // Finds the color associated with the current state from our list
+            renderer.material.color = GetColorForState(currentState);
         }
-        // Only log when state changes
-        if (previousState != currentState)
+    }
+
+    private Color GetColorForState(PattyState state)
+    {
+        // Pulls threshold from object and determines the color
+        foreach (var threshold in cookingThresholds)
         {
-            Debug.Log($"Patty state changed: {currentState} | Progress: {cookingProgress:F1}");
+            if (threshold.state == state)
+                return threshold.stateColor;
         }
+        return Color.white;
     }
 }
