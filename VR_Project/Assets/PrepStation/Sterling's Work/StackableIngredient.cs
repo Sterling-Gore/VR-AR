@@ -7,9 +7,20 @@ public class StackableIngredient : MonoBehaviour
     [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private BoxCollider deloadCollider;
     [Header("Snap Colliders")]
-    [SerializeField] private Collider aboveSnapCollider;
-    [SerializeField] private Collider belowSnapCollider;
+    [SerializeField] private GameObject aboveSnapCollider;
+    [SerializeField] private GameObject belowSnapCollider;
+    [SerializeField] private bool ignoreAboveCollider = false;
+    [SerializeField] private bool ignoreBelowCollider = false;
     public IngredientStack parentStack;
+
+//---------------------------------------------------------------//
+/*                      Unity Functions                          */
+    private void Awake()
+    {
+        aboveSnapCollider.SetActive(!ignoreAboveCollider);
+        belowSnapCollider.SetActive(!ignoreBelowCollider);
+    }
+
 
 //---------------------------------------------------------------//
 /*                      Public Functions                         */
@@ -28,17 +39,17 @@ public class StackableIngredient : MonoBehaviour
     public void DisableSnapColliders(bool aboveCollider)
     {
         if(aboveCollider)
-            aboveSnapCollider.enabled = false;
+            aboveSnapCollider.GetComponent<BoxCollider>().enabled = false;
         else
-            belowSnapCollider.enabled = false;
+            belowSnapCollider.GetComponent<BoxCollider>().enabled = false;
     }   
 
     public void EnableSnapColliders(bool aboveCollider)
     {
         if(aboveCollider)
-            aboveSnapCollider.enabled = true;
+            aboveSnapCollider.GetComponent<BoxCollider>().enabled = true;
         else
-            belowSnapCollider.enabled = true;
+            belowSnapCollider.GetComponent<BoxCollider>().enabled = true;
     }
     
     public void AttachIngredient(StackableIngredient otherIngredient, bool isAbove)
@@ -57,11 +68,11 @@ public class StackableIngredient : MonoBehaviour
 
         if (stackSize > 1) // if there is multiple ingredients combined in the stack
         {
-            if(aboveSnapCollider.enabled == true) // detach the top most ingredient
+            if(aboveSnapCollider.GetComponent<BoxCollider>().enabled == true) // detach the top most ingredient
             {
                 parentStack.RemoveFromStack(stackSize-1);
             }
-            else if(belowSnapCollider.enabled == true) // detach the bottom most ingredient
+            else if(belowSnapCollider.GetComponent<BoxCollider>().enabled == true) // detach the bottom most ingredient
             {
                 parentStack.RemoveFromStack(0);
             }
