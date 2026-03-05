@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class StackableIngredient : MonoBehaviour
 {
+    public IngredientStack parentStack;
     [Header("Main Ingredient Colliders")]
     [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private BoxCollider deloadCollider;
@@ -11,7 +12,12 @@ public class StackableIngredient : MonoBehaviour
     [SerializeField] private GameObject belowSnapCollider;
     [SerializeField] private bool ignoreAboveCollider = false;
     [SerializeField] private bool ignoreBelowCollider = false;
-    public IngredientStack parentStack;
+    [Header("Condiments")]
+    [SerializeField] private GameObject aboveCondiment;
+    [SerializeField] private GameObject belowCondiment;
+    [SerializeField] private bool ignoreAboveCondiment = false;
+    [SerializeField] private bool ignoreBelowCondiment = false;
+    
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
@@ -19,6 +25,8 @@ public class StackableIngredient : MonoBehaviour
     {
         aboveSnapCollider.SetActive(!ignoreAboveCollider);
         belowSnapCollider.SetActive(!ignoreBelowCollider);
+        aboveCondiment.SetActive(!ignoreAboveCondiment);
+        belowCondiment.SetActive(!ignoreBelowCondiment);
     }
 
 

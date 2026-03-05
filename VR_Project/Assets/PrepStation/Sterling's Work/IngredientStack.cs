@@ -70,6 +70,11 @@ public class IngredientStack : MonoBehaviour
         newStackObject.GetComponent<IngredientStack>().InstantiateNewStack(removedIngredient);
     }
 
+    /// <summary>
+    /// Function only called when the stack is completely empty. 
+    /// Takes an ingredient, and positions the ingredient as the origin ingredient for the stack.
+    /// </summary>
+    /// <param name="newIngredient"></param>
     public void InstantiateNewStack(GameObject newIngredient)
     {
         Vector3 ingredientWorldPos = newIngredient.transform.position;

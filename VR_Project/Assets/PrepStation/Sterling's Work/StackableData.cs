@@ -21,6 +21,13 @@ public class StackableData : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float colliderWidth = 0.2f;
     [SerializeField] bool overrideSnapColliderDistance = false;
     [SerializeField] [Range(0f, 1)] private float snapColliderDistance = 0f;
+    [Header("Condiment Information")]
+    [SerializeField] private GameObject aboveCondiment;
+    [SerializeField] private GameObject belowCondiment;
+    [SerializeField] [Range(0f, 0.25f)] private float condimentWidth = 0.2f;
+    [SerializeField] [Range(0f,0.1f)] private float condimentDistanceOffset = 0f;
+    [SerializeField] bool overrideCondimentDistance = false;
+    [SerializeField] [Range(0f, 1)] private float condimentDistance = 0f;
     //--------------------------------------------------------------------------//
 
     private float snapColliderHeight;
@@ -46,6 +53,8 @@ public class StackableData : MonoBehaviour
         {
             _CalculateIngredientHeight();
             _CalculateSnapColliderHeight();
+            _UpdateCondimentScale();
+            _UpdateCondimentDistanceFromMainIngredient();
             _UpdateColliderScale();
             _UpdateColliderDistanceFromMainIngredient();
             _SizeDeloadingBoxCollider();
@@ -164,6 +173,13 @@ public class StackableData : MonoBehaviour
         belowCollider.transform.localScale = new Vector3(colliderWidth, colliderHeight, colliderWidth);
     }
 
+    private void _UpdateCondimentScale()
+    {
+        float height = aboveCondiment.transform.localScale.y;
+        aboveCondiment.transform.localScale = new Vector3(condimentWidth, height, condimentWidth);
+        belowCondiment.transform.localScale = new Vector3(condimentWidth, height, condimentWidth);    
+    }
+
     private void _SizeDeloadingBoxCollider()
     {
         Bounds bounds = mainIngredient.GetComponent<MeshCollider>().sharedMesh.bounds;
@@ -179,6 +195,17 @@ public class StackableData : MonoBehaviour
         float distance = (snapColliderHeight * 0.5f) + (ingredientHeight * 0.5f);
         aboveCollider.transform.localPosition = new Vector3(abovePosition.x, distance, abovePosition.z);
         belowCollider.transform.localPosition = new Vector3(belowPosition.x, -1 * distance, belowPosition.z);
+    }
+
+    private void _UpdateCondimentDistanceFromMainIngredient()
+    {
+        Vector3 abovePosition = aboveCondiment.transform.localPosition;
+        Vector3 belowPosition = belowCondiment.transform.localPosition;
+        float distance = overrideCondimentDistance
+            ? condimentDistance
+            : (ingredientHeight * 0.5f) + condimentDistanceOffset;
+        aboveCondiment.transform.localPosition = new Vector3(abovePosition.x, distance, abovePosition.z);
+        belowCondiment.transform.localPosition = new Vector3(belowPosition.x, -1 * distance, belowPosition.z);
     }
 
     private void _LockPositionAndRotationOfModels()

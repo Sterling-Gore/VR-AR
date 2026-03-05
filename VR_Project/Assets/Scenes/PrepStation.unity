@@ -482,7 +482,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &225830874
 Transform:
   m_ObjectHideFlags: 0
@@ -503,6 +503,96 @@ Transform:
   - {fileID: 1085242717}
   m_Father: {fileID: 437174468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &236973320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 236973321}
+  - component: {fileID: 236973323}
+  - component: {fileID: 236973322}
+  m_Layer: 0
+  m_Name: TopBun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &236973321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236973320}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 722241324}
+  - {fileID: 1698590839}
+  - {fileID: 512528228}
+  - {fileID: 2098383621}
+  - {fileID: 1847766370}
+  m_Father: {fileID: 1105552980}
+  m_LocalEulerAnglesHint: {x: 0.359, y: -0.098, z: 0.33}
+--- !u!114 &236973322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236973320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 1105552981}
+  meshCollider: {fileID: 722241323}
+  deloadCollider: {fileID: 722241320}
+  aboveSnapCollider: {fileID: 2098383618}
+  belowSnapCollider: {fileID: 1847766369}
+  ignoreAboveCollider: 0
+  ignoreBelowCollider: 0
+  aboveCondiment: {fileID: 1698590838}
+  belowCondiment: {fileID: 512528227}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
+--- !u!114 &236973323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236973320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509a9f67cfdaf9e439fe1c63c1cc2e75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StackableData
+  toggleGizmo: 1
+  gizmoSize: 0.0125
+  mainIngredient: {fileID: 722241319}
+  overrideIngredientDistance: 0
+  ingredientDistance: 0.133
+  aboveCollider: {fileID: 2098383618}
+  belowCollider: {fileID: 1847766369}
+  colliderHeight: 0.131
+  colliderWidth: 0.6
+  overrideSnapColliderDistance: 0
+  snapColliderDistance: 0.56
+  aboveCondiment: {fileID: 1698590838}
+  belowCondiment: {fileID: 512528227}
+  condimentWidth: 0.103
+  condimentDistanceOffset: 0.001
+  overrideCondimentDistance: 0
+  condimentDistance: 0.42
 --- !u!1 &250017261
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,13 +1150,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 814949886}
   meshCollider: {fileID: 919989544}
   deloadCollider: {fileID: 919989543}
   aboveSnapCollider: {fileID: 1041338412}
   belowSnapCollider: {fileID: 1788138799}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 814949886}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &398955946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1090,6 +1184,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &437174467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1262,6 +1362,134 @@ Transform:
   m_Children: []
   m_Father: {fileID: 638066881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &512528227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 512528228}
+  - component: {fileID: 512528231}
+  - component: {fileID: 512528230}
+  - component: {fileID: 512528229}
+  - component: {fileID: 512528232}
+  m_Layer: 0
+  m_Name: BelowCondiment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &512528228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512528227}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.94992393, y: 0.000000005587934, z: -0.3124814, w: -0.000000007450579}
+  m_LocalPosition: {x: 0.00000009755604, y: -0.044376895, z: -0.00000006984919}
+  m_LocalScale: {x: 0.103, y: 0.008153508, z: 0.103}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 236973321}
+  m_LocalEulerAnglesHint: {x: 180, y: 36.418, z: 0}
+--- !u!64 &512528229
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512528227}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &512528230
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512528227}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 215e1d1037aac914397902e95e7c93f2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &512528231
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512528227}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &512528232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512528227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
+  condimentName: 
+  condimentRenderer: {fileID: 512528230}
 --- !u!1 &588203112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,8 +1711,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 638066880}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.99365544, z: -0, w: -0.11246724}
-  m_LocalPosition: {x: 0.015039325, y: 0.17350769, z: 0.020655274}
+  m_LocalRotation: {x: 0, y: 0.8282596, z: 0, w: 0.5603447}
+  m_LocalPosition: {x: -0.02248311, y: 0.17350769, z: -0.032372117}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1505,13 +1733,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 814949886}
   meshCollider: {fileID: 504157984}
   deloadCollider: {fileID: 504157981}
   aboveSnapCollider: {fileID: 166505343}
   belowSnapCollider: {fileID: 1500217763}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 814949886}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &638066883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1535,6 +1767,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &680159170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,13 +1821,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 1085242718}
   meshCollider: {fileID: 1702560384}
   deloadCollider: {fileID: 1702560383}
   aboveSnapCollider: {fileID: 1450911608}
   belowSnapCollider: {fileID: 899398365}
   ignoreAboveCollider: 1
   ignoreBelowCollider: 1
-  parentStack: {fileID: 1085242718}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &680159173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,6 +1855,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &690167830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1661,13 +1909,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 1082715363}
   meshCollider: {fileID: 352151165}
   deloadCollider: {fileID: 352151164}
   aboveSnapCollider: {fileID: 1000008383}
   belowSnapCollider: {fileID: 723012440}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 1
-  parentStack: {fileID: 1082715363}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &690167833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1691,6 +1943,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &714938296
 GameObject:
   m_ObjectHideFlags: 0
@@ -1818,6 +2076,141 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714938296}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &722241319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722241324}
+  - component: {fileID: 722241322}
+  - component: {fileID: 722241321}
+  - component: {fileID: 722241323}
+  - component: {fileID: 722241320}
+  m_Layer: 0
+  m_Name: IngredientModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &722241320
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722241319}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.7071068, y: 2, z: 0.7071068}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &722241321
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722241319}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9959c70124d808240aa593c3eaebadfa, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &722241322
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722241319}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &722241323
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722241319}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &722241324
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722241319}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.043377, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 236973321}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &723012440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,13 +2614,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 1427967945}
   meshCollider: {fileID: 153298486}
   deloadCollider: {fileID: 153298485}
   aboveSnapCollider: {fileID: 1704164617}
   belowSnapCollider: {fileID: 1101300218}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 1427967945}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &810804073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2251,6 +2648,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &814949884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2269,7 +2672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &814949885
 Transform:
   m_ObjectHideFlags: 0
@@ -2405,13 +2808,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 2075907919}
   meshCollider: {fileID: 167418971}
   deloadCollider: {fileID: 167418970}
   aboveSnapCollider: {fileID: 1916092836}
   belowSnapCollider: {fileID: 1331745494}
   ignoreAboveCollider: 1
   ignoreBelowCollider: 1
-  parentStack: {fileID: 2075907919}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &847533484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2435,6 +2842,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &883459408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3598,6 +4011,107 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101300218}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1105552979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1105552980}
+  - component: {fileID: 1105552982}
+  - component: {fileID: 1105552981}
+  - component: {fileID: 1105552983}
+  m_Layer: 0
+  m_Name: FoodObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1105552980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105552979}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.046739597, y: -0.42813423, z: -0.022179216, w: 0.9022332}
+  m_LocalPosition: {x: 2.481, y: 4.799, z: 1.919}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 236973321}
+  m_Father: {fileID: 1870469397}
+  m_LocalEulerAnglesHint: {x: -5.931, y: -50.771, z: 0}
+--- !u!114 &1105552981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105552979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f9ef46e944bf64195a5ce811db19ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
+  rb: {fileID: 1105552982}
+  maxOffsetDistance: 0.03
+  updateOnStart: 1
+  EmptyFoodStack: {fileID: 96092634}
+  ingredientStack: []
+--- !u!54 &1105552982
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105552979}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &1105552983
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105552979}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1119407554
 GameObject:
   m_ObjectHideFlags: 0
@@ -3714,13 +4228,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 1403864332}
   meshCollider: {fileID: 1808692666}
   deloadCollider: {fileID: 1808692665}
   aboveSnapCollider: {fileID: 1777176509}
   belowSnapCollider: {fileID: 1253817671}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 1403864332}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &1156290904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3744,6 +4262,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &1245544944
 GameObject:
   m_ObjectHideFlags: 0
@@ -3955,13 +4479,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 883459410}
   meshCollider: {fileID: 1848083092}
   deloadCollider: {fileID: 1848083091}
   aboveSnapCollider: {fileID: 2124331511}
   belowSnapCollider: {fileID: 601588223}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 883459410}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &1266885033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3985,6 +4513,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &1283722002
 GameObject:
   m_ObjectHideFlags: 0
@@ -4033,13 +4567,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 250017263}
   meshCollider: {fileID: 2007660340}
   deloadCollider: {fileID: 2007660339}
   aboveSnapCollider: {fileID: 747397171}
   belowSnapCollider: {fileID: 714938296}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 250017263}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &1283722005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4063,6 +4601,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &1321407505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4238,13 +4782,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 1728044667}
   meshCollider: {fileID: 1062172494}
   deloadCollider: {fileID: 1062172493}
   aboveSnapCollider: {fileID: 1838413135}
   belowSnapCollider: {fileID: 1064485683}
   ignoreAboveCollider: 1
   ignoreBelowCollider: 1
-  parentStack: {fileID: 1728044667}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &1329457145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4268,6 +4816,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &1331745494
 GameObject:
   m_ObjectHideFlags: 0
@@ -4395,6 +4949,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!114 &1338650032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4407,13 +4967,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 777514872}
   meshCollider: {fileID: 2044423805}
   deloadCollider: {fileID: 2044423806}
   aboveSnapCollider: {fileID: 920063448}
   belowSnapCollider: {fileID: 318871983}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 777514872}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!1 &1350940319
 GameObject:
   m_ObjectHideFlags: 0
@@ -4837,8 +5401,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450896734}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.9988982, z: 0, w: -0.046929922}
-  m_LocalPosition: {x: 0.0053572655, y: 0.086753845, z: 0.012282252}
+  m_LocalRotation: {x: 0, y: 0.6276286, z: 0, w: 0.7785129}
+  m_LocalPosition: {x: -0.025680542, y: 0.086753845, z: -0.014571309}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4859,13 +5423,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 814949886}
   meshCollider: {fileID: 1551292619}
   deloadCollider: {fileID: 1551292616}
   aboveSnapCollider: {fileID: 1857053997}
   belowSnapCollider: {fileID: 1119407554}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 814949886}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &1450896737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4889,6 +5457,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &1450911608
 GameObject:
   m_ObjectHideFlags: 0
@@ -5396,6 +5970,134 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &1698590838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1698590839}
+  - component: {fileID: 1698590842}
+  - component: {fileID: 1698590841}
+  - component: {fileID: 1698590840}
+  - component: {fileID: 1698590843}
+  m_Layer: 0
+  m_Name: AboveCondiment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1698590839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698590838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000074505797, y: 0.9999993, z: -0.00000001862645, w: -0.001195073}
+  m_LocalPosition: {x: -0.00000009755604, y: 0.044376895, z: 0.00000006984919}
+  m_LocalScale: {x: 0.103, y: 0.008153508, z: 0.103}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 236973321}
+  m_LocalEulerAnglesHint: {x: 0, y: 180.137, z: 0}
+--- !u!64 &1698590840
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698590838}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &1698590841
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698590838}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 215e1d1037aac914397902e95e7c93f2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1698590842
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698590838}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1698590843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698590838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
+  condimentName: 
+  condimentRenderer: {fileID: 1698590841}
 --- !u!1 &1702560380
 GameObject:
   m_ObjectHideFlags: 0
@@ -5807,13 +6509,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 1594073459}
   meshCollider: {fileID: 1881663794}
   deloadCollider: {fileID: 1881663793}
   aboveSnapCollider: {fileID: 0}
   belowSnapCollider: {fileID: 0}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 1594073459}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &1748233544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5837,6 +6543,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &1777176509
 GameObject:
   m_ObjectHideFlags: 0
@@ -6235,6 +6947,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1329457143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1847766369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1847766370}
+  - component: {fileID: 1847766372}
+  - component: {fileID: 1847766371}
+  m_Layer: 0
+  m_Name: BelowCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1847766370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847766369}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: -0.1088769, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.131, z: 0.6}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 236973321}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1847766371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847766369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9247730a69b98741a1190fdfaa31681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientSnapCollider
+  ingredient: {fileID: 236973322}
+  isAbove: 0
+--- !u!65 &1847766372
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847766369}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1848083088
 GameObject:
   m_ObjectHideFlags: 0
@@ -6486,13 +7266,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef56410bd2c8db34da5969bd2e01a4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
+  parentStack: {fileID: 2083055538}
   meshCollider: {fileID: 1459232177}
   deloadCollider: {fileID: 1459232176}
   aboveSnapCollider: {fileID: 1321407505}
   belowSnapCollider: {fileID: 1446557861}
   ignoreAboveCollider: 0
   ignoreBelowCollider: 0
-  parentStack: {fileID: 2083055538}
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  ignoreAboveCondiment: 0
+  ignoreBelowCondiment: 0
 --- !u!114 &1866897264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6516,6 +7300,12 @@ MonoBehaviour:
   colliderWidth: 0.658
   overrideSnapColliderDistance: 0
   snapColliderDistance: 0.092
+  aboveCondiment: {fileID: 0}
+  belowCondiment: {fileID: 0}
+  condimentWidth: 0.2
+  condimentDistanceOffset: 0
+  overrideCondimentDistance: 0
+  condimentDistance: 0
 --- !u!1 &1870469396
 GameObject:
   m_ObjectHideFlags: 0
@@ -6546,6 +7336,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 96092635}
+  - {fileID: 1105552980}
   m_Father: {fileID: 437174468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1881663790
@@ -7223,6 +8014,74 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &2098383618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098383621}
+  - component: {fileID: 2098383620}
+  - component: {fileID: 2098383619}
+  m_Layer: 0
+  m_Name: AboveCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2098383619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098383618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9247730a69b98741a1190fdfaa31681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientSnapCollider
+  ingredient: {fileID: 236973322}
+  isAbove: 1
+--- !u!65 &2098383620
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098383618}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2098383621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098383618}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1088769, z: 0}
+  m_LocalScale: {x: 0.6, y: 0.131, z: 0.6}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 236973321}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2124331511
 GameObject:
   m_ObjectHideFlags: 0
