@@ -820,10 +820,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
   m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 1432091704}
+  m_Colliders: []
   m_InteractionLayers:
     m_Bits: 1
+    m_Mask: 1
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -838,50 +838,69 @@ MonoBehaviour:
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_LastHoverExited:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_LastSelectExited:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_FirstFocusEntered:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_LastFocusExited:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_FocusEntered:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_FocusExited:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_Activated:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
   m_Deactivated:
     m_PersistentCalls:
       m_Calls: []
+    m_CallsDirty: 1
+  <isHovered>k__BackingField: 0
+  <isSelected>k__BackingField: 0
+  <isFocused>k__BackingField: 0
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
   m_AutoFindParentInteractableInHierarchy: 0
   m_ParentInteractableObject: {fileID: 0}
+  m_ClearedLargestInteractionStrength: 0
+  m_RegisteredInteractionManager: {fileID: 0}
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
@@ -890,7 +909,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 1
+  m_MovementType: 2
   m_PredictedVisualsTransform: {fileID: 0}
   m_VelocityDamping: 1
   m_VelocityScale: 1
@@ -911,10 +930,8 @@ MonoBehaviour:
   m_ThrowOnDetach: 1
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
-    serializedVersion: 2
     m_Curve:
-    - serializedVersion: 3
-      time: 1
+    - time: 1
       value: 1
       inSlope: 0
       outSlope: 0
@@ -937,6 +954,46 @@ MonoBehaviour:
   m_LimitAngularVelocity: 0
   m_MaxLinearVelocityDelta: 10
   m_MaxAngularVelocityDelta: 20
+  <allowVisualAttachTransform>k__BackingField: 0
+  m_GrabCountChanged: 0
+  m_IsProcessingGrabTransformers: 0
+  m_DropTransformersCount: 0
+  m_TargetPose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  m_TargetLocalScale: {x: 0, y: 0, z: 0}
+  m_IsTargetPoseDirty: 0
+  m_IsTargetLocalScaleDirty: 0
+  m_Transform: {fileID: 0}
+  m_CurrentAttachEaseTime: 0
+  m_CurrentMovementType: 0
+  m_DetachInLateUpdate: 0
+  m_DetachLinearVelocity: {x: 0, y: 0, z: 0}
+  m_DetachAngularVelocity: {x: 0, y: 0, z: 0}
+  m_ThrowSmoothingCurrentFrame: 0
+  m_ThrowSmoothingFirstUpdate: 0
+  m_LastThrowReferencePose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  m_Rigidbody: {fileID: 0}
+  m_RigidbodyColliding: 0
+  m_RigidbodySetupActive: 0
+  m_WasKinematic: 0
+  m_UsedGravity: 0
+  m_InterpolationOnGrab: 0
+  m_LinearDampingOnGrab: 0
+  m_AngularDampingOnGrab: 0
+  m_LastFixedFrame: 0
+  m_LastFixedDynamicTime: 0
+  m_InitialVisualsTransformLocalPose:
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+  m_InitialVisualsTransformLocalPoseIsIdentity: 1
+  m_InitialVisualsTransformLocalScale: {x: 0, y: 0, z: 0}
+  m_IgnoringCharacterCollision: 0
+  m_StopIgnoringCollisionInLateUpdate: 0
+  m_SelectingCharacterController: {fileID: 0}
+  m_OriginalSceneParent: {fileID: 0}
 --- !u!64 &1432091704
 MeshCollider:
   m_ObjectHideFlags: 0
