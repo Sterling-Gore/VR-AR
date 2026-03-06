@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SqueezeDetector : MonoBehaviour
@@ -7,9 +9,13 @@ public class SqueezeDetector : MonoBehaviour
   [SerializeField] private ParticleSystem sprayPrefab; // Condiment spray prefab
   [SerializeField] private bool requireInput = false;  // If true, gate spray behind an input
   [SerializeField] private string inputName = "Fire1";  // Input axis/button name when gated
+  [SerializeField] private float sprayDuration = 1f;
 
   private ParticleSystem activeSpray;
   private bool isSpraying;
+  private float sprayTimer;
+
+  List<ParticleCollisionEvent> collisionEvents;
 
   private void Awake()
   {
@@ -19,24 +25,35 @@ public class SqueezeDetector : MonoBehaviour
     }
   }
 
+  private void Start()
+  {
+    collisionEvents = new List<ParticleCollisionEvent>();
+  }
+
   private void Update()
   {
     bool pastAngle = CalculatePourAngle() >= pourThreshold;
-    bool inputOk = !requireInput || Input.GetButton(inputName);
+    bool inputPressed = Input.GetButtonDown(inputName);
+    bool inputOk = !requireInput || inputPressed;
     bool shouldSpray = pastAngle && inputOk;
 
     if (shouldSpray && !isSpraying)
     {
       StartSpray();
     }
-    else if (!shouldSpray && isSpraying)
-    {
-      StopSpray();
-    }
 
-    if (isSpraying && activeSpray != null)
+    if (isSpraying)
     {
-      activeSpray.transform.SetPositionAndRotation(nozzle.position, nozzle.rotation);
+      sprayTimer -= Time.deltaTime;
+      if (sprayTimer <= 0)
+      {
+        StopSpray();
+      }
+
+      if (activeSpray != null)
+      {
+        activeSpray.transform.SetPositionAndRotation(nozzle.position, nozzle.rotation);
+      }
     }
   }
 
@@ -49,10 +66,15 @@ public class SqueezeDetector : MonoBehaviour
     }
 
     isSpraying = true;
+    sprayTimer = sprayDuration;
 
     if (activeSpray == null)
     {
       activeSpray = Instantiate(sprayPrefab, nozzle.position, nozzle.rotation);
+    } 
+    else
+    {
+      activeSpray.Clear();
     }
 
     var emission = activeSpray.emission;
@@ -74,6 +96,9 @@ public class SqueezeDetector : MonoBehaviour
 
     var emission = activeSpray.emission;
     emission.enabled = false;
+
+    Destroy(activeSpray.gameObject, 1f);
+    activeSpray = null;
   }
 
   private float CalculatePourAngle()
@@ -85,4 +110,22 @@ public class SqueezeDetector : MonoBehaviour
   {
     StopSpray();
   }
+/*
+  private void OnParticleCollision(GameObject other)
+  {
+    // stackableIngredient object will be used here to communicate
+    if (ingredient == null) return;
+
+    StartCoroutine(IngredientHitDelayed(ingredient, 0.3f));
+  }
+
+  private IEnumerator IngredientHitDelayed(stackableIngredient ingredient, float delay)
+  {
+    yield return new WaitForSeconds(delay);
+
+    // this line works assuming an ingredient clas exists
+    Debug.Log("Condiment hit ingredient: " + ingredient.ingredientName);
+
+    // add more gameplay logic
+  }*/
 }
