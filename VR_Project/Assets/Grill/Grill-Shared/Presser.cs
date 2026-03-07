@@ -24,9 +24,9 @@ public class Presser : MonoBehaviour
     // Called when a collider exits the trigger area
     private void OnTriggerExit(Collider other)
     {
-        Patty patty = other.GetComponent<Patty>();
+         Patty patty = other.GetComponent<Patty>();
 
-        if (patty != null && !allPattiesOnGrill.Contains(patty))
+        if (patty != null)
         {
             allPattiesOnGrill.Remove(patty);
             Debug.Log("Patty left presser zone");
@@ -38,6 +38,6 @@ public class Presser : MonoBehaviour
     {
 
         // Apply heat to all patties that are inside the zone
-        foreach (Patty patty in allPattiesOnGrill) {patty.ApplyHeat(Time.deltaTime);}
+        foreach (Patty patty in allPattiesOnGrill) {if (patty != null && patty.IsOnGrill) patty.ApplyHeat(Time.deltaTime);}
     }
 }

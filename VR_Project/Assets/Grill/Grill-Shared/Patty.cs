@@ -41,6 +41,7 @@ public class Patty : MonoBehaviour
     // Public accessors for UI or other scripts
     public PattyState State => currentState;
     public float CookingProgress => cookingProgress;
+    public bool IsOnGrill { get; set; } = false;
 
     private void Start()
     {
