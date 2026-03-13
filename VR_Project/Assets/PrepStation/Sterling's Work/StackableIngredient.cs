@@ -1,47 +1,69 @@
-using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StackableIngredient : MonoBehaviour
 {
-    public MeshCollider meshCollider;
-    public BoxCollider deloadCollider;
-    public Collider aboveCollider;
-    public Collider belowCollider;
+    [Header("Ingredient Stack Data")]
     public IngredientStack parentStack;
-    [SerializeField] private StackableData stackableData;
+    [Header("Main Ingredient Colliders")]
+    [SerializeField] private MeshCollider meshCollider;
+    [SerializeField] private BoxCollider deloadCollider;
+    [Header("Snap Colliders")]
+    [SerializeField] public GameObject aboveSnapCollider;
+    [SerializeField] public GameObject belowSnapCollider;
+    [SerializeField] public bool ignoreAboveCollider = false;
+    [SerializeField] public bool ignoreBelowCollider = false;
+    [Header("Condiments")]
+    [SerializeField] private GameObject aboveCondiment;
+    [SerializeField] private GameObject belowCondiment;
+    [SerializeField] private bool ignoreAboveCondiment = false;
+    [SerializeField] private bool ignoreBelowCondiment = false;
+    
 
-    [HideInInspector] public float ingredientHeight { get; private set; }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+//---------------------------------------------------------------//
+/*                      Unity Functions                          */
+    private void Awake()
     {
-        ingredientHeight = stackableData.ingredientHeight;
+        aboveSnapCollider.SetActive(!ignoreAboveCollider);
+        belowSnapCollider.SetActive(!ignoreBelowCollider);
+        aboveCondiment.SetActive(!ignoreAboveCondiment);
+        belowCondiment.SetActive(!ignoreBelowCondiment);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        if(parentStack == null)
+            parentStack = transform.parent.GetComponent<IngredientStack>();
     }
 
-    public void AttachIngredient(StackableIngredient otherIngredient, bool isAbove)
+//---------------------------------------------------------------//
+/*                      Public Functions                         */
+    public void SwapToDeloadCollider()
     {
-        if(gameObject.GetInstanceID() > otherIngredient.gameObject.GetInstanceID())
-        {
-            if(isAbove && otherIngredient.GetComponent<StackableIngredient>().belowCollider.enabled)
-            {
-                aboveCollider.enabled = false;
-                otherIngredient.belowCollider.enabled = false;
+        deloadCollider.enabled = true;
+        meshCollider.enabled = false;
+    }
 
-            }
-            else if(!isAbove && otherIngredient.GetComponent<StackableIngredient>().aboveCollider.enabled)
-            {
-                belowCollider.enabled = false;
-                otherIngredient.aboveCollider.enabled = false;
-            }
-            parentStack.MergeStacks(otherIngredient.parentStack, isAbove);
-        }
+    public void SwapToMeshCollider()
+    {
+        meshCollider.enabled = true;
+        deloadCollider.enabled = false;
+    }
+
+    public void DisableSnapColliders(bool aboveCollider)
+    {
+        if(aboveCollider)
+            aboveSnapCollider.GetComponent<BoxCollider>().enabled = false;
+        else
+            belowSnapCollider.GetComponent<BoxCollider>().enabled = false;
+    }   
+
+    public void EnableSnapColliders(bool aboveCollider)
+    {
+        if(aboveCollider)
+            aboveSnapCollider.GetComponent<BoxCollider>().enabled = true;
+        else
+            belowSnapCollider.GetComponent<BoxCollider>().enabled = true;
     }
 
 }

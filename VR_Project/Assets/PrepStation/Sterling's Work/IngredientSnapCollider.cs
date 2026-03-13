@@ -3,14 +3,52 @@ using UnityEngine;
 
 public class IngredientSnapCollider : MonoBehaviour
 {
-    [SerializeField] private StackableIngredient ingredient;
     [SerializeField] private bool isAbove = false;
+    [SerializeField] private BoxCollider triggerBox;
+    [SerializeField] private LayerMask detectableLayers = ~0;
     
-    private void OnTriggerEnter(Collider other)
+//---------------------------------------------------------------//
+/*                      Unity Functions                        */
+    private void Start()
     {
-        StackableIngredient otherIngredient = other.transform.parent.GetComponent<StackableIngredient>();
-        IngredientSnapCollider otherCollider = other.GetComponent<IngredientSnapCollider>();
-        if( otherIngredient != null && otherCollider != null && otherCollider.isAbove != this.isAbove)
-            ingredient.AttachIngredient(otherIngredient, isAbove);
+        if(!triggerBox)
+            triggerBox = gameObject.GetComponent<BoxCollider>();
     }
+
+//---------------------------------------------------------------//
+/*                      Public Functions                        */
+    public StackableIngredient CheckTriggerOverlap()
+    {
+        Vector3 worldCenter = triggerBox.transform.TransformPoint(triggerBox.center);
+
+        Vector3 worldHalfExtents = Vector3.Scale(triggerBox.size * 0.5f, triggerBox.transform.lossyScale);
+
+        Collider[] hits = Physics.OverlapBox(
+            worldCenter,
+            worldHalfExtents,
+            triggerBox.transform.rotation,
+            detectableLayers,
+            QueryTriggerInteraction.Collide
+        );
+
+        foreach (Collider hit in hits)
+        {
+            // Ignore the trigger's own collider
+            if (hit == triggerBox)
+                continue;
+
+            // Ignore anything that belongs to the same root object if needed
+            if (hit.transform.root == triggerBox.transform.root)
+                continue;
+            
+            IngredientSnapCollider otherCollider = hit.GetComponent<IngredientSnapCollider>();
+            StackableIngredient otherIngredient = hit.transform.parent.GetComponent<StackableIngredient>();
+            if( otherIngredient != null && otherCollider != null && otherCollider.isAbove != this.isAbove)
+            {
+                return otherIngredient;
+            }
+        }
+        return null;
+    }
+
 }
