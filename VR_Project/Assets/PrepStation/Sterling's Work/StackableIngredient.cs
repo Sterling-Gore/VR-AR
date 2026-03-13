@@ -3,15 +3,16 @@ using UnityEngine;
 
 public class StackableIngredient : MonoBehaviour
 {
+    [Header("Ingredient Stack Data")]
     public IngredientStack parentStack;
     [Header("Main Ingredient Colliders")]
     [SerializeField] private MeshCollider meshCollider;
     [SerializeField] private BoxCollider deloadCollider;
     [Header("Snap Colliders")]
-    [SerializeField] private GameObject aboveSnapCollider;
-    [SerializeField] private GameObject belowSnapCollider;
-    [SerializeField] private bool ignoreAboveCollider = false;
-    [SerializeField] private bool ignoreBelowCollider = false;
+    [SerializeField] public GameObject aboveSnapCollider;
+    [SerializeField] public GameObject belowSnapCollider;
+    [SerializeField] public bool ignoreAboveCollider = false;
+    [SerializeField] public bool ignoreBelowCollider = false;
     [Header("Condiments")]
     [SerializeField] private GameObject aboveCondiment;
     [SerializeField] private GameObject belowCondiment;
@@ -29,6 +30,11 @@ public class StackableIngredient : MonoBehaviour
         belowCondiment.SetActive(!ignoreBelowCondiment);
     }
 
+    private void Start()
+    {
+        if(parentStack == null)
+            parentStack = transform.parent.GetComponent<IngredientStack>();
+    }
 
 //---------------------------------------------------------------//
 /*                      Public Functions                         */
@@ -58,33 +64,6 @@ public class StackableIngredient : MonoBehaviour
             aboveSnapCollider.GetComponent<BoxCollider>().enabled = true;
         else
             belowSnapCollider.GetComponent<BoxCollider>().enabled = true;
-    }
-    
-    public void AttachIngredient(StackableIngredient otherIngredient, bool isAbove)
-    {
-        if(this.gameObject.GetInstanceID() > otherIngredient.gameObject.GetInstanceID())
-        {
-            parentStack.MergeStacks(otherIngredient.parentStack, isAbove);
-        }
-    }
-
-    [ContextMenu("Detach Ingredient")]
-    public void DetachIngredient()
-    {
-        List<GameObject> ingredientStack = parentStack.GetIngredientStack();
-        int stackSize = ingredientStack.Count;
-
-        if (stackSize > 1) // if there is multiple ingredients combined in the stack
-        {
-            if(aboveSnapCollider.GetComponent<BoxCollider>().enabled == true) // detach the top most ingredient
-            {
-                parentStack.RemoveFromStack(stackSize-1);
-            }
-            else if(belowSnapCollider.GetComponent<BoxCollider>().enabled == true) // detach the bottom most ingredient
-            {
-                parentStack.RemoveFromStack(0);
-            }
-        }
     }
 
 }
