@@ -10,6 +10,8 @@ public class SqueezeDetector : MonoBehaviour
   [SerializeField] private bool requireInput = false;  // If true, gate spray behind an input
   [SerializeField] private string inputName = "Fire1";  // Input axis/button name when gated
   [SerializeField] private float sprayDuration = 1f;
+  [SerializeField] private float requireGrab = true;
+  private bool isHeld; 
 
   private ParticleSystem activeSpray;
   private bool isSpraying;
@@ -32,10 +34,11 @@ public class SqueezeDetector : MonoBehaviour
 
   private void Update()
   {
+    bool heldOk = !requireGrab || isHeld;
     bool pastAngle = CalculatePourAngle() >= pourThreshold;
     bool inputPressed = Input.GetButtonDown(inputName);
     bool inputOk = !requireInput || inputPressed;
-    bool shouldSpray = pastAngle && inputOk;
+    bool shouldSpray = heldOk && pastAngle && inputOk;
 
     if (shouldSpray && !isSpraying)
     {
@@ -55,6 +58,14 @@ public class SqueezeDetector : MonoBehaviour
         activeSpray.transform.SetPositionAndRotation(nozzle.position, nozzle.rotation);
       }
     }
+  }
+
+  public void SetHeld(bool held)
+  {
+    isHeld = held;
+
+    if (!isHeld && isSpraying)
+    StopSpray();
   }
 
   private void StartSpray()
