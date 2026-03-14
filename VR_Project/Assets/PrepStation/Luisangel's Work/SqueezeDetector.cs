@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine;
 
 public class SqueezeDetector : MonoBehaviour
@@ -10,8 +11,7 @@ public class SqueezeDetector : MonoBehaviour
   [SerializeField] private bool requireInput = false;  // If true, gate spray behind an input
   [SerializeField] private string inputName = "Fire1";  // Input axis/button name when gated
   [SerializeField] private float sprayDuration = 1f;
-  [SerializeField] private float requireGrab = true;
-  private bool isHeld; 
+  [SerializeField] private XRGrabInteractable xrGrab;
 
   private ParticleSystem activeSpray;
   private bool isSpraying;
@@ -34,7 +34,7 @@ public class SqueezeDetector : MonoBehaviour
 
   private void Update()
   {
-    bool heldOk = !requireGrab || isHeld;
+    bool heldOk = xrGrab != null && xrGrab.isSelected;
     bool pastAngle = CalculatePourAngle() >= pourThreshold;
     bool inputPressed = Input.GetButtonDown(inputName);
     bool inputOk = !requireInput || inputPressed;
@@ -58,14 +58,6 @@ public class SqueezeDetector : MonoBehaviour
         activeSpray.transform.SetPositionAndRotation(nozzle.position, nozzle.rotation);
       }
     }
-  }
-
-  public void SetHeld(bool held)
-  {
-    isHeld = held;
-
-    if (!isHeld && isSpraying)
-    StopSpray();
   }
 
   private void StartSpray()
