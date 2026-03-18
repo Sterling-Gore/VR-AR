@@ -31,11 +31,6 @@ public class IngredientStack : MonoBehaviour
 
     private void Update()
     {
-        // Example test button on keyboard
-        if(xrGrab.isSelected)
-        {
-            Debug.Log($"{gameObject}");
-        }
         if (Input.GetKeyDown(KeyCode.Alpha1) && xrGrab.isSelected)
         {
             CheckCollisionForSnap();
@@ -165,8 +160,6 @@ public class IngredientStack : MonoBehaviour
 
         if(otherIngredient)
         {
-            Debug.Log(otherIngredient);
-            Debug.Log(isAbove);
             bool dualGrabCheck = otherIngredient.parentStack.xrGrab.isSelected
                 ? this.gameObject.GetInstanceID() > otherIngredient.parentStack.gameObject.GetInstanceID()
                 : true;

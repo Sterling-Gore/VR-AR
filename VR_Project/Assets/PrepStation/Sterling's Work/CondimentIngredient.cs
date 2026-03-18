@@ -16,29 +16,16 @@ public class CondimentIngredient : MonoBehaviour
         _EraseCondiment();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Condiment condiment = other.GetComponent<Condiment>();
-        // if( condiment != null)
-        // {
-        //     string recievedCondimentName = condiment.GetName();
-        //     Color32 recievedCondimentColor = condiment.GetColor();
-        //     _SetCondiment(recievedCondimentName, recievedCondimentColor);
-        // } 
-    }
-
 //---------------------------------------------------------------//
 /*                      Public Functions                        */
-    
-
-//---------------------------------------------------------------//
-/*                      Private Functions                        */
-    private void _SetCondiment(string recievedCondimentName, Color32 recievedCondimentColor)
+    public void SetCondiment(string recievedCondimentName, Color32 recievedCondimentColor)
     {
         condimentName = recievedCondimentName;
         condimentRenderer.material.SetColor("_BaseColor", recievedCondimentColor);
     }
 
+//---------------------------------------------------------------//
+/*                      Private Functions                        */
     private void _EraseCondiment()
     {
         condimentName = "";
@@ -48,7 +35,7 @@ public class CondimentIngredient : MonoBehaviour
     [ContextMenu("Add Ketchup")]
     private void _TestAddKetchup()
     {
-        _SetCondiment("ketchup", new Color32(207, 28, 28, 255));
+        SetCondiment("ketchup", new Color32(207, 28, 28, 255));
     }
 
 }
