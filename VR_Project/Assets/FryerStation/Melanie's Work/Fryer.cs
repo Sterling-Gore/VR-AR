@@ -13,7 +13,7 @@ public class Fryer : MonoBehaviour
         {
             basket.transform.position = basketSnapPoint.position; // snap basket into fryer
             basket.transform.rotation = basketSnapPoint.rotation;
-            
+
             basket.InFryer = true;
 
             Debug.Log("Basket snapped into fryer");
