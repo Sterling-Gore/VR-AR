@@ -28,13 +28,29 @@ public class FryItem : MonoBehaviour
     [SerializeField] private float maxProgress = 100f;
 
     [Header("State Configuration")]
-    [SerializeField] private List<FryCookingThreshold> cookingThresholds = new List<FryCookingThreshold>();
+    [SerializeField] private List<FryCookingThreshold> cookingThresholds = new List<FryCookingThreshold>
+    {
+        new FryCookingThreshold { state = FryState.Raw, maxProgress = 25f, stateColor = new Color(1f, 0.95f, 0.1f, 1f) },
+        new FryCookingThreshold { state = FryState.Undercooked, maxProgress = 50f, stateColor = new Color(1f, 0.75f, 0.1f, 1f) },
+        new FryCookingThreshold { state = FryState.Cooked, maxProgress = 75f, stateColor = new Color(0.96f, 0.52f, 0.08f, 1f) },
+        new FryCookingThreshold { state = FryState.Overcooked, maxProgress = 100f, stateColor = new Color(0.85f, 0.35f, 0.05f, 1f) }
+    };
+
+    [Header("Visual Settings")]
+    [SerializeField] private Color rawColor = new Color(1f, 0.95f, 0.1f, 1f);
+    [SerializeField] private Color cookedColor = new Color(0.85f, 0.35f, 0.05f, 1f);
 
     private float cookingProgress;
     private FryState currentState = FryState.Raw;
+    private Renderer cachedRenderer;
 
     public FryState State => currentState;
     public float CookingProgress => cookingProgress;
+
+    private void Awake()
+    {
+        cachedRenderer = GetComponent<Renderer>();
+    }
 
     private void Start()
     {
@@ -52,6 +68,7 @@ public class FryItem : MonoBehaviour
         cookingProgress = Mathf.Clamp(cookingProgress, 0f, maxProgress);
 
         DetermineCookedState();
+        UpdateVisuals();
     }
 
     public void ResetCooking()
@@ -84,20 +101,20 @@ public class FryItem : MonoBehaviour
 
         if (previousState != currentState)
         {
-            UpdateVisuals();
             Debug.Log($"FryItem state changed: {currentState} | Progress: {cookingProgress:F1}");
         }
     }
 
     private void UpdateVisuals()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer == null)
+        if (cachedRenderer == null)
         {
             return;
         }
 
-        renderer.material.color = GetColorForState(currentState);
+        float normalizedProgress = Mathf.Clamp01(cookingProgress / maxProgress);
+        Color cookingColor = Color.Lerp(rawColor, cookedColor, normalizedProgress);
+        cachedRenderer.material.color = cookingColor;
     }
 
     private Color GetColorForState(FryState state)
