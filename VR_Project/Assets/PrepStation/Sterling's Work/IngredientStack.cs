@@ -222,7 +222,7 @@ public class IngredientStack : MonoBehaviour
     {
         StackableIngredient bottomIngredient = ingredientStack[0].GetComponent<StackableIngredient>();
         StackableIngredient topIngredient = ingredientStack[ingredientStack.Count-1].GetComponent<StackableIngredient>();
-        bottomCollider = bottomIngredient.ignoreAboveCollider
+        bottomCollider = bottomIngredient.ignoreBelowCollider
             ? null
             : bottomIngredient.belowSnapCollider.GetComponent<IngredientSnapCollider>();
         topCollider = topIngredient.ignoreAboveCollider
