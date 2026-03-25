@@ -1,0 +1,106 @@
+using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+
+public class Basket : MonoBehaviour
+{
+    public bool InFryer = false;
+
+    [Header("Fry Placement")]
+    [SerializeField] private Transform frySnapPoint;
+    [SerializeField] private Vector3 fryLockedLocalOffset = new Vector3(0f, 0.03f, 0f);
+
+    [Header("Basket Visuals")]
+    [SerializeField] private float occupiedAlpha = 0.2f;
+
+    private FryItem lockedFry;
+    private Material basketMaterial;
+    private Color basketBaseColor = Color.white;
+
+    private void Awake()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            basketMaterial = renderer.material;
+            basketBaseColor = basketMaterial.color;
+            SetBasketAlpha(1f);
+        }
+    }
+
+    private void Update()
+    {
+        if (InFryer)
+        {
+            Debug.Log("Basket is frying!");
+
+            if (lockedFry != null)
+            {
+                lockedFry.ApplyHeat(Time.deltaTime);
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (lockedFry != null)
+        {
+            return;
+        }
+
+        FryItem fry = collision.collider.GetComponentInParent<FryItem>();
+        if (fry == null)
+        {
+            return;
+        }
+
+        LockFryInBasket(fry);
+    }
+
+    private void LockFryInBasket(FryItem fry)
+    {
+        lockedFry = fry;
+
+        Rigidbody fryBody = fry.GetComponent<Rigidbody>();
+        if (fryBody != null)
+        {
+            fryBody.linearVelocity = Vector3.zero;
+            fryBody.angularVelocity = Vector3.zero;
+            fryBody.useGravity = false;
+            fryBody.isKinematic = true;
+        }
+
+        XRGrabInteractable grabInteractable = fry.GetComponent<XRGrabInteractable>();
+        if (grabInteractable != null)
+        {
+            grabInteractable.enabled = false;
+        }
+
+        Transform snapTarget = frySnapPoint != null ? frySnapPoint : transform;
+        fry.transform.SetParent(transform, true);
+
+        if (frySnapPoint != null)
+        {
+            fry.transform.position = snapTarget.position;
+            fry.transform.rotation = snapTarget.rotation;
+        }
+        else
+        {
+            fry.transform.localPosition = fryLockedLocalOffset;
+            fry.transform.localRotation = Quaternion.identity;
+        }
+
+        SetBasketAlpha(occupiedAlpha);
+    }
+
+    private void SetBasketAlpha(float alpha)
+    {
+        if (basketMaterial == null)
+        {
+            return;
+        }
+
+        Color color = basketBaseColor;
+        color.a = Mathf.Clamp01(alpha);
+        basketMaterial.color = color;
+    }
+}
