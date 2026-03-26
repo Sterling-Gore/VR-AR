@@ -34,6 +34,11 @@ public class SqueezeDetector : MonoBehaviour
     xrGrab.selectExited.AddListener(OnReleased);
   }
 
+  private void Update()
+  {
+    DebugRay();
+  }
+
 //---------------------------------------------------------------//
 /*                      Private Functions                        */
   private void RightSprayPressed(InputAction.CallbackContext context)
@@ -76,12 +81,16 @@ public class SqueezeDetector : MonoBehaviour
     }
   }
 
+  private void DebugRay()
+  {
+    Ray ray = new Ray(nozzle.position, nozzle.forward);
+    Debug.DrawRay(ray.origin, ray.direction * rayRange, Color.green);
+  }
   private void SprayCondiment()
   {
     condimentSpray.Play();
     Ray ray = new Ray(nozzle.position, nozzle.forward);
     RaycastHit hit;
-    // Debug.DrawRay(ray.origin, ray.direction * rayRange, Color.green);
     if (Physics.Raycast(ray, out hit, rayRange, mask))
       {
         // make sure the condiment collider is facing the user

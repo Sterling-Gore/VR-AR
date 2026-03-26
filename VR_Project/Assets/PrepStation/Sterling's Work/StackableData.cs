@@ -28,6 +28,9 @@ public class StackableData : MonoBehaviour
     [SerializeField] [Range(0f,0.1f)] private float condimentDistanceOffset = 0f;
     [SerializeField] bool overrideCondimentDistance = false;
     [SerializeField] [Range(0f, 1)] private float condimentDistance = 0f;
+    [Header("Deload Collider")]
+    [SerializeField] private bool overrideDeloadColliderSize = false;
+    [SerializeField] [Range(0f, 0.25f)] private float deloadColliderSize = 0f;
     //--------------------------------------------------------------------------//
 
     private float snapColliderHeight;
@@ -110,10 +113,10 @@ public class StackableData : MonoBehaviour
         Vector3 bottom = mainIngredient.transform.position - (mainIngredient.transform.up * (ingredientHeight* 0.5f));
 
         //Center Gizmo
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawSphere(mainIngredient.transform.position,gizmoSize);
         //Edges Gizmo
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.green;
         Gizmos.DrawSphere(top, gizmoSize);
         Gizmos.DrawSphere(bottom, gizmoSize);
     }
@@ -182,10 +185,17 @@ public class StackableData : MonoBehaviour
 
     private void _SizeDeloadingBoxCollider()
     {
-        Bounds bounds = mainIngredient.GetComponent<MeshCollider>().sharedMesh.bounds;
-        float radius = Mathf.Min(bounds.extents.x, bounds.extents.y);
         Vector3 colliderSize = mainIngredient.GetComponent<BoxCollider>().size;
-        mainIngredient.GetComponent<BoxCollider>().size = new Vector3(radius*Mathf.Sqrt(2), colliderSize.y, radius*Mathf.Sqrt(2));
+        if(overrideDeloadColliderSize)
+        {
+            mainIngredient.GetComponent<BoxCollider>().size = new Vector3(deloadColliderSize, colliderSize.y, deloadColliderSize);
+        }
+        else
+        {
+            Bounds bounds = mainIngredient.GetComponent<MeshCollider>().sharedMesh.bounds;
+            float radius = Mathf.Min(bounds.extents.x, bounds.extents.y);
+            mainIngredient.GetComponent<BoxCollider>().size = new Vector3(radius*Mathf.Sqrt(2), colliderSize.y, radius*Mathf.Sqrt(2));
+        }
     }
 
     private void _UpdateColliderDistanceFromMainIngredient()
