@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class IngredientStack : MonoBehaviour
@@ -12,6 +13,10 @@ public class IngredientStack : MonoBehaviour
     [SerializeField] private List<GameObject> ingredientStack;
     [SerializeField] private IngredientSnapCollider topCollider = null;
     [SerializeField] private IngredientSnapCollider bottomCollider = null;
+    private InputDevice leftHand;
+    private InputDevice rightHand;
+    List<InputDevice> leftDevices = new List<InputDevice>();
+    List<InputDevice> rightDevices = new List<InputDevice>();
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
@@ -27,18 +32,69 @@ public class IngredientStack : MonoBehaviour
     {
         if(updateOnStart)
             _UpdateIngredientStack();
+        
+        leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+        rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && xrGrab.isSelected)
+        if (!xrGrab.isSelected)
+            return;
+
+        var interactor = xrGrab.firstInteractorSelecting;
+        if (interactor == null)
+            return;
+
+        bool isLeftHand = interactor.transform.name.ToLower().Contains("left");
+        bool isRightHand = interactor.transform.name.ToLower().Contains("right");
+        InputDevice device = default;
+
+        if (isLeftHand)
+        {
+            InputDevices.GetDevicesWithCharacteristics(
+                InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller,
+                leftDevices
+            );
+
+            if (leftDevices.Count > 0)
+                device = leftDevices[0];
+        }
+        else if (isRightHand)
+        {
+            InputDevices.GetDevicesWithCharacteristics(
+                InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller,
+                rightDevices
+            );
+
+            if (rightDevices.Count > 0)
+                device = rightDevices[0];
+        }
+
+        if (!device.isValid)
+            return;
+
+        float triggerValue;
+        bool secondayPressed;
+        if (device.TryGetFeatureValue(CommonUsages.trigger, out triggerValue)
+            && triggerValue > 0.5f)
         {
             CheckCollisionForSnap();
         }
-        if (Input.GetButtonDown("Fire2") && xrGrab.isSelected && ingredientStack.Count > 1)
+        if (device.TryGetFeatureValue(CommonUsages.secondaryButton, out secondayPressed)
+            && secondayPressed)
         {
             RemoveFromStack(0);
         }
+        
+        // if (Input.GetButtonDown("Fire1") && xrGrab.isSelected)
+        // {
+        //     CheckCollisionForSnap();
+        // }
+        // if (Input.GetButtonDown("Fire2") && xrGrab.isSelected && ingredientStack.Count > 1)
+        // {
+        //     RemoveFromStack(0);
+        // }
     }
 
 //---------------------------------------------------------------//

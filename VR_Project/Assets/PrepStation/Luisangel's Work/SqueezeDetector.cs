@@ -1,5 +1,7 @@
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SqueezeDetector : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class SqueezeDetector : MonoBehaviour
   [SerializeField] CondimentData condimentData;
   [SerializeField] Transform nozzle;
   private int mask; 
+  List<InputDevice> leftDevices = new List<InputDevice>();
+  List<InputDevice> rightDevices = new List<InputDevice>();
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
@@ -22,10 +26,51 @@ public class SqueezeDetector : MonoBehaviour
 
   private void Update()
   {
-    if (Input.GetButtonDown(inputName) && xrGrab.isSelected)
+    if (!xrGrab.isSelected)
+            return;
+
+    var interactor = xrGrab.firstInteractorSelecting;
+    if (interactor == null)
+        return;
+
+    bool isLeftHand = interactor.transform.name.ToLower().Contains("left");
+    bool isRightHand = interactor.transform.name.ToLower().Contains("right");
+    InputDevice device = default;
+
+    if (isLeftHand)
     {
-      SprayCondiment();
+        InputDevices.GetDevicesWithCharacteristics(
+            InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller,
+            leftDevices
+        );
+
+        if (leftDevices.Count > 0)
+            device = leftDevices[0];
     }
+    else if (isRightHand)
+    {
+        InputDevices.GetDevicesWithCharacteristics(
+            InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller,
+            rightDevices
+        );
+
+        if (rightDevices.Count > 0)
+            device = rightDevices[0];
+    }
+
+    if (!device.isValid)
+        return;
+
+    float triggerValue;
+    if (device.TryGetFeatureValue(CommonUsages.trigger, out triggerValue)
+        && triggerValue > 0.5f)
+    {
+        SprayCondiment();
+    }
+    // if (Input.GetButtonDown(inputName) && xrGrab.isSelected)
+    // {
+    //   SprayCondiment();
+    // }
   }
 
 //---------------------------------------------------------------//
