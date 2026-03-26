@@ -422,12 +422,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0348394b96d83c42b5f6b0b735cac4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SqueezeDetector
-  inputName: Fire1
   xrGrab: {fileID: 33777485}
   condimentSpray: {fileID: 1994747236}
   rayRange: 1.25
   condimentData: {fileID: 33777491}
   nozzle: {fileID: 753129651}
+  rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!1 &96092634 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8368026801057710544, guid: e251c44b09f6f0342b1ed0d278ccf6c9, type: 3}
@@ -710,6 +711,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 437174468}
     m_Modifications:
+    - target: {fileID: 202364687, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: LeftHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319746308, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: LeftHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670256624, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: RightHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 393207239731357619, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: RightHand
+      objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -758,6 +775,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1763277165867629938, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: LeftHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449787133337329437, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: RightHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 2633365042866799530, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: LeftHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895826684305351068, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: RightHand
+      objectReference: {fileID: 0}
     - target: {fileID: 5944131804917401860, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -765,6 +798,14 @@ PrefabInstance:
     - target: {fileID: 6501755809687671949, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748500131873809389, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: RightHand
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173983156334026967, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_TagString
+      value: LeftHand
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6538,6 +6579,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &250017264
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6842,6 +6887,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightControllerSecondary: {fileID: -461620813976615273, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerSecondary: {fileID: 3230386668155840573, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!54 &344690999
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9234,6 +9283,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!64 &777514873
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9475,6 +9528,10 @@ MonoBehaviour:
   - {fileID: 638066880}
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &814949887
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9667,6 +9724,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &883459411
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10580,6 +10641,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightControllerSecondary: {fileID: -461620813976615273, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerSecondary: {fileID: 3230386668155840573, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!54 &1042657899
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10868,6 +10933,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &1082715364
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10972,6 +11041,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &1085242719
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11206,6 +11279,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightControllerSecondary: {fileID: -461620813976615273, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerSecondary: {fileID: 3230386668155840573, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!54 &1105552982
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12809,6 +12886,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &1403864333
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12913,6 +12994,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &1427967946
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13775,6 +13860,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &1594073460
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14272,6 +14361,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &1728044668
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15735,6 +15828,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  rightControllerSecondary: {fileID: -461620813976615273, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerSecondary: {fileID: 3230386668155840573, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!54 &1940333284
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21180,6 +21277,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &2075907920
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21284,6 +21385,10 @@ MonoBehaviour:
   ingredientStack: []
   topCollider: {fileID: 0}
   bottomCollider: {fileID: 0}
+  rightControllerTrigger: {fileID: 0}
+  leftControllerTrigger: {fileID: 0}
+  rightControllerSecondary: {fileID: 0}
+  leftControllerSecondary: {fileID: 0}
 --- !u!54 &2083055539
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21599,6 +21704,22 @@ PrefabInstance:
       propertyPath: EmptyFoodStack
       value: 
       objectReference: {fileID: 96092634}
+    - target: {fileID: 4438543148639421741, guid: e251c44b09f6f0342b1ed0d278ccf6c9, type: 3}
+      propertyPath: leftControllerTrigger
+      value: 
+      objectReference: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 4438543148639421741, guid: e251c44b09f6f0342b1ed0d278ccf6c9, type: 3}
+      propertyPath: rightControllerTrigger
+      value: 
+      objectReference: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 4438543148639421741, guid: e251c44b09f6f0342b1ed0d278ccf6c9, type: 3}
+      propertyPath: leftControllerSecondary
+      value: 
+      objectReference: {fileID: 3230386668155840573, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    - target: {fileID: 4438543148639421741, guid: e251c44b09f6f0342b1ed0d278ccf6c9, type: 3}
+      propertyPath: rightControllerSecondary
+      value: 
+      objectReference: {fileID: -461620813976615273, guid: c348712bda248c246b8c49b3db54643f, type: 3}
     - target: {fileID: 6799592503679163207, guid: e251c44b09f6f0342b1ed0d278ccf6c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

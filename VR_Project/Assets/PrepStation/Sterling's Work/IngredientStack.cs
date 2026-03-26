@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class IngredientStack : MonoBehaviour
@@ -13,10 +15,12 @@ public class IngredientStack : MonoBehaviour
     [SerializeField] private List<GameObject> ingredientStack;
     [SerializeField] private IngredientSnapCollider topCollider = null;
     [SerializeField] private IngredientSnapCollider bottomCollider = null;
-    private InputDevice leftHand;
-    private InputDevice rightHand;
-    List<InputDevice> leftDevices = new List<InputDevice>();
-    List<InputDevice> rightDevices = new List<InputDevice>();
+    [SerializeField] InputActionReference rightControllerTrigger;
+    [SerializeField] InputActionReference leftControllerTrigger;
+    [SerializeField] InputActionReference rightControllerSecondary;
+    [SerializeField] InputActionReference leftControllerSecondary;
+    private bool LeftControllerUsed = false;
+    private bool rightControllerUsed = false;
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
@@ -33,59 +37,16 @@ public class IngredientStack : MonoBehaviour
         if(updateOnStart)
             _UpdateIngredientStack();
         
-        leftHand = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-        rightHand = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        rightControllerTrigger.action.started += RightSnapOn;
+        leftControllerTrigger.action.started += LeftSnapOn;
+        rightControllerSecondary.action.started += RightSnapOff;
+        leftControllerSecondary.action.started += LeftSnapOff;
+        xrGrab.selectEntered.AddListener(OnGrabbed);
+        xrGrab.selectExited.AddListener(OnReleased);
     }
 
     private void Update()
     {
-        if (!xrGrab.isSelected)
-            return;
-
-        var interactor = xrGrab.firstInteractorSelecting;
-        if (interactor == null)
-            return;
-
-        bool isLeftHand = interactor.transform.name.ToLower().Contains("left");
-        bool isRightHand = interactor.transform.name.ToLower().Contains("right");
-        InputDevice device = default;
-
-        if (isLeftHand)
-        {
-            InputDevices.GetDevicesWithCharacteristics(
-                InputDeviceCharacteristics.Left | InputDeviceCharacteristics.Controller,
-                leftDevices
-            );
-
-            if (leftDevices.Count > 0)
-                device = leftDevices[0];
-        }
-        else if (isRightHand)
-        {
-            InputDevices.GetDevicesWithCharacteristics(
-                InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller,
-                rightDevices
-            );
-
-            if (rightDevices.Count > 0)
-                device = rightDevices[0];
-        }
-
-        if (!device.isValid)
-            return;
-
-        float triggerValue;
-        bool secondayPressed;
-        if (device.TryGetFeatureValue(CommonUsages.trigger, out triggerValue)
-            && triggerValue > 0.5f)
-        {
-            CheckCollisionForSnap();
-        }
-        if (device.TryGetFeatureValue(CommonUsages.secondaryButton, out secondayPressed)
-            && secondayPressed)
-        {
-            RemoveFromStack(0);
-        }
         
         // if (Input.GetButtonDown("Fire1") && xrGrab.isSelected)
         // {
@@ -122,6 +83,8 @@ public class IngredientStack : MonoBehaviour
     // right now this only works for top and bottom ingredient
     public void RemoveFromStack(int indexToRemove)
     {
+        if (ingredientStack.Count <= 1)
+            return;
         // enable the snap collider of ingredient above (if there is an ingredient above)
         if(indexToRemove < ingredientStack.Count - 1)
         {
@@ -383,6 +346,59 @@ public class IngredientStack : MonoBehaviour
             {
                 xrGrab.colliders.Add(col);
             }
+        }
+    }
+
+
+    private void RightSnapOn(InputAction.CallbackContext context)
+    {
+        if (rightControllerUsed)
+            CheckCollisionForSnap();
+    }
+
+    private void LeftSnapOn(InputAction.CallbackContext context)
+    {
+        if (LeftControllerUsed)
+            CheckCollisionForSnap();
+    }
+
+    private void RightSnapOff(InputAction.CallbackContext context)
+    {
+        if (rightControllerUsed)
+            RemoveFromStack(0);
+    }
+
+    private void LeftSnapOff(InputAction.CallbackContext context)
+    {
+        if (LeftControllerUsed)
+            RemoveFromStack(0);
+    }
+
+    private void OnGrabbed(SelectEnterEventArgs args)
+    {
+        IXRSelectInteractor interactor = args.interactorObject;
+        
+        if (interactor.transform.CompareTag("LeftHand"))
+        {
+            LeftControllerUsed = true;
+        }
+        else if (interactor.transform.CompareTag("RightHand"))
+        {
+            rightControllerUsed = true;
+        }
+    }
+
+    private void OnReleased(SelectExitEventArgs args)
+    {
+        IXRSelectInteractor interactor = args.interactorObject;
+
+        if (interactor.transform.CompareTag("LeftHand"))
+        {
+            LeftControllerUsed = false;
+        }
+        else if (interactor.transform.CompareTag("RightHand"))
+        {
+            rightControllerUsed = false;
         }
     }
 }
