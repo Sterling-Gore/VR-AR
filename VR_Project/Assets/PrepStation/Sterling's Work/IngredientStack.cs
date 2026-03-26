@@ -45,19 +45,6 @@ public class IngredientStack : MonoBehaviour
         xrGrab.selectExited.AddListener(OnReleased);
     }
 
-    private void Update()
-    {
-        
-        // if (Input.GetButtonDown("Fire1") && xrGrab.isSelected)
-        // {
-        //     CheckCollisionForSnap();
-        // }
-        // if (Input.GetButtonDown("Fire2") && xrGrab.isSelected && ingredientStack.Count > 1)
-        // {
-        //     RemoveFromStack(0);
-        // }
-    }
-
 //---------------------------------------------------------------//
 /*                      Public Functions                         */
     public List<GameObject> GetIngredientStack()
