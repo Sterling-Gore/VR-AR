@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class IngredientStack : MonoBehaviour
@@ -12,6 +15,12 @@ public class IngredientStack : MonoBehaviour
     [SerializeField] private List<GameObject> ingredientStack;
     [SerializeField] private IngredientSnapCollider topCollider = null;
     [SerializeField] private IngredientSnapCollider bottomCollider = null;
+    [SerializeField] InputActionReference rightControllerTrigger;
+    [SerializeField] InputActionReference leftControllerTrigger;
+    [SerializeField] InputActionReference rightControllerSecondary;
+    [SerializeField] InputActionReference leftControllerSecondary;
+    private bool LeftControllerUsed = false;
+    private bool rightControllerUsed = false;
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
@@ -27,18 +36,26 @@ public class IngredientStack : MonoBehaviour
     {
         if(updateOnStart)
             _UpdateIngredientStack();
+        
+        rightControllerTrigger.action.started += RightSnapOn;
+        leftControllerTrigger.action.started += LeftSnapOn;
+        rightControllerSecondary.action.started += RightSnapOff;
+        leftControllerSecondary.action.started += LeftSnapOff;
+        xrGrab.selectEntered.AddListener(OnGrabbed);
+        xrGrab.selectExited.AddListener(OnReleased);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && xrGrab.isSelected)
-        {
-            CheckCollisionForSnap();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && xrGrab.isSelected && ingredientStack.Count > 1)
-        {
-            RemoveFromStack(0);
-        }
+        
+        // if (Input.GetButtonDown("Fire1") && xrGrab.isSelected)
+        // {
+        //     CheckCollisionForSnap();
+        // }
+        // if (Input.GetButtonDown("Fire2") && xrGrab.isSelected && ingredientStack.Count > 1)
+        // {
+        //     RemoveFromStack(0);
+        // }
     }
 
 //---------------------------------------------------------------//
@@ -66,6 +83,8 @@ public class IngredientStack : MonoBehaviour
     // right now this only works for top and bottom ingredient
     public void RemoveFromStack(int indexToRemove)
     {
+        if (ingredientStack.Count <= 1)
+            return;
         // enable the snap collider of ingredient above (if there is an ingredient above)
         if(indexToRemove < ingredientStack.Count - 1)
         {
@@ -327,6 +346,59 @@ public class IngredientStack : MonoBehaviour
             {
                 xrGrab.colliders.Add(col);
             }
+        }
+    }
+
+
+    private void RightSnapOn(InputAction.CallbackContext context)
+    {
+        if (rightControllerUsed)
+            CheckCollisionForSnap();
+    }
+
+    private void LeftSnapOn(InputAction.CallbackContext context)
+    {
+        if (LeftControllerUsed)
+            CheckCollisionForSnap();
+    }
+
+    private void RightSnapOff(InputAction.CallbackContext context)
+    {
+        if (rightControllerUsed)
+            RemoveFromStack(0);
+    }
+
+    private void LeftSnapOff(InputAction.CallbackContext context)
+    {
+        if (LeftControllerUsed)
+            RemoveFromStack(0);
+    }
+
+    private void OnGrabbed(SelectEnterEventArgs args)
+    {
+        IXRSelectInteractor interactor = args.interactorObject;
+        
+        if (interactor.transform.CompareTag("LeftHand"))
+        {
+            LeftControllerUsed = true;
+        }
+        else if (interactor.transform.CompareTag("RightHand"))
+        {
+            rightControllerUsed = true;
+        }
+    }
+
+    private void OnReleased(SelectExitEventArgs args)
+    {
+        IXRSelectInteractor interactor = args.interactorObject;
+
+        if (interactor.transform.CompareTag("LeftHand"))
+        {
+            LeftControllerUsed = false;
+        }
+        else if (interactor.transform.CompareTag("RightHand"))
+        {
+            rightControllerUsed = false;
         }
     }
 }

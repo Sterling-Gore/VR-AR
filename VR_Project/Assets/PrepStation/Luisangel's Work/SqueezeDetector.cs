@@ -1,15 +1,21 @@
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class SqueezeDetector : MonoBehaviour
 {
-  [SerializeField] private string inputName = "Fire1";  // Input axis/button name when gated
   [SerializeField] private XRGrabInteractable xrGrab;
   [SerializeField] private ParticleSystem condimentSpray;
   [SerializeField] float rayRange = 10f;
   [SerializeField] CondimentData condimentData;
   [SerializeField] Transform nozzle;
+  [SerializeField] InputActionReference rightControllerTrigger;
+  [SerializeField] InputActionReference leftControllerTrigger;
   private int mask; 
+  private bool LeftControllerUsed = false;
+  private bool rightControllerUsed = false;
 
 //---------------------------------------------------------------//
 /*                      Unity Functions                          */
@@ -20,16 +26,56 @@ public class SqueezeDetector : MonoBehaviour
       condimentData = GetComponent<CondimentData>();
   }
 
-  private void Update()
+  private void Start()
   {
-    if (Input.GetButtonDown(inputName) && xrGrab.isSelected)
-    {
-      SprayCondiment();
-    }
+    rightControllerTrigger.action.started += RightSprayPressed;
+    leftControllerTrigger.action.started += LeftSprayPressed;
+    xrGrab.selectEntered.AddListener(OnGrabbed);
+    xrGrab.selectExited.AddListener(OnReleased);
   }
 
 //---------------------------------------------------------------//
 /*                      Private Functions                        */
+  private void RightSprayPressed(InputAction.CallbackContext context)
+  {
+    if (rightControllerUsed)
+      SprayCondiment();
+  }
+
+  private void LeftSprayPressed(InputAction.CallbackContext context)
+  {
+    if (LeftControllerUsed)
+      SprayCondiment();
+  }
+
+  private void OnGrabbed(SelectEnterEventArgs args)
+  {
+    IXRSelectInteractor interactor = args.interactorObject;
+    
+    if (interactor.transform.CompareTag("LeftHand"))
+    {
+        LeftControllerUsed = true;
+    }
+    else if (interactor.transform.CompareTag("RightHand"))
+    {
+        rightControllerUsed = true;
+    }
+  }
+
+  private void OnReleased(SelectExitEventArgs args)
+  {
+    IXRSelectInteractor interactor = args.interactorObject;
+
+    if (interactor.transform.CompareTag("LeftHand"))
+    {
+        LeftControllerUsed = false;
+    }
+    else if (interactor.transform.CompareTag("RightHand"))
+    {
+        rightControllerUsed = false;
+    }
+  }
+
   private void SprayCondiment()
   {
     condimentSpray.Play();
@@ -48,7 +94,6 @@ public class SqueezeDetector : MonoBehaviour
 
           if (receiver != null)
           {
-            Debug.Log("INGREDIENT FOUND");
             receiver.SetCondiment(condimentData.GetName(), condimentData.GetColor());
           }
         }
