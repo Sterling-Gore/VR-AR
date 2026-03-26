@@ -31,11 +31,11 @@ public class IngredientStack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && xrGrab.isSelected)
+        if (Input.GetButtonDown("Fire1") && xrGrab.isSelected)
         {
             CheckCollisionForSnap();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && xrGrab.isSelected && ingredientStack.Count > 1)
+        if (Input.GetButtonDown("Fire2") && xrGrab.isSelected && ingredientStack.Count > 1)
         {
             RemoveFromStack(0);
         }
