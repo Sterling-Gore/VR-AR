@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class FridgeDoorSnap : MonoBehaviour
+public class LeftFridgeDoorSnap : MonoBehaviour
 {
-    public HingeJoint hingeJoint;
+    public HingeJoint doorHinge;
     public XRGrabInteractable grabInteractable;
 
     public float closedAngle = 0f;
-    public float openAngle = 80f;
+    public float openAngle = -80f;
 
     public float snapSpring = 200f;
     public float snapDamper = 20f;
@@ -33,24 +33,24 @@ public class FridgeDoorSnap : MonoBehaviour
 
     private void OnGrabbed(SelectEnterEventArgs args)
     {
-        hingeJoint.useSpring = false;
+        doorHinge.useSpring = false;
     }
 
     private void OnReleased(SelectExitEventArgs args)
     {
-        float currentAngle = hingeJoint.angle;
+        float currentAngle = doorHinge.angle;
 
-        float distanceToClosed = Mathf.Abs(currentAngle - closedAngle);
-        float distanceToOpen = Mathf.Abs(currentAngle - openAngle);
+        float distanceToClosed = Mathf.Abs(Mathf.DeltaAngle(currentAngle, closedAngle));
+        float distanceToOpen = Mathf.Abs(Mathf.DeltaAngle(currentAngle, openAngle));
 
         float targetAngle = distanceToClosed < distanceToOpen ? closedAngle : openAngle;
 
-        JointSpring spring = hingeJoint.spring;
+        JointSpring spring = doorHinge.spring;
         spring.spring = snapSpring;
         spring.damper = snapDamper;
         spring.targetPosition = targetAngle;
 
-        hingeJoint.spring = spring;
-        hingeJoint.useSpring = true;
+        doorHinge.spring = spring;
+        doorHinge.useSpring = true;
     }
 }
