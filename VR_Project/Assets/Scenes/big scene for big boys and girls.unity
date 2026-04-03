@@ -28108,6 +28108,7 @@ GameObject:
   - component: {fileID: 1830189545}
   - component: {fileID: 1830189546}
   - component: {fileID: 1830189547}
+  - component: {fileID: 1830189548}
   m_Layer: 0
   m_Name: Right Door Hinge Pivot
   m_TagString: Untagged
@@ -28172,7 +28173,7 @@ HingeJoint:
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  m_UseSpring: 1
+  m_UseSpring: 0
   m_Spring:
     spring: 20
     damper: 5
@@ -28197,6 +28198,24 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1830189548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830189544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47013b645002646fd97606ce296c73f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FridgeDoorSnap
+  hingeJoint: {fileID: 1830189547}
+  grabInteractable: {fileID: 2004915248}
+  closedAngle: 0
+  openAngle: 80
+  snapSpring: 200
+  snapDamper: 20
 --- !u!1001 &1836350351
 PrefabInstance:
   m_ObjectHideFlags: 0
