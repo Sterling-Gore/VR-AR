@@ -40,14 +40,14 @@ public class Basket : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (lockedFry != null)
         {
             return;
         }
 
-        FryItem fry = collision.collider.GetComponentInParent<FryItem>();
+        FryItem fry = other.GetComponentInParent<FryItem>();
         if (fry == null)
         {
             return;
@@ -60,6 +60,16 @@ public class Basket : MonoBehaviour
     {
         lockedFry = fry;
 
+        // 1. Disable Grab Interactable
+        // XRGrabInteractable remembers the object's original physics state. Disabling it 
+        // causes it to restore that state (re-enabling gravity). We must alter physics after.
+        XRGrabInteractable grabInteractable = fry.GetComponent<XRGrabInteractable>();
+        if (grabInteractable != null)
+        {
+            grabInteractable.enabled = false;
+        }
+
+        // 2. disable physics
         Rigidbody fryBody = fry.GetComponent<Rigidbody>();
         if (fryBody != null)
         {
@@ -69,19 +79,20 @@ public class Basket : MonoBehaviour
             fryBody.isKinematic = true;
         }
 
-        XRGrabInteractable grabInteractable = fry.GetComponent<XRGrabInteractable>();
-        if (grabInteractable != null)
+        // disable collisions to prevent clipping/vibrating against the basket or other objects
+        Collider[] fryColliders = fry.GetComponentsInChildren<Collider>();
+        foreach (Collider col in fryColliders)
         {
-            grabInteractable.enabled = false;
+            col.enabled = false;
         }
 
         Transform snapTarget = frySnapPoint != null ? frySnapPoint : transform;
-        fry.transform.SetParent(transform, true);
+        fry.transform.SetParent(snapTarget, true);
 
         if (frySnapPoint != null)
         {
-            fry.transform.position = snapTarget.position;
-            fry.transform.rotation = snapTarget.rotation;
+            fry.transform.localPosition = Vector3.zero;
+            fry.transform.localRotation = Quaternion.identity;
         }
         else
         {
