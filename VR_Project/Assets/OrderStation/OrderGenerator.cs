@@ -39,6 +39,16 @@ public class OrderGenerator
         FoodType foodType = GetRandomFoodType();
         CookLevel cookLevel = GetRandomCookLevel(mode);
 
+        if (foodType == FoodType.Burger)
+        {
+            // Harder modes habe a chance for more patties
+            int patties = (mode > 4 && Random.value < 0.35f) ? 2 : 1;
+
+            List<BurgerIngredients> toppings = GenerateRandomIngredients(mode);
+
+            return new OrderItemRequest(foodType, cookLevel, patties, toppings);
+        }
+
         return new OrderItemRequest(foodType, cookLevel);
     }
 
@@ -54,7 +64,27 @@ public class OrderGenerator
     {
         return CookLevel.Cooked;
     }
-    
+
+    private List<BurgerIngredients> GenerateRandomIngredients(int mode)
+    {
+        List<BurgerIngredients> chosen = new List<BurgerIngredients>();
+        
+        // Get all possible values from your new enum
+        System.Array allValues = System.Enum.GetValues(typeof(BurgerIngredients));
+
+        // Harder modes = higher chance for more toppings
+        float toppingChance = 0.15f + (mode * 0.1f); 
+
+        foreach (BurgerIngredients ingredient in allValues)
+        {
+            if (Random.value < toppingChance)
+            {
+                chosen.Add(ingredient);
+            }
+        }
+        return chosen;
+    }
+
     // Determines how many items should be in the order
     private int GetItemCountForMode(int mode)
     {

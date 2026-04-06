@@ -29,3 +29,13 @@ public enum OrderStatus
     //failed represents an incorrect order in time
     //expired represents an order thats not in time
 }
+
+public enum BurgerIngredients
+{
+    // Burger ingredient for now, I would like to expand this to contain onions, cheese, pickles etc. in the future
+    Ketchup,
+    Mustard,
+    Mayo,
+    Lettuce,
+    Tomato
+}

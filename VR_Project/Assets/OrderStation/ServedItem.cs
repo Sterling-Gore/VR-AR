@@ -8,19 +8,19 @@ public class ServedItem
 {
     public FoodType FoodType { get; }
     public CookLevel ActualCookLevel { get; }
-    public List<SauceType> ActualSauces { get; }
+    public int ActualPattyCount { get; }
+    public List<BurgerIngredients> ActualIngredients { get; }
 
     public ServedItem(
-        FoodType foodType,
-        CookLevel actualCookLevel
-        //List<SauceType> actualSauces = null
+        FoodType foodType, 
+        CookLevel actualCookLevel, 
+        int actualPattyCount, 
+        List<BurgerIngredients> actualIngredients = null
     )
     {
         FoodType = foodType;
         ActualCookLevel = actualCookLevel;
-
-        /*ActualSauces = actualSauces != null
-            ? new List<SauceType>(actualSauces)
-            : new List<SauceType>();*/
+        ActualPattyCount = actualPattyCount;
+        ActualIngredients = actualIngredients ?? new List<BurgerIngredients>();
     }
 }
