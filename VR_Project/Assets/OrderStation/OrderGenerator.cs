@@ -60,16 +60,17 @@ public class OrderGenerator
         return foodTypes[randomIndex];
     }
     
+    // for now sets cook level to always be cooked
     private CookLevel GetRandomCookLevel(int mode)
     {
         return CookLevel.Cooked;
     }
 
+    // creates random ingredients for the burger
     private List<BurgerIngredients> GenerateRandomIngredients(int mode)
     {
         List<BurgerIngredients> chosen = new List<BurgerIngredients>();
         
-        // Get all possible values from your new enum
         System.Array allValues = System.Enum.GetValues(typeof(BurgerIngredients));
 
         // Harder modes = higher chance for more toppings
