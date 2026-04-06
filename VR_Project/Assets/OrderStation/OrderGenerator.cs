@@ -49,18 +49,12 @@ public class OrderGenerator
         int randomIndex = Random.Range(0, foodTypes.Length);
         return foodTypes[randomIndex];
     }
-
-    // for now we only want perfectly cooked food
-    //unless? overcooked? yummy!
-    // i dont think yun would like that idea tho
-    //if everyone agrees that we only doing perfectly cooked then we can just move this to OrderItemRequest
     
-    private OrderItemRequest GenerateRandomItem()
+    private CookLevel GetRandomCookLevel(int mode)
     {
-        FoodType foodType = GetRandomFoodType();
-        return new OrderItemRequest(foodType, CookLevel.Cooked);
+        return CookLevel.Cooked;
     }
-
+    
     // Determines how many items should be in the order
     private int GetItemCountForMode(int mode)
     {
