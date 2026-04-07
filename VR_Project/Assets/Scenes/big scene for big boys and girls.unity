@@ -12013,6 +12013,7 @@ GameObject:
   - component: {fileID: 989312578}
   - component: {fileID: 989312579}
   - component: {fileID: 989312580}
+  - component: {fileID: 989312581}
   m_Layer: 0
   m_Name: Hinge Pivot
   m_TagString: Untagged
@@ -12102,6 +12103,20 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &989312581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989312577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e9e5ade3d7fe2a4fb64f8cd1f516121, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GrillHinge
+  grillHingeRb: {fileID: 989312579}
+  xrGrab: {fileID: 1525471334}
 --- !u!1 &1035955475
 GameObject:
   m_ObjectHideFlags: 0
@@ -13362,6 +13377,33 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 694782569578822459, guid: 26bd1381755f4ca498af93307975d04b, type: 3}
+--- !u!114 &1121829554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121829548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4f99a17f0850e4c8e42a856ce0007d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Patty
+  heatPerSecond: 5
+  maxProgress: 100
+  cookingThresholds:
+  - state: 0
+    maxProgress: 15
+    stateColor: {r: 1, g: 0.7529413, b: 0.7960785, a: 1}
+  - state: 1
+    maxProgress: 35
+    stateColor: {r: 0.76862746, g: 0.6431373, b: 0.5176471, a: 1}
+  - state: 2
+    maxProgress: 80
+    stateColor: {r: 0.5450981, g: 0.2705882, b: 0.07450981, a: 1}
+  - state: 3
+    maxProgress: 100
+    stateColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1001 &1153265213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22710,18 +22752,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 90d761be6fcdfd144acbe8ae75edf995, type: 2}
     - target: {fileID: -5754084199372789682, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 694782569578822459, guid: 26bd1381755f4ca498af93307975d04b, type: 3}
     - target: {fileID: 919132149155446097, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
       propertyPath: m_Name
-      value: ingredient_model
+      value: patty
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 1121829554}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1121829551}
