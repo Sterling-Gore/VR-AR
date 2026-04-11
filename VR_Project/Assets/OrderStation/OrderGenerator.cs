@@ -70,19 +70,46 @@ public class OrderGenerator
     private List<BurgerIngredients> GenerateRandomIngredients(int mode)
     {
         List<BurgerIngredients> chosen = new List<BurgerIngredients>();
-        
-        System.Array allValues = System.Enum.GetValues(typeof(BurgerIngredients));
 
-        // Harder modes = higher chance for more toppings
-        float toppingChance = 0.15f + (mode * 0.1f); 
+        List<BurgerIngredients> sauces = new List<BurgerIngredients> { 
+            BurgerIngredients.Ketchup, 
+            BurgerIngredients.Mustard, 
+            BurgerIngredients.Mayo 
+        };
+        List<BurgerIngredients> physicalToppings = new List<BurgerIngredients> { 
+            BurgerIngredients.Lettuce, 
+            BurgerIngredients.Tomato 
+        };
 
-        foreach (BurgerIngredients ingredient in allValues)
+        // max sauce and toppings tied to the difficulty mode
+        int maxSauces = (mode > 3) ? 2 : 1; 
+        int sauceCount = Random.Range(0, maxSauces + 1);
+
+        int maxTopping = Mathf.Min(mode, 3); 
+        int toppingCount = Random.Range(0, maxTopping + 1);
+
+        for (int i = 0; i < sauceCount; i++)
         {
-            if (Random.value < toppingChance)
+            chosen.Add(sauces[Random.Range(0, sauces.Count)]);
+        }
+
+        for (int i = 0; i < toppingCount; i++)
+        {
+            BurgerIngredients pick = physicalToppings[Random.Range(0, physicalToppings.Count)];
+            
+            int existingCount = chosen.FindAll(x => x == pick).Count;
+            if (existingCount < 2)
             {
-                chosen.Add(ingredient);
+                chosen.Add(pick);
+            }
+            else
+            {
+                if (physicalToppings.TrueForAll(t => chosen.FindAll(x => x == t).Count >= 2)) break;
+                
+                i--;
             }
         }
+
         return chosen;
     }
 
