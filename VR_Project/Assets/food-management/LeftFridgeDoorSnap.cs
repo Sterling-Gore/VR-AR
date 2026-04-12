@@ -13,6 +13,19 @@ public class LeftFridgeDoorSnap : MonoBehaviour
     public float snapSpring = 200f;
     public float snapDamper = 20f;
 
+    private void Start()
+    {
+        doorHinge.useSpring = false;
+    }
+
+    private void Update()
+    {
+        if (grabInteractable != null && grabInteractable.isSelected)
+        {
+            doorHinge.useSpring = false;
+        }
+    }
+
     private void OnEnable()
     {
         if (grabInteractable != null)
