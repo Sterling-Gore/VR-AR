@@ -159,7 +159,7 @@ public class LeftFridgeDoorSnap : MonoBehaviour
         return x;
     }
 
-    // Converts runtime/raw angle into your intended logic:
+    // Converts runtime/raw angle into intended logic:
     // closed = 0, open = -80
     private float GetLogicalAngle()
     {

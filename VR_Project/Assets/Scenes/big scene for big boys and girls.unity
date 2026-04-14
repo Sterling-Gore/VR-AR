@@ -16012,10 +16012,10 @@ MonoBehaviour:
   grabInteractable: {fileID: 574558420}
   fridgeRestocker: {fileID: 1128654322}
   closedAngle: 0
-  openAngle: -78
-  snapSpring: 50
-  snapDamper: 12
-  openTolerance: 5
+  openAngle: -80
+  angleSign: 1
+  snapSpeed: 240
+  exactSnapTolerance: 2
   closedTolerance: 5
 --- !u!1 &1419151896
 GameObject:
@@ -28751,11 +28751,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FridgeDoorSnap
   doorHinge: {fileID: 1830189547}
   grabInteractable: {fileID: 2004915248}
+  fridgeRestocker: {fileID: 1128654322}
   closedAngle: 0
-  openAngle: 78
-  snapSpring: 50
-  snapDamper: 12
-  openTolerance: 5
+  openAngle: 80
+  angleSign: 1
+  snapSpeed: 240
+  exactSnapTolerance: 2
   closedTolerance: 5
 --- !u!1001 &1836350351
 PrefabInstance:
