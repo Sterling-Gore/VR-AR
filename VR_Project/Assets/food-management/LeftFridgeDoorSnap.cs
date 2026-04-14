@@ -6,6 +6,7 @@ public class LeftFridgeDoorSnap : MonoBehaviour
 {
     public HingeJoint doorHinge;
     public XRGrabInteractable grabInteractable;
+    public FridgeRestocker fridgeRestocker;
 
     public float closedAngle = -78f;
     public float openAngle = 0f;
@@ -63,48 +64,22 @@ public class LeftFridgeDoorSnap : MonoBehaviour
         Debug.Log($"[LEFT GRABBED] CurrentAngle={doorHinge.angle}", this);
     }
 
-    // private void OnReleased(SelectExitEventArgs args)
-    // {
-    //     float currentAngle = doorHinge.angle;
-
-    //     if (float.IsNaN(currentAngle) || float.IsInfinity(currentAngle))
-    //     {
-    //         Debug.LogWarning("[LEFT] Invalid hinge angle detected. Snapping closed.", this);
-    //         currentAngle = closedAngle;
-    //     }
-
-    //     float distanceToClosed = Mathf.Abs(Mathf.DeltaAngle(currentAngle, closedAngle));
-    //     float distanceToOpen = Mathf.Abs(Mathf.DeltaAngle(currentAngle, openAngle));
-
-    //     float targetAngle;
-
-    //     if (distanceToOpen <= openTolerance)
-    //     {
-    //         targetAngle = openAngle;
-    //     }
-    //     else if (distanceToClosed <= closedTolerance)
-    //     {
-    //         targetAngle = closedAngle;
-    //     }
-    //     else
-    //     {
-    //         targetAngle = distanceToClosed < distanceToOpen ? closedAngle : openAngle;
-    //     }
-
-    //     JointSpring spring = doorHinge.spring;
-    //     spring.spring = snapSpring;
-    //     spring.damper = snapDamper;
-    //     spring.targetPosition = targetAngle;
-
-    //     doorHinge.spring = spring;
-    //     doorHinge.useSpring = true;
-
-    //     Debug.Log($"[LEFT RELEASED] Current={currentAngle} Target={targetAngle}", this);
-    // }
-
     private void OnReleased(SelectExitEventArgs args)
     {
-        doorHinge.useSpring = false;
-        Debug.Log($"[LEFT RELEASED TEST] No spring applied. Current={doorHinge.angle}", this);
+        float currentAngle = doorHinge.angle;
+
+        float distanceToClosed = Mathf.Abs(Mathf.DeltaAngle(currentAngle, closedAngle));
+
+        Debug.Log($"[LEFT RELEASED] Angle={currentAngle} DistanceToClosed={distanceToClosed}");
+
+        // Only restock if actually closed
+        if (distanceToClosed <= closedTolerance)
+        {
+            if (fridgeRestocker != null)
+            {
+                fridgeRestocker.RestockAll();
+                Debug.Log("[LEFT] Fridge CLOSED → Restocking");
+            }
+        }
     }
 }
