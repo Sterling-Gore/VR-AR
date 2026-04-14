@@ -13,6 +13,7 @@ public class FridgeItemSlot : MonoBehaviour
     public XRGrabInteractable grabInteractable;
 
     private bool isAvailable = true;
+    private bool wasTaken = false;
 
     private void OnEnable()
     {
@@ -34,26 +35,24 @@ public class FridgeItemSlot : MonoBehaviour
         if (!(args.interactorObject is IXRSelectInteractor interactor))
             return;
 
-        // Spawn the real usable item
         GameObject spawnedObject = Instantiate(realItemPrefab, spawnPoint.position, spawnPoint.rotation);
 
         XRGrabInteractable spawnedGrab = spawnedObject.GetComponent<XRGrabInteractable>();
         if (spawnedGrab == null)
         {
             Debug.LogWarning("Spawned real item is missing XRGrabInteractable.");
+            Destroy(spawnedObject);
             return;
         }
 
-        // Release dummy first
         if (grabInteractable.interactionManager != null)
         {
             grabInteractable.interactionManager.SelectExit(interactor, grabInteractable);
         }
 
-        // Hide and disable dummy
         SetAvailable(false);
+        wasTaken = true;
 
-        // Transfer grab to spawned real item
         if (spawnedGrab.interactionManager != null)
         {
             spawnedGrab.interactionManager.SelectEnter(interactor, spawnedGrab);
@@ -76,11 +75,20 @@ public class FridgeItemSlot : MonoBehaviour
 
     public void Restock()
     {
+        if (!wasTaken)
+            return;
+
         SetAvailable(true);
+        wasTaken = false;
     }
 
     public bool IsAvailable()
     {
         return isAvailable;
+    }
+
+    public bool WasTaken()
+    {
+        return wasTaken;
     }
 }
