@@ -4660,7 +4660,7 @@ GameObject:
   - component: {fileID: 574558420}
   - component: {fileID: 574558419}
   m_Layer: 0
-  m_Name: grab collider
+  m_Name: left door grab collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11690,7 +11690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e24f451723b1b0d43a7cf49873e2478f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.038
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e24f451723b1b0d43a7cf49873e2478f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -30033,7 +30033,7 @@ GameObject:
   - component: {fileID: 2004915248}
   - component: {fileID: 2004915247}
   m_Layer: 0
-  m_Name: grab collider
+  m_Name: right door grab collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
