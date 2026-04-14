@@ -13,13 +13,6 @@ public enum CookLevel
     Overcooked
 }
 
-public enum SauceType
-{
-    Ketchup,
-    Mayo,
-    Mustard
-}
-
 public enum OrderStatus
 {
     Active,
