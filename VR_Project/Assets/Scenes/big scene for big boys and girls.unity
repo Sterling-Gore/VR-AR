@@ -2258,7 +2258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e24f451723b1b0d43a7cf49873e2478f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.041
+      value: -0.055
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e24f451723b1b0d43a7cf49873e2478f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11690,7 +11690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e24f451723b1b0d43a7cf49873e2478f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.041
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e24f451723b1b0d43a7cf49873e2478f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -15683,7 +15683,7 @@ Transform:
   m_GameObject: {fileID: 1416043160}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.093, y: 0.255, z: -0.828}
+  m_LocalPosition: {x: 0.093, y: 0.255, z: -0.83}
   m_LocalScale: {x: 0.8000002, y: 0.8, z: 0.8000002}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15745,7 +15745,7 @@ HingeJoint:
   m_ExtendedLimits: 0
   m_UseAcceleration: 0
   m_Limits:
-    min: -80
+    min: -85
     max: 0
     bounciness: 0
     bounceMinVelocity: 0.2
@@ -15771,9 +15771,11 @@ MonoBehaviour:
   doorHinge: {fileID: 1416043163}
   grabInteractable: {fileID: 574558420}
   closedAngle: 0
-  openAngle: -80
-  snapSpring: 200
-  snapDamper: 20
+  openAngle: -78
+  snapSpring: 50
+  snapDamper: 12
+  openTolerance: 5
+  closedTolerance: 5
 --- !u!1 &1419151896
 GameObject:
   m_ObjectHideFlags: 0
@@ -28394,7 +28396,7 @@ HingeJoint:
   m_UseAcceleration: 0
   m_Limits:
     min: 0
-    max: 80
+    max: 85
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -28419,9 +28421,11 @@ MonoBehaviour:
   doorHinge: {fileID: 1830189547}
   grabInteractable: {fileID: 2004915248}
   closedAngle: 0
-  openAngle: 80
-  snapSpring: 200
-  snapDamper: 20
+  openAngle: 78
+  snapSpring: 50
+  snapDamper: 12
+  openTolerance: 5
+  closedTolerance: 5
 --- !u!1001 &1836350351
 PrefabInstance:
   m_ObjectHideFlags: 0
