@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 40220d30d183d214ab4b23678969c44d
+  - enabled: 1
+    path: Assets/Scenes/big scene for big boys and girls.unity
+    guid: 54f761eb906aea643b8a4c2b0bf53fab
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: db5c205aac116e34cae23ce9a9edec51, type: 2}
