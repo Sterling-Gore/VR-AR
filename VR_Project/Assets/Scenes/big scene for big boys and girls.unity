@@ -45445,7 +45445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FridgeDoorSnap
   doorHinge: {fileID: 1830189547}
   grabInteractable: {fileID: 2004915248}
-  fridgeRestocker: {fileID: 0}
+  fridgeRestocker: {fileID: 1128654322}
   closedAngle: 0
   openAngle: 80
   angleSign: 1
