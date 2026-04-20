@@ -7,15 +7,16 @@ public class RightFridgeDoorSnap : MonoBehaviour
     public HingeJoint doorHinge;
     public XRGrabInteractable grabInteractable;
     public FridgeRestocker fridgeRestocker;
+
     public float closedAngle = 0f;
     public float openAngle = 80f;
 
-    // 1 for the right door
     public float angleSign = 1f;
 
     public float snapSpeed = 240f;
     public float exactSnapTolerance = 2f;
     public float closedTolerance = 2f;
+    public float openTolerance = 2f;
 
     private Rigidbody rb;
 
@@ -23,21 +24,21 @@ public class RightFridgeDoorSnap : MonoBehaviour
     private bool autoSnapping = false;
     private float targetLogicalAngle = 0f;
 
-    private bool waitingToRestock = false;
-    private bool hasRestockedThisClose = false;
+    private bool isCurrentlyOpen = false;
 
     private void Start()
     {
         rb = doorHinge.GetComponent<Rigidbody>();
         doorHinge.useSpring = false;
 
-        // Save the exact closed pose from the starting scene setup
         closedLocalRotation = transform.localRotation;
 
         if (rb != null)
         {
-            rb.isKinematic = true; // start locked in place
+            rb.isKinematic = true;
         }
+
+        NotifyDoorState(false);
     }
 
     private void FixedUpdate()
@@ -72,19 +73,19 @@ public class RightFridgeDoorSnap : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
 
             autoSnapping = false;
-            rb.isKinematic = true; // lock it exactly in place
+            rb.isKinematic = true;
 
             Debug.Log($"[RIGHT LOCKED] LogicalAngle={targetLogicalAngle}", this);
 
             if (Mathf.Abs(Mathf.DeltaAngle(targetLogicalAngle, closedAngle)) <= closedTolerance)
             {
-                if (!hasRestockedThisClose && fridgeRestocker != null)
-                {
-                    hasRestockedThisClose = true;
-                    waitingToRestock = false;
-                    fridgeRestocker.RestockAll();
-                    Debug.Log("[RIGHT] Door fully closed -> Restocking", this);
-                }
+                NotifyDoorState(false);
+                Debug.Log("[RIGHT] Door fully closed", this);
+            }
+            else if (Mathf.Abs(Mathf.DeltaAngle(targetLogicalAngle, openAngle)) <= openTolerance)
+            {
+                NotifyDoorState(true);
+                Debug.Log("[RIGHT] Door fully open", this);
             }
         }
     }
@@ -110,8 +111,6 @@ public class RightFridgeDoorSnap : MonoBehaviour
     private void OnGrabbed(SelectEnterEventArgs args)
     {
         autoSnapping = false;
-        waitingToRestock = false;
-        hasRestockedThisClose = false;
 
         if (rb != null)
         {
@@ -135,7 +134,6 @@ public class RightFridgeDoorSnap : MonoBehaviour
         targetLogicalAngle = (distanceToClosed <= distanceToOpen) ? closedAngle : openAngle;
 
         autoSnapping = true;
-        waitingToRestock = Mathf.Abs(Mathf.DeltaAngle(targetLogicalAngle, closedAngle)) <= 0.01f;
 
         if (rb != null)
         {
@@ -147,7 +145,17 @@ public class RightFridgeDoorSnap : MonoBehaviour
         Debug.Log($"[RIGHT RELEASED] CurrentLogical={currentLogicalAngle} TargetLogical={targetLogicalAngle}", this);
     }
 
-    // Reads current local X rotation relative to the starting closed pose
+    private void NotifyDoorState(bool isOpen)
+    {
+        if (isCurrentlyOpen == isOpen)
+            return;
+
+        isCurrentlyOpen = isOpen;
+
+        if (fridgeRestocker != null)
+            fridgeRestocker.SetRightDoorOpen(isOpen);
+    }
+
     private float GetRawLocalAngle()
     {
         Quaternion relative = Quaternion.Inverse(closedLocalRotation) * transform.localRotation;
@@ -159,14 +167,11 @@ public class RightFridgeDoorSnap : MonoBehaviour
         return x;
     }
 
-    // Converts runtime/raw angle into intended logic:
-    // closed = 0, open = -80
     private float GetLogicalAngle()
     {
         return GetRawLocalAngle() * angleSign;
     }
 
-    // Builds the exact target rotation for the chosen logical angle
     private Quaternion GetTargetLocalRotation(float logicalAngle)
     {
         float rawAngle = logicalAngle * angleSign;
