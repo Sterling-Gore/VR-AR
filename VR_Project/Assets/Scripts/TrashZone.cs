@@ -4,6 +4,9 @@ using UnityEngine;
 public class TrashZone : MonoBehaviour
 {
     [SerializeField] private bool destroyRootObject = true;
+    [SerializeField] private bool ignoreCondimentBottles = true;
+    [SerializeField] private bool ignorePlayer = true;
+    [SerializeField] private string playerRootNameContains = "XR Origin";
     private Collider trashCollider;
 
     private void Awake()
@@ -29,7 +32,7 @@ public class TrashZone : MonoBehaviour
         if (other == null)
             return;
 
-        if (other.transform.root == transform.root)
+        if (ShouldIgnoreTrashTarget(other))
             return;
 
         if (TryTrashBasketContents(other))
@@ -41,6 +44,32 @@ public class TrashZone : MonoBehaviour
         var target = GetTargetToDestroy(other);
         if (target != null)
             Destroy(target);
+    }
+
+    private bool ShouldIgnoreTrashTarget(Collider other)
+    {
+        if (other.transform.root == transform.root)
+            return true;
+
+        if (ignoreCondimentBottles && other.GetComponentInParent<CondimentData>() != null)
+            return true;
+
+        if (ignorePlayer && IsPlayerObject(other))
+            return true;
+
+        return false;
+    }
+
+    private bool IsPlayerObject(Collider other)
+    {
+        if (other.CompareTag("LeftHand") || other.CompareTag("RightHand"))
+            return true;
+
+        Transform root = other.transform.root;
+        if (root == null || string.IsNullOrEmpty(playerRootNameContains))
+            return false;
+
+        return root.name.IndexOf(playerRootNameContains, System.StringComparison.OrdinalIgnoreCase) >= 0;
     }
 
     private bool TryTrashBasketContents(Collider other)
