@@ -25,7 +25,10 @@ public enum OrderStatus
 
 public enum BurgerIngredients
 {
-    // Burger ingredient for now, I would like to expand this to contain onions, cheese, pickles etc. in the future
+    BottomBun,
+    TopBun,
+    Patty,
+    Cheese,
     Ketchup,
     Mustard,
     Mayo,

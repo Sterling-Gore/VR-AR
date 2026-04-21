@@ -45,38 +45,28 @@ public class OrderSystem
         return true;
     }
 
-    // Submits an order by id using the served items
-    // For now this only checks expiration and calls validation
+
     public bool SubmitOrder(int orderId, List<ServedItem> servedItems, float completionTime)
     {
         Order order = GetOrderById(orderId);
+        if (order == null || order.IsExpired(completionTime)) return false;
 
-        if (order == null)
-        {
-            Debug.LogWarning($"Order {orderId} was not found.");
-            return false;
-        }
+        // Use the flexible matching scorer
+        int finalScore = OrderScorer.CalculateScore(order, servedItems, completionTime);
 
-        if (order.IsExpired(completionTime))
+        if (finalScore > 0) // If they earned any points order is counted as completed
         {
-            order.MarkExpired();
+            order.MarkCompleted(completionTime, finalScore);
             activeOrders.Remove(order);
-            return false;
-        }
-
-        bool isCorrect = ValidateOrder(order, servedItems);
-
-        if (isCorrect)
-        {
-            order.MarkCompleted(completionTime, order.BaseScore);
+            return true;
         }
         else
         {
+            // 0 points means they failed
             order.MarkFailed(completionTime, 0);
+            activeOrders.Remove(order);
+            return false;
         }
-
-        activeOrders.Remove(order);
-        return isCorrect;
     }
 
     // Checks all active orders and expires any that run out of time

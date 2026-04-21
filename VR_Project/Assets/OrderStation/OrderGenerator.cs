@@ -18,36 +18,52 @@ public class OrderGenerator
         return new Order(orderId, requestedItems, startTime, timeLimit, baseScore);
     }
 
-    // Builds the list of requested items for this order
+    // Builds the list of requested items for this order with new caps
     private List<OrderItemRequest> GenerateRequestedItems(int mode)
     {
         List<OrderItemRequest> items = new List<OrderItemRequest>();
-        int itemCount = GetItemCountForMode(mode);
+        int targetCount = GetItemCountForMode(mode);
+        int burgerCount = 0;
+        int friesCount = 0;
 
-        for (int i = 0; i < itemCount; i++)
+        while (items.Count < targetCount) // Loop until we reach the target count or hit the global cap
         {
-            items.Add(GenerateRandomItem(mode));
+            FoodType type = GetRandomFoodType();
+
+            if (type == FoodType.Burger && burgerCount < 1) // Max 1 burger
+            {
+                items.Add(GenerateRandomItem(mode, type));
+                burgerCount++;
+            }
+
+            else if (type == FoodType.Fries && friesCount < 2) // Max 2 fries
+            {
+                items.Add(GenerateRandomItem(mode, type));
+                friesCount++;
+            }
+
+            if (burgerCount >= 1 && friesCount >= 2) break;
+            
+            if (items.Count >= targetCount) break;
         }
 
         return items;
     }
 
-    // Creates one random requested item based on the mode
-    private OrderItemRequest GenerateRandomItem(int mode)
+    // Creates one random requested item based on the mode and pre-determined type
+    private OrderItemRequest GenerateRandomItem(int mode, FoodType foodType)
     {
-        FoodType foodType = GetRandomFoodType();
-
-        // for now all generated orders want perfectly cooked food
-        CookLevel cookLevel = CookLevel.Cooked;
+        CookLevel cookLevel = CookLevel.Cooked; // must be perfectly cooked for max score
 
         if (foodType == FoodType.Burger)
         {
             // Harder modes have a chance for more patties
-            int patties = (mode > 4 && Random.value < 0.35f) ? 2 : 1;
+            int maxPatties = (mode <= 3) ? 1 : (mode <= 5) ? 2 : 3;
+            int actualPatties = Random.Range(1, maxPatties + 1);
 
-            List<BurgerIngredients> toppings = GenerateRandomIngredients(mode);
+            List<BurgerIngredients> toppings = GenerateRandomIngredients(mode, actualPatties);
 
-            return new OrderItemRequest(foodType, cookLevel, patties, toppings);
+            return new OrderItemRequest(foodType, cookLevel, actualPatties, toppings);
         }
 
         return new OrderItemRequest(foodType, cookLevel);
@@ -56,72 +72,45 @@ public class OrderGenerator
     // Randomly picks a food type
     private FoodType GetRandomFoodType()
     {
-        FoodType[] foodTypes = { FoodType.Burger, FoodType.Fries };
-        int randomIndex = Random.Range(0, foodTypes.Length);
-        return foodTypes[randomIndex];
+        return (Random.value > 0.5f) ? FoodType.Fries : FoodType.Burger;
     }
 
-    // creates random ingredients for the burger
-    private List<BurgerIngredients> GenerateRandomIngredients(int mode)
-    {
-        List<BurgerIngredients> chosen = new List<BurgerIngredients>();
-
-        List<BurgerIngredients> sauces = new List<BurgerIngredients>
+    // creates random ingredients for the burger with some constraints
+    private List<BurgerIngredients> GenerateRandomIngredients(int mode, int pattyCount) {
+        List<BurgerIngredients> layers = new List<BurgerIngredients>();
+        const int MAX_TOTAL_LAYERS = 10; // Hard cap so burger isnt too complex
+        
+        layers.Add(BurgerIngredients.BottomBun); // bottom to top
+        
+        if (Random.value < 0.5f) // random sauce for bottom bun
         {
-            BurgerIngredients.Ketchup,
-            BurgerIngredients.Mustard,
-            BurgerIngredients.Mayo
-        };
-
-        List<BurgerIngredients> physicalToppings = new List<BurgerIngredients>
-        {
-            BurgerIngredients.Lettuce,
-            BurgerIngredients.Tomato
-        };
-
-        // max sauce and toppings tied to the difficulty mode
-        int maxSauces = (mode > 3) ? 2 : 1;
-        int sauceCount = Random.Range(0, maxSauces + 1);
-
-        int maxTopping = Mathf.Min(mode, 3);
-        int toppingCount = Random.Range(0, maxTopping + 1);
-
-        // sauces should not duplicate
-        List<BurgerIngredients> availableSauces = new List<BurgerIngredients>(sauces);
-
-        for (int i = 0; i < sauceCount && availableSauces.Count > 0; i++)
-        {
-            int randomIndex = Random.Range(0, availableSauces.Count);
-            chosen.Add(availableSauces[randomIndex]);
-            availableSauces.RemoveAt(randomIndex);
+            BurgerIngredients[] possibleSauces = { BurgerIngredients.Ketchup, BurgerIngredients.Mustard, BurgerIngredients.Mayo };
+            layers.Add(possibleSauces[Random.Range(0, possibleSauces.Length)]);
         }
 
-        // toppings can appear up to twice
-        for (int i = 0; i < toppingCount; i++)
+        for (int i = 0; i < pattyCount; i++)
         {
-            BurgerIngredients pick = physicalToppings[Random.Range(0, physicalToppings.Count)];
+            if (layers.Count >= MAX_TOTAL_LAYERS - 4) break; 
 
-            int existingCount = chosen.FindAll(x => x == pick).Count;
-            if (existingCount < 2)
-            {
-                chosen.Add(pick);
-            }
-            else
-            {
-                if (physicalToppings.TrueForAll(t => chosen.FindAll(x => x == t).Count >= 2))
-                {
-                    break;
-                }
+            layers.Add(BurgerIngredients.Patty);
 
-                i--;
-            }
+            if (Random.value < 0.6f) layers.Add(BurgerIngredients.Cheese);
+            if (mode > 3 && Random.value < 0.3f) layers.Add(BurgerIngredients.Lettuce);
+            if (mode > 5 && Random.value < 0.2f) layers.Add(BurgerIngredients.Tomato);
         }
 
-        return chosen;
+        if (Random.value < 0.5f) // random sauce for top bun
+        {
+            BurgerIngredients[] possibleSauces = { BurgerIngredients.Ketchup, BurgerIngredients.Mustard, BurgerIngredients.Mayo };
+            layers.Add(possibleSauces[Random.Range(0, possibleSauces.Length)]);
+        }
+
+        layers.Add(BurgerIngredients.TopBun); // top bun added (last item)
+        
+        return layers;
     }
 
-    // Determines how many items should be in the order
-    private int GetItemCountForMode(int mode)
+    private int GetItemCountForMode(int mode)     // Determines how many items should be in the order
     {
         switch (mode)
         {
