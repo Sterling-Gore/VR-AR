@@ -4750,6 +4750,9 @@ MonoBehaviour:
   frySnapPoint: {fileID: 1449246339}
   fryLockedLocalOffset: {x: 0, y: 0, z: 0}
   occupiedAlpha: 0.2
+  basketGrabInteractable: {fileID: 563000972}
+  rightControllerDisconnectAction: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerDisconnectAction: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!114 &563000972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12457,6 +12460,9 @@ MonoBehaviour:
   frySnapPoint: {fileID: 1454348475}
   fryLockedLocalOffset: {x: 0, y: 0, z: 0}
   occupiedAlpha: 0.2
+  basketGrabInteractable: {fileID: 993228467}
+  rightControllerDisconnectAction: {fileID: -3599823989380923159, guid: b6d5c44ebe3244b7692e81ae8265eb22, type: 3}
+  leftControllerDisconnectAction: {fileID: -3599823989380923159, guid: b6d5c44ebe3244b7692e81ae8265eb22, type: 3}
 --- !u!4 &993228472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d76e78376e71a4847aeda6f646e5109c, type: 3}
@@ -14918,6 +14924,9 @@ MonoBehaviour:
   frySnapPoint: {fileID: 0}
   fryLockedLocalOffset: {x: 0, y: 0.5, z: 0}
   occupiedAlpha: 0.2
+  basketGrabInteractable: {fileID: 0}
+  rightControllerDisconnectAction: {fileID: 0}
+  leftControllerDisconnectAction: {fileID: 0}
 --- !u!65 &1276399544
 BoxCollider:
   m_ObjectHideFlags: 0
