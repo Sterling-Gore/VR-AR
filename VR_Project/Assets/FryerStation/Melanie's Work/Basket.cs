@@ -4,6 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class Basket : MonoBehaviour
 {
     public bool InFryer = false;
+    public bool HasLockedFry => lockedFry != null;
 
     [Header("Fry Placement")]
     [SerializeField] private Transform frySnapPoint;
@@ -101,6 +102,19 @@ public class Basket : MonoBehaviour
         }
 
         SetBasketAlpha(occupiedAlpha);
+    }
+
+    public void TrashLockedFry()
+    {
+        if (lockedFry == null)
+        {
+            SetBasketAlpha(1f);
+            return;
+        }
+
+        Destroy(lockedFry.gameObject);
+        lockedFry = null;
+        SetBasketAlpha(1f);
     }
 
     private void SetBasketAlpha(float alpha)

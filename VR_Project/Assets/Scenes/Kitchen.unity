@@ -3768,6 +3768,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c6f824f7bbe74640a3c9b2ce63ca3c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 981304187}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c6f824f7bbe74640a3c9b2ce63ca3c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 981304188}
   m_SourcePrefab: {fileID: 100100000, guid: 4c6f824f7bbe74640a3c9b2ce63ca3c1, type: 3}
 --- !u!4 &981304184 stripped
 Transform:
@@ -3789,12 +3792,28 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.6000011, y: 1.1403136, z: 0.767015}
   m_Center: {x: 0.00000010430816, y: 0.56343645, z: -0.016492788}
+--- !u!114 &981304188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699697698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3554ede3b3b1a0d4d894fe56045c829a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashZone
+  destroyRootObject: 1
+  trashableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!4 &1034032912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 529235c71690ae741bbf75712ffb5981, type: 3}
