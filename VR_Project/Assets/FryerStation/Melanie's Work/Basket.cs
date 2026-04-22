@@ -32,7 +32,7 @@ public class Basket : MonoBehaviour
     {
         if (InFryer)
         {
-            Debug.Log("Basket is frying!");
+            // Debug.Log("Basket is frying!");
 
             if (lockedFry != null)
             {
