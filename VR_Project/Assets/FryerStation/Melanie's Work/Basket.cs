@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 public class Basket : MonoBehaviour
 {
     public bool InFryer = false;
+    public bool HasLockedFry => lockedFry != null;
 
     [Header("Fry Placement")]
     [SerializeField] private Transform frySnapPoint;
@@ -63,7 +64,7 @@ public class Basket : MonoBehaviour
     {
         if (InFryer)
         {
-            Debug.Log("Basket is frying!");
+            // Debug.Log("Basket is frying!");
 
             if (lockedFry != null)
             {
