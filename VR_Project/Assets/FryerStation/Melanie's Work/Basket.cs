@@ -175,6 +175,18 @@ public class Basket : MonoBehaviour
         SetBasketAlpha(1f);
     }
 
+    public void TrashLockedFry()
+    {
+        if (lockedFry == null)
+        {
+            return;
+        }
+
+        FryItem fryToDestroy = lockedFry;
+        ReleaseLockedFry();
+        Destroy(fryToDestroy.gameObject);
+    }
+
     private void SetBasketAlpha(float alpha)
     {
         if (basketMaterial == null)
