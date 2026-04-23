@@ -10211,6 +10211,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c6f824f7bbe74640a3c9b2ce63ca3c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 609164978}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4c6f824f7bbe74640a3c9b2ce63ca3c1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 609164981}
   m_SourcePrefab: {fileID: 100100000, guid: 4c6f824f7bbe74640a3c9b2ce63ca3c1, type: 3}
 --- !u!4 &609164976 stripped
 Transform:
@@ -10241,8 +10244,24 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.6000011, y: 1.1403136, z: 0.767015}
-  m_Center: {x: 0.00000010430816, y: 0.56343645, z: -0.016492788}
+  m_Size: {x: 0.6000011, y: 1.0240211, z: 0.767015}
+  m_Center: {x: 0.0000001117587, y: 0.50529015, z: -0.016492791}
+--- !u!114 &609164981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609164977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3554ede3b3b1a0d4d894fe56045c829a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashZone
+  destroyRootObject: 1
+  ignoreCondimentBottles: 1
+  ignorePlayer: 1
+  playerRootNameContains: XR Origin
 --- !u!1001 &636842777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12462,7 +12481,7 @@ MonoBehaviour:
   occupiedAlpha: 0.2
   basketGrabInteractable: {fileID: 993228467}
   rightControllerDisconnectAction: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  leftControllerDisconnectAction: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  leftControllerDisconnectAction: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!4 &993228472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d76e78376e71a4847aeda6f646e5109c, type: 3}
