@@ -162,6 +162,7 @@ public class MenuButton3D : MonoBehaviour
 
             case "ClockOut":
                 Debug.Log("load credits scene here later");
+                Application.Quit();
                 break;
 
             default:
