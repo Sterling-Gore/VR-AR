@@ -152,8 +152,11 @@ public class MenuButton3D : MonoBehaviour
         switch (actionName)
         {
             case "StartShift":
-                Debug.Log("loading main scene by name");
-                SceneManager.LoadScene("big scene for big boys and girls");
+                Debug.Log("loading via loading screen");
+
+                LoadingData.sceneToLoad = "big scene for big boys and girls";
+                SceneManager.LoadScene("LoadingScene");
+
                 break;
 
             case "Settings":
