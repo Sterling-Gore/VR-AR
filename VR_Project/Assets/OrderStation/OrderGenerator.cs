@@ -36,7 +36,7 @@ public class OrderGenerator
                 burgerCount++;
             }
 
-            else if (type == FoodType.Fries && friesCount < 2) // Max 2 fries
+            else if ((type == FoodType.Fries || type == FoodType.CrinkleFries) && friesCount < 2) // max 2 type of fries 
             {
                 items.Add(GenerateRandomItem(mode, type));
                 friesCount++;
@@ -72,7 +72,10 @@ public class OrderGenerator
     // Randomly picks a food type
     private FoodType GetRandomFoodType()
     {
-        return (Random.value > 0.5f) ? FoodType.Fries : FoodType.Burger;
+        float rand = Random.value;
+        if (rand < 0.4f) return FoodType.Burger;
+        if (rand < 0.7f) return FoodType.Fries;
+        return FoodType.CrinkleFries;
     }
 
     // creates random ingredients for the burger with some constraints
@@ -96,7 +99,6 @@ public class OrderGenerator
 
             if (Random.value < 0.6f) layers.Add(BurgerIngredients.Cheese);
             if (mode > 3 && Random.value < 0.3f) layers.Add(BurgerIngredients.Lettuce);
-            if (mode > 5 && Random.value < 0.2f) layers.Add(BurgerIngredients.Tomato);
         }
 
         if (Random.value < 0.5f) // random sauce for top bun

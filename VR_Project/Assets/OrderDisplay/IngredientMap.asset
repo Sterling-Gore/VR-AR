@@ -30,4 +30,6 @@ MonoBehaviour:
   - ingredient: 7
     drawing: {fileID: 21300000, guid: 36c5ca110c8493a428e52e02b5a9688a, type: 3}
   - ingredient: 8
-    drawing: {fileID: 21300000, guid: 8195853e3e783ae4db1231ab9a1f28d8, type: 3}
+    drawing: {fileID: 21300000, guid: 26fd6b70ed1fe734bb81647e6ee887dd, type: 3}
+  - ingredient: 9
+    drawing: {fileID: 0}

@@ -56,7 +56,7 @@ public static class OrderScorer
             itemBaseScore += CalculateBurgerCookScore(req, served);
             itemBaseScore += CalculateIngredientScore(req, served);
         }
-        else if (served.FoodType == FoodType.Fries)
+        else if (served.FoodType == FoodType.Fries || served.FoodType == FoodType.CrinkleFries) 
         {
             itemBaseScore += CalculateSingleCookScore(served);
         }
@@ -158,7 +158,7 @@ public static class OrderScorer
         {
             if (req[i] != served[i])
             {
-                return false; // Order matters here!
+                return false;
             }
         }
 
