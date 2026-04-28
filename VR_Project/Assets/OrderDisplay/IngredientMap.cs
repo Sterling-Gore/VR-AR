@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "IngredientMap", menuName = "Orders/IngredientMap")] // this is in the OrderDisplay dir check it out IngrdientMap.asset
-public class IngredientAtlas : ScriptableObject
+public class IngredientMap : ScriptableObject
 {
     [System.Serializable]
     public struct IngredientUI
