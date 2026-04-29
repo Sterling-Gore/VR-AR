@@ -39,6 +39,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayStackConnect()
+    {
+        PlaySFX(stackBurger);
+    }
+
     public void PlayFridgeHumLoop()
     {
         if (fridgeHumSource == null || fridgeHum == null) return;
