@@ -3,97 +3,163 @@ using System.Text;
 using UnityEditor;
 using UnityEngine;
 
+// RUN THIS CODE THROUGH COMMAND PROMPT WITHOUT UNITY ON.
+// THE PROMPT WILL BE LIKE THIS
+// "<their unity path>\Unity.exe" -batchmode -quit -projectPath "<their project path>" -executeMethod OrderScoringTerminalTest.Run -logFile "<where they want the log>"
+//MINE FOR EXAMPLE
+//"C:\Program Files\Unity\Hub\Editor\6000.3.6f1\Editor\Unity.exe" -batchmode -quit -projectPath "C:\Users\arsal\VR-AR\VR_Project" -executeMethod OrderScoringTerminalTest.Run -logFile "C:\Users\arsal\VR-AR\VR_Project\Assets\OrderStation\order_test_log.txt"
+
 public static class OrderScoringTerminalTest
 {
     public static void Run()
     {
         Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+        Application.SetStackTraceLogType(LogType.Warning, StackTraceLogType.None);
+        Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.None);
+
         Debug.Log("=== SCORING TEST START ===\n");
 
         OrderGenerator generator = new OrderGenerator();
         float startTime = 0f;
-        float completionTime = 10f; // Simulate 10 seconds passing
+        float completionTime = 10f;
 
-        // Create a base order for testing (Mode 4: potentially multiple items/patties)
-        Order testOrder = generator.GenerateOrder(4, 1, startTime);
-        Debug.Log($"TEST ORDER GENERATED (Mode 4, Limit: {testOrder.TimeLimit}s)");
-        Debug.Log(FormatOrder(testOrder));
+        for (int mode = 1; mode <= 7; mode++)
+        {
+            Order testOrder = generator.GenerateOrder(mode, mode, startTime);
 
-        // Perfect cook
-        List<ServedItem> perfectServed = BuildPerfectSubmission(testOrder);
-        int perfectScore = OrderScorer.CalculateScore(testOrder, perfectServed, completionTime);
-        Debug.Log($"SCENARIO 1 [Perfect Stack + Cooked]: Score = {perfectScore}");
+            Debug.Log($"MODE {mode} ORDER GENERATED (Limit: {testOrder.TimeLimit}s)");
+            Debug.Log(FormatOrder(testOrder));
 
-        // under cooked
-        List<ServedItem> rareServed = BuildImperfectCookSubmission(testOrder, CookLevel.Undercooked);
-        int rareScore = OrderScorer.CalculateScore(testOrder, rareServed, completionTime);
-        Debug.Log($"SCENARIO 2 [Undercooked Patty]: Score = {rareScore} (Expected lower than Perfect)");
+            List<ServedItem> perfectServed = BuildPerfectSubmission(testOrder);
+            int perfectScore = OrderScorer.CalculateScore(testOrder, perfectServed, completionTime);
+            Debug.Log($"SCENARIO 1 [Perfect Submission]: Score = {perfectScore}");
 
-        // ingredient missing
-        List<ServedItem> missingIngServed = BuildMissingIngredientSubmission(testOrder);
-        int missingIngScore = OrderScorer.CalculateScore(testOrder, missingIngServed, completionTime);
-        Debug.Log($"SCENARIO 3 [Missing 1 Ingredient]: Score = {missingIngScore} (No Master Chef Bonus)");
+            List<ServedItem> undercookedServed = BuildImperfectCookSubmission(testOrder, CookLevel.Undercooked);
+            int undercookedScore = OrderScorer.CalculateScore(testOrder, undercookedServed, completionTime);
+            Debug.Log($"SCENARIO 2 [Undercooked Food]: Score = {undercookedScore}");
 
-        // burnt 
-        List<ServedItem> burntServed = BuildImperfectCookSubmission(testOrder, CookLevel.Overcooked);
-        int burntScore = OrderScorer.CalculateScore(testOrder, burntServed, completionTime);
-        Debug.Log($"SCENARIO 4 [Burnt/Overcooked]: Score = {burntScore} (Expected 0 for that item)");
+            List<ServedItem> missingIngredientServed = BuildMissingIngredientSubmission(testOrder);
+            int missingIngredientScore = OrderScorer.CalculateScore(testOrder, missingIngredientServed, completionTime);
+            Debug.Log($"SCENARIO 3 [Missing Burger Ingredient If Burger Exists]: Score = {missingIngredientScore}");
 
-        // missing multiple items
-        // We only serve the first item, missing the rest
-        List<ServedItem> partialItems = new List<ServedItem> { perfectServed[0] };
-        int missingItemScore = OrderScorer.CalculateScore(testOrder, partialItems, completionTime);
-        Debug.Log($"SCENARIO 5 [Missing Entire Item]: Score = {missingItemScore} (-50 Penalty)");
+            List<ServedItem> overcookedServed = BuildImperfectCookSubmission(testOrder, CookLevel.Overcooked);
+            int overcookedScore = OrderScorer.CalculateScore(testOrder, overcookedServed, completionTime);
+            Debug.Log($"SCENARIO 4 [Overcooked Food]: Score = {overcookedScore}");
 
-        Debug.Log("\n=== SCORING TEST END ===");
+            List<ServedItem> partialItems = BuildPartialSubmission(testOrder);
+            int missingItemScore = OrderScorer.CalculateScore(testOrder, partialItems, completionTime);
+            Debug.Log($"SCENARIO 5 [Missing Entire Item If Multiple Items Exist]: Score = {missingItemScore}");
+
+            Debug.Log("----------------------------------------\n");
+        }
+
+        Debug.Log("=== SCORING TEST END ===");
+
         EditorApplication.Exit(0);
     }
 
     private static List<ServedItem> BuildPerfectSubmission(Order order)
     {
         List<ServedItem> served = new List<ServedItem>();
-        foreach (var req in order.RequestedItems)
+
+        foreach (OrderItemRequest req in order.RequestedItems)
         {
-            served.Add(new ServedItem(req.FoodType, req.RequiredCookLevel, req.PattyCount, req.Ingredients));
+            served.Add(BuildServedItemFromRequest(req, req.RequiredCookLevel, req.Ingredients));
         }
+
         return served;
     }
 
     private static List<ServedItem> BuildImperfectCookSubmission(Order order, CookLevel level)
     {
         List<ServedItem> served = new List<ServedItem>();
-        foreach (var req in order.RequestedItems)
+
+        foreach (OrderItemRequest req in order.RequestedItems)
         {
-            // Apply the bad cook level to burgers/fries specifically
-            served.Add(new ServedItem(req.FoodType, level, req.PattyCount, req.Ingredients));
+            served.Add(BuildServedItemFromRequest(req, level, req.Ingredients));
         }
+
         return served;
     }
 
     private static List<ServedItem> BuildMissingIngredientSubmission(Order order)
     {
         List<ServedItem> served = new List<ServedItem>();
-        foreach (var req in order.RequestedItems)
-        {
-            List<BurgerIngredients> modifiedIngredients = new List<BurgerIngredients>(req.Ingredients);
-            if (modifiedIngredients.Count > 2) // Remove one topping if possible (not a bun)
-                modifiedIngredients.RemoveAt(1);
+        bool removedIngredientAlready = false;
 
-            served.Add(new ServedItem(req.FoodType, req.RequiredCookLevel, req.PattyCount, modifiedIngredients));
+        foreach (OrderItemRequest req in order.RequestedItems)
+        {
+            if (req.FoodType == FoodType.Burger && req.Ingredients.Count > 0 && !removedIngredientAlready)
+            {
+                List<BurgerIngredients> modifiedIngredients = new List<BurgerIngredients>(req.Ingredients);
+                modifiedIngredients.RemoveAt(0);
+                removedIngredientAlready = true;
+
+                served.Add(BuildServedItemFromRequest(req, req.RequiredCookLevel, modifiedIngredients));
+            }
+            else
+            {
+                served.Add(BuildServedItemFromRequest(req, req.RequiredCookLevel, req.Ingredients));
+            }
         }
+
         return served;
+    }
+
+    private static List<ServedItem> BuildPartialSubmission(Order order)
+    {
+        List<ServedItem> served = BuildPerfectSubmission(order);
+
+        if (served.Count > 0)
+        {
+            served.RemoveAt(served.Count - 1);
+        }
+
+        return served;
+    }
+
+    private static ServedItem BuildServedItemFromRequest(
+        OrderItemRequest req,
+        CookLevel cookLevel,
+        List<BurgerIngredients> ingredients
+    )
+    {
+        if (req.FoodType == FoodType.Burger)
+        {
+            return new ServedItem(
+                req.FoodType,
+                cookLevel,
+                req.PattyCount,
+                ingredients
+            );
+        }
+
+        return new ServedItem(
+            req.FoodType,
+            cookLevel
+        );
     }
 
     private static string FormatOrder(Order order)
     {
         StringBuilder sb = new StringBuilder();
-        foreach (var item in order.RequestedItems)
+
+        foreach (OrderItemRequest item in order.RequestedItems)
         {
-            string detail = item.FoodType == FoodType.Burger 
-                ? $"Burger ({item.PattyCount}P) layers: {string.Join(" > ", item.Ingredients)}" 
-                : "Fries";
-            sb.AppendLine($"- {detail}");
+            if (item.FoodType == FoodType.Burger)
+            {
+                string ingredients = item.Ingredients.Count > 0
+                    ? string.Join(" > ", item.Ingredients)
+                    : "None";
+
+                sb.AppendLine($"- Burger ({item.PattyCount}P) layers: {ingredients}");
+            }
+            else
+            {
+                sb.AppendLine("- Fries");
+            }
         }
+
         return sb.ToString();
     }
 }

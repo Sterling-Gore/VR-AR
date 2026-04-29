@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37fa717c773c34ce19043d2e64d0fc66, type: 3}
+  m_Name: IngredientMap
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientAtlas
+  atlas:
+  - ingredient: 0
+    drawing: {fileID: 21300000, guid: 30cddc20a4df06945a4636ad09595832, type: 3}
+  - ingredient: 1
+    drawing: {fileID: 21300000, guid: 77d62390c08574d4cbc5ff3cb6812243, type: 3}
+  - ingredient: 2
+    drawing: {fileID: 21300000, guid: 1f2775c3ee138a84dab31633324756c3, type: 3}
+  - ingredient: 3
+    drawing: {fileID: 21300000, guid: 072a1b80a5cb33841abd8819818dd1b2, type: 3}
+  - ingredient: 4
+    drawing: {fileID: 0}
+  - ingredient: 5
+    drawing: {fileID: 0}
+  - ingredient: 6
+    drawing: {fileID: 0}
+  - ingredient: 7
+    drawing: {fileID: 21300000, guid: 36c5ca110c8493a428e52e02b5a9688a, type: 3}
+  - ingredient: 8
+    drawing: {fileID: 21300000, guid: 26fd6b70ed1fe734bb81647e6ee887dd, type: 3}
+  - ingredient: 9
+    drawing: {fileID: 0}
