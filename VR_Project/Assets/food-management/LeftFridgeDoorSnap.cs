@@ -17,6 +17,11 @@ public class LeftFridgeDoorSnap : MonoBehaviour
     public float closedTolerance = 2f;
     public float openTolerance = 2f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip openSound;
+    public AudioClip closeSound;
+
     private Rigidbody rb;
 
     private Quaternion closedLocalRotation;
@@ -120,6 +125,14 @@ public class LeftFridgeDoorSnap : MonoBehaviour
 
         doorHinge.useSpring = false;
 
+        if (!isCurrentlyOpen && audioSource != null && openSound != null)
+        {
+            audioSource.PlayOneShot(openSound);
+            isCurrentlyOpen = true;
+            if (fridgeRestocker != null)
+                fridgeRestocker.SetLeftDoorOpen(true);
+        }
+
         Debug.Log($"[LEFT GRABBED] LogicalAngle={GetLogicalAngle()} RawLocalX={GetRawLocalAngle()}", this);
     }
 
@@ -150,6 +163,18 @@ public class LeftFridgeDoorSnap : MonoBehaviour
             return;
 
         isCurrentlyOpen = isOpen;
+
+        if (audioSource != null)
+        {
+            if (isOpen && openSound != null)
+            {
+                audioSource.PlayOneShot(openSound);
+            }
+            else if (!isOpen && closeSound != null)
+            {
+                audioSource.PlayOneShot(closeSound);
+            }
+        }
 
         if (fridgeRestocker != null)
             fridgeRestocker.SetLeftDoorOpen(isOpen);
