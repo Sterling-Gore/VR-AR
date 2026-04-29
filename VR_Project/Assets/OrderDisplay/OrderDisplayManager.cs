@@ -8,19 +8,15 @@ public class OrderDisplayManager : MonoBehaviour
     public IngredientMap atlas;
 
     [Header("UI Containers")]
-
-     // The BurgerContainer (Right side)
     public Transform burgerStack;
-
-    // The SauceContainer (Left side)
     public Transform sauceList;   
+    public Transform friesStack; 
 
-    [Header("Settings")]
-
-     // Your Sticker_Template prefab
+    [Header("Prefabs")]
     public GameObject iconPrefab;
+    public GameObject saucePrefab;
+    public GameObject friesPrefab;
 
-    // OrderStation will connect to this portion
     public void UpdateDisplay(Order order)
     {
         ClearDisplay();
@@ -32,17 +28,17 @@ public class OrderDisplayManager : MonoBehaviour
                 foreach (var ing in item.Ingredients)
                 {
                     if (IsSauce(ing))
-                        SpawnSticker(ing, sauceList);
+                        SpawnSticker(ing, sauceList, saucePrefab);
                     else
-                        SpawnSticker(ing, burgerStack);
+                        SpawnSticker(ing, burgerStack, iconPrefab);
                 }
             }
-            else 
+            else // This handles Fries and CrinkleFries
             {
-                // Logic for the fries
-                // Convert the FoodType enum to BurgerIngredients to find the sticker in the map
                 BurgerIngredients sideType = (BurgerIngredients)System.Enum.Parse(typeof(BurgerIngredients), item.FoodType.ToString());
-                SpawnSticker(sideType, burgerStack);
+                
+                // USES THE NEW FRIES PREFAB
+                SpawnSticker(sideType, friesStack, friesPrefab);
             }
         }
     }
@@ -54,21 +50,24 @@ public class OrderDisplayManager : MonoBehaviour
                ing == BurgerIngredients.Mayo;
     }
 
-    private void SpawnSticker(BurgerIngredients type, Transform container)
+    private void SpawnSticker(BurgerIngredients type, Transform container, GameObject prefabToUse)
     {
-        if (iconPrefab == null) return;
+        if (prefabToUse == null || container == null) return;
 
-        GameObject newIcon = Instantiate(iconPrefab, container);
+        GameObject newIcon = Instantiate(prefabToUse, container);
         Image img = newIcon.GetComponent<Image>();
         
-        // Finds drawing from ingredient map
-        img.sprite = atlas.GetSprite(type); 
-        img.preserveAspect = true;
+        if (img != null)
+        {
+            img.sprite = atlas.GetSprite(type); 
+            img.preserveAspect = true;
+        }
     }
 
     private void ClearDisplay()
     {
         foreach (Transform child in burgerStack) Destroy(child.gameObject);
         foreach (Transform child in sauceList) Destroy(child.gameObject);
+        if (friesStack != null) foreach (Transform child in friesStack) Destroy(child.gameObject);
     }
 }
