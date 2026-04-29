@@ -20,7 +20,7 @@ public class Grill : MonoBehaviour
             pattyCount++;
             if (pattyCount == 1)
             {
-                audioManager?.PlayGrillLoop(audioManager.pattySizzle);
+                audioManager?.PlayGrillLoop();
             }
             Debug.Log("Patty placed on grill");
         }

@@ -92,7 +92,7 @@ public class SqueezeDetector : MonoBehaviour
   private void SprayCondiment()
   {
     condimentSpray.Play();
-    audioManager?.PlaySFX(audioManager.bottleSqueeze);
+    audioManager?.PlayBottleSqueeze();
     Ray ray = new Ray(nozzle.position, nozzle.forward);
     RaycastHit hit;
     if (Physics.Raycast(ray, out hit, rayRange, mask))

@@ -9,17 +9,28 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource fryerSizzleSource;
     [SerializeField] AudioSource fridgeHumSource;
 
-    [Header("Audio Clip")]
+    [Header("Background")]
     public AudioClip background;
 
-    public AudioClip fridgeOpenCreak;
+    [Header("Fridge")]
+    public AudioClip[] fridgeOpenCreakClips;
     public AudioClip fridgeHum;
-    public AudioClip fridgeClose;
+    public AudioClip[] fridgeCloseClips;
 
-    public AudioClip pattySizzle;
-    public AudioClip fryCook;
-    public AudioClip bottleSqueeze;
-    public AudioClip stackBurger;
+    [Header("Cooking Loops")]
+    public AudioClip[] pattySizzleClips;
+    public AudioClip[] fryCookClips;
+
+    [Header("Prep Station / SFX")]
+    public AudioClip[] bottleSqueezeClips;
+    public AudioClip[] stackBurgerClips;
+
+    private int fridgeOpenCreakIndex = 0;
+    private int fridgeCloseIndex = 0;
+    private int pattySizzleIndex = 0;
+    private int fryCookIndex = 0;
+    private int bottleSqueezeIndex = 0;
+    private int stackBurgerIndex = 0;
 
     private void Start() 
     {
@@ -31,6 +42,21 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private AudioClip GetNextClip(AudioClip[] clips, ref int index)
+    {
+        if (clips == null || clips.Length == 0)
+            return null;
+
+        AudioClip clip = clips[index];
+
+        index++;
+
+        if (index >= clips.Length)
+            index = 0;
+
+        return clip;
+    }
+
     public void PlaySFX(AudioClip clip)
     {
         if (SFXSource != null && clip != null)
@@ -39,9 +65,24 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayFridgeOpenCreak()
+    {
+        PlaySFX(GetNextClip(fridgeOpenCreakClips, ref fridgeOpenCreakIndex));
+    }
+
+    public void PlayFridgeClose()
+    {
+        PlaySFX(GetNextClip(fridgeCloseClips, ref fridgeCloseIndex));
+    }
+
+    public void PlayBottleSqueeze()
+    {
+        PlaySFX(GetNextClip(bottleSqueezeClips, ref bottleSqueezeIndex));
+    }
+
     public void PlayStackConnect()
     {
-        PlaySFX(stackBurger);
+        PlaySFX(GetNextClip(stackBurgerClips, ref stackBurgerIndex));
     }
 
     public void PlayFridgeHumLoop()
@@ -65,10 +106,15 @@ public class AudioManager : MonoBehaviour
         fridgeHumSource.clip = null;
     }
 
-    public void PlayGrillLoop(AudioClip clip)
+    public void PlayGrillLoop()
     {
-        if (grillSizzleSource == null || clip == null) return;
-        if (grillSizzleSource.isPlaying && grillSizzleSource.clip == clip) return;
+        if (grillSizzleSource == null) return;
+
+        if (grillSizzleSource.isPlaying)
+            return;
+
+        AudioClip clip = GetNextClip(pattySizzleClips, ref pattySizzleIndex);
+        if (clip == null) return;
 
         grillSizzleSource.clip = clip;
         grillSizzleSource.loop = true;
@@ -84,10 +130,15 @@ public class AudioManager : MonoBehaviour
         grillSizzleSource.clip = null;
     }
 
-    public void PlayFryerLoop(AudioClip clip)
+    public void PlayFryerLoop()
     {
-        if (fryerSizzleSource == null || clip == null) return;
-        if (fryerSizzleSource.isPlaying && fryerSizzleSource.clip == clip) return;
+        if (fryerSizzleSource == null) return;
+
+        if (fryerSizzleSource.isPlaying)
+            return;
+
+        AudioClip clip = GetNextClip(fryCookClips, ref fryCookIndex);
+        if (clip == null) return;
 
         fryerSizzleSource.clip = clip;
         fryerSizzleSource.loop = true;

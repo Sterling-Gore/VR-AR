@@ -223,7 +223,7 @@ public class Basket : MonoBehaviour
             activeFryingBaskets++;
             if (activeFryingBaskets == 1)
             {
-                audioManager?.PlayFryerLoop(audioManager.fryCook);
+                audioManager?.PlayFryerLoop();
             }
         }
         else if (!shouldPlay && contributesFryerAudio)

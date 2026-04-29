@@ -38,7 +38,7 @@ public class FridgeRestocker : MonoBehaviour
             return;
         }
 
-        audioManager.PlaySFX(audioManager.fridgeOpenCreak);
+        audioManager.PlayFridgeOpenCreak();
         Debug.Log("Fridge open creak played.");
     }
 
@@ -59,7 +59,7 @@ public class FridgeRestocker : MonoBehaviour
         }
         else
         {
-            audioManager.PlaySFX(audioManager.fridgeClose);
+            audioManager.PlayFridgeClose();
             Debug.Log("Fridge close sound played.");
 
             if (!anyDoorOpen)
