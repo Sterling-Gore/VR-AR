@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2049933007696277432}
   - component: {fileID: -245308867694262744}
   m_Layer: 5
-  m_Name: Sticker_Template
+  m_Name: Sauce_Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 400, y: 400}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3687399332546844070
 CanvasRenderer:

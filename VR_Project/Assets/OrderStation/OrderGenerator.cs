@@ -81,15 +81,13 @@ public class OrderGenerator
     // creates random ingredients for the burger with some constraints
     private List<BurgerIngredients> GenerateRandomIngredients(int mode, int pattyCount) {
         List<BurgerIngredients> layers = new List<BurgerIngredients>();
-        const int MAX_TOTAL_LAYERS = 10; // Hard cap so burger isnt too complex
+        const int MAX_TOTAL_LAYERS = 10; 
         
-        layers.Add(BurgerIngredients.BottomBun); // bottom to top
         
-        if (Random.value < 0.5f) // random sauce for bottom bun
-        {
-            BurgerIngredients[] possibleSauces = { BurgerIngredients.Ketchup, BurgerIngredients.Mustard, BurgerIngredients.Mayo };
-            layers.Add(possibleSauces[Random.Range(0, possibleSauces.Length)]);
-        }
+        layers.Add(BurgerIngredients.BottomBun); 
+        
+        BurgerIngredients[] possibleSauces = { BurgerIngredients.Ketchup, BurgerIngredients.Mustard, BurgerIngredients.Mayo };
+        layers.Add(possibleSauces[Random.Range(0, possibleSauces.Length)]);
 
         for (int i = 0; i < pattyCount; i++)
         {
@@ -98,16 +96,13 @@ public class OrderGenerator
             layers.Add(BurgerIngredients.Patty);
 
             if (Random.value < 0.6f) layers.Add(BurgerIngredients.Cheese);
-            if (mode > 3 && Random.value < 0.3f) layers.Add(BurgerIngredients.Lettuce);
+            if (mode >= 3 && Random.value < 0.4f) layers.Add(BurgerIngredients.Lettuce);
         }
 
-        if (Random.value < 0.5f) // random sauce for top bun
-        {
-            BurgerIngredients[] possibleSauces = { BurgerIngredients.Ketchup, BurgerIngredients.Mustard, BurgerIngredients.Mayo };
-            layers.Add(possibleSauces[Random.Range(0, possibleSauces.Length)]);
-        }
+        layers.Add(possibleSauces[Random.Range(0, possibleSauces.Length)]);
 
-        layers.Add(BurgerIngredients.TopBun); // top bun added (last item)
+ 
+        layers.Add(BurgerIngredients.TopBun); 
         
         return layers;
     }

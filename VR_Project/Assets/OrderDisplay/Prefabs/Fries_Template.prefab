@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2049933007696277432}
   - component: {fileID: -245308867694262744}
   m_Layer: 5
-  m_Name: Sticker_Template
+  m_Name: Fries_Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 150
-  m_PreferredHeight: 150
+  m_PreferredWidth: 350
+  m_PreferredHeight: 350
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
