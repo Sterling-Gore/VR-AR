@@ -19484,7 +19484,7 @@ MonoBehaviour:
   closedTolerance: 5
   openTolerance: 2
   audioSource: {fileID: 2143201348}
-  openSound: {fileID: 8300000, guid: cf9255f3b303f33458ae6206c2920453, type: 3}
+  openSound: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
   closeSound: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
   audioManager: {fileID: 0}
 --- !u!59 &800014998
@@ -33281,7 +33281,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0957448, y: 2.2689464, z: 0.14295918}
+  m_Size: {x: 1.0957448, y: 2.2689464, z: 0.02}
   m_Center: {x: -0.5478679, y: 1.1344732, z: 0.07147868}
 --- !u!114 &1539925404
 MonoBehaviour:
@@ -42062,7 +42062,7 @@ MonoBehaviour:
   closedTolerance: 5
   openTolerance: 2
   audioSource: {fileID: 2143201348}
-  openSound: {fileID: 8300000, guid: 326467925767947c5908bd1c81631956, type: 3}
+  openSound: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
   closeSound: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
   audioManager: {fileID: 0}
 --- !u!59 &1667356258
