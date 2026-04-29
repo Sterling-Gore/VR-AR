@@ -12,8 +12,17 @@ public class FridgeItemSlot : MonoBehaviour
     public Collider itemCollider;
     public XRGrabInteractable grabInteractable;
 
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     private bool isAvailable = true;
     private bool wasTaken = false;
+
+    private void Start()
+    {
+        if (audioManager == null)
+            audioManager = FindFirstObjectByType<AudioManager>();
+    }
 
     private void OnEnable()
     {
@@ -52,6 +61,11 @@ public class FridgeItemSlot : MonoBehaviour
 
         SetAvailable(false);
         wasTaken = true;
+
+        if (audioManager != null)
+        {
+            audioManager.PlayStackConnect();
+        }
 
         if (spawnedGrab.interactionManager != null)
         {
