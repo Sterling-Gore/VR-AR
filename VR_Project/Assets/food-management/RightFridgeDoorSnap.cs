@@ -26,6 +26,9 @@ public class RightFridgeDoorSnap : MonoBehaviour
 
     private bool isCurrentlyOpen = false;
 
+    [SerializeField] private AudioManager audioManager; 
+    // TODO: add audioManager?.PLaySFX(audioManager.fridgeOpen) & audioManager?.PlaySFX(audioManager.fridgeClose);
+
     private void Start()
     {
         rb = doorHinge.GetComponent<Rigidbody>();
