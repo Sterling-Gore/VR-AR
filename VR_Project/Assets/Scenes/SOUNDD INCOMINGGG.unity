@@ -19483,6 +19483,9 @@ MonoBehaviour:
   exactSnapTolerance: 2
   closedTolerance: 5
   openTolerance: 2
+  audioSource: {fileID: 2143201348}
+  openSound: {fileID: 8300000, guid: cf9255f3b303f33458ae6206c2920453, type: 3}
+  closeSound: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
   audioManager: {fileID: 0}
 --- !u!59 &800014998
 HingeJoint:
@@ -42058,6 +42061,9 @@ MonoBehaviour:
   exactSnapTolerance: 2
   closedTolerance: 5
   openTolerance: 2
+  audioSource: {fileID: 2143201348}
+  openSound: {fileID: 8300000, guid: 326467925767947c5908bd1c81631956, type: 3}
+  closeSound: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
   audioManager: {fileID: 0}
 --- !u!59 &1667356258
 HingeJoint:

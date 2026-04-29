@@ -2734,6 +2734,7 @@ MonoBehaviour:
   nozzle: {fileID: 1512373996}
   rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  audioManager: {fileID: 0}
 --- !u!114 &136437951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5401,6 +5402,7 @@ MonoBehaviour:
   nozzle: {fileID: 2022005314}
   rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  audioManager: {fileID: 0}
 --- !u!114 &301307788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10300,6 +10302,7 @@ MonoBehaviour:
   basketGrabInteractable: {fileID: 0}
   rightControllerDisconnectAction: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftControllerDisconnectAction: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  audioManager: {fileID: 0}
 --- !u!114 &563000972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19367,9 +19370,10 @@ MonoBehaviour:
   exactSnapTolerance: 2
   closedTolerance: 5
   openTolerance: 2
-  audioSource: {fileID: 719864165}
-  openSound: {fileID: 8300000, guid: cf9255f3b303f33458ae6206c2920453, type: 3}
-  closeSound: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
+  audioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!59 &800014998
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -28110,6 +28114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71317fcba59b51741a9d6cc08c591d0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Grill
+  audioManager: {fileID: 0}
 --- !u!65 &1265922294
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28188,6 +28193,7 @@ MonoBehaviour:
   basketGrabInteractable: {fileID: 0}
   rightControllerDisconnectAction: {fileID: 0}
   leftControllerDisconnectAction: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!65 &1276399544
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28701,6 +28707,7 @@ MonoBehaviour:
   nozzle: {fileID: 1838419595}
   rightControllerTrigger: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftControllerTrigger: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  audioManager: {fileID: 0}
 --- !u!114 &1293243600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41634,6 +41641,7 @@ MonoBehaviour:
   basketGrabInteractable: {fileID: 0}
   rightControllerDisconnectAction: {fileID: -3755759936885347000, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftControllerDisconnectAction: {fileID: -1645910604048432516, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  audioManager: {fileID: 0}
 --- !u!1 &1652359133
 GameObject:
   m_ObjectHideFlags: 0
@@ -41877,9 +41885,10 @@ MonoBehaviour:
   exactSnapTolerance: 2
   closedTolerance: 5
   openTolerance: 2
-  audioSource: {fileID: 191522051}
-  openSound: {fileID: 8300000, guid: 326467925767947c5908bd1c81631956, type: 3}
-  closeSound: {fileID: 8300000, guid: 7d8b730fb8a20405084f4e7f7d1251ba, type: 3}
+  audioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!59 &1667356258
 HingeJoint:
   m_ObjectHideFlags: 0
