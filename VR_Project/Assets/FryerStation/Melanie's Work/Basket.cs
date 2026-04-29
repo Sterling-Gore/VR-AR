@@ -20,6 +20,9 @@ public class Basket : MonoBehaviour
     [SerializeField] private InputActionReference rightControllerDisconnectAction;
     [SerializeField] private InputActionReference leftControllerDisconnectAction;
 
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     private FryItem lockedFry;
     private FryItem fryInTrigger;
     private Material basketMaterial;
@@ -28,12 +31,20 @@ public class Basket : MonoBehaviour
     private bool rightControllerHoldingBasket;
     private float lastToggleTime = -1f;
     private float toggleCooldownDuration = 0.3f;
+    private bool contributesFryerAudio;
+
+    private static int activeFryingBaskets;
 
     private void Awake()
     {
         if (basketGrabInteractable == null)
         {
             basketGrabInteractable = GetComponent<XRGrabInteractable>();
+        }
+
+        if (audioManager == null)
+        {
+            audioManager = GameObject.FindWithTag("Audio")?.GetComponent<AudioManager>();
         }
 
         Renderer renderer = GetComponent<Renderer>();
@@ -57,10 +68,22 @@ public class Basket : MonoBehaviour
         UnregisterDisconnectInputCallbacks();
         leftControllerHoldingBasket = false;
         rightControllerHoldingBasket = false;
+
+        if (contributesFryerAudio)
+        {
+            contributesFryerAudio = false;
+            activeFryingBaskets = Mathf.Max(0, activeFryingBaskets - 1);
+            if (activeFryingBaskets == 0)
+            {
+                audioManager?.StopFryerLoop();
+            }
+        }
     }
 
     private void Update()
     {
+        UpdateFryerAudioState();
+
         if (InFryer)
         {
             Debug.Log("Basket is frying!");
@@ -139,6 +162,7 @@ public class Basket : MonoBehaviour
         }
 
         SetBasketAlpha(occupiedAlpha);
+        UpdateFryerAudioState();
     }
 
     [ContextMenu("Release Fry")]
@@ -172,6 +196,7 @@ public class Basket : MonoBehaviour
         lockedFry = null;
 
         SetBasketAlpha(1f);
+        UpdateFryerAudioState();
     }
 
     public void TrashLockedFry()
@@ -181,7 +206,35 @@ public class Basket : MonoBehaviour
             SetBasketAlpha(1f);
             return;
         }
+
+        UpdateFryerAudioState(forceStop: true);
         Destroy(lockedFry.gameObject);
+        lockedFry = null;
+        SetBasketAlpha(1f);
+    }
+
+    private void UpdateFryerAudioState(bool forceStop = false)
+    {
+        bool shouldPlay = !forceStop && InFryer && lockedFry != null;
+
+        if (shouldPlay && !contributesFryerAudio)
+        {
+            contributesFryerAudio = true;
+            activeFryingBaskets++;
+            if (activeFryingBaskets == 1)
+            {
+                audioManager?.PlayFryerLoop(audioManager.fryCook);
+            }
+        }
+        else if (!shouldPlay && contributesFryerAudio)
+        {
+            contributesFryerAudio = false;
+            activeFryingBaskets = Mathf.Max(0, activeFryingBaskets - 1);
+            if (activeFryingBaskets == 0)
+            {
+                audioManager?.StopFryerLoop();
+            }
+        }
     }
 
     private void SetBasketAlpha(float alpha)
