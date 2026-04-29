@@ -17,7 +17,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip pattySizzle;
     public AudioClip fryCook;
     public AudioClip bottleSqueeze;
-    public AudioClip nurgerStack;
+    public AudioClip stackBurger;
 
     private void Start() 
     {
