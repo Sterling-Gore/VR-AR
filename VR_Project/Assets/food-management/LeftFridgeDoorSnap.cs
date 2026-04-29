@@ -17,11 +17,6 @@ public class LeftFridgeDoorSnap : MonoBehaviour
     public float closedTolerance = 2f;
     public float openTolerance = 2f;
 
-    [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip openSound;
-    public AudioClip closeSound;
-
     private Rigidbody rb;
 
     private Quaternion closedLocalRotation;
@@ -29,9 +24,6 @@ public class LeftFridgeDoorSnap : MonoBehaviour
     private float targetLogicalAngle = 0f;
 
     private bool isCurrentlyOpen = false;
-
-    [SerializeField] private AudioManager audioManager; 
-    // TODO: add audioManager?.PLaySFX(audioManager.fridgeOpen) & audioManager?.PlaySFX(audioManager.fridgeClose);
 
     private void Start()
     {
@@ -128,14 +120,6 @@ public class LeftFridgeDoorSnap : MonoBehaviour
 
         doorHinge.useSpring = false;
 
-        if (!isCurrentlyOpen && audioSource != null && openSound != null)
-        {
-            audioSource.PlayOneShot(openSound);
-            isCurrentlyOpen = true;
-            if (fridgeRestocker != null)
-                fridgeRestocker.SetLeftDoorOpen(true);
-        }
-
         Debug.Log($"[LEFT GRABBED] LogicalAngle={GetLogicalAngle()} RawLocalX={GetRawLocalAngle()}", this);
     }
 
@@ -147,6 +131,12 @@ public class LeftFridgeDoorSnap : MonoBehaviour
         float distanceToOpen = Mathf.Abs(Mathf.DeltaAngle(currentLogicalAngle, openAngle));
 
         targetLogicalAngle = (distanceToClosed <= distanceToOpen) ? closedAngle : openAngle;
+
+        if (!isCurrentlyOpen && Mathf.Abs(Mathf.DeltaAngle(targetLogicalAngle, openAngle)) <= openTolerance)
+        {
+            if (fridgeRestocker != null)
+                fridgeRestocker.PlayFridgeOpenCreak();
+        }
 
         autoSnapping = true;
 
@@ -166,18 +156,6 @@ public class LeftFridgeDoorSnap : MonoBehaviour
             return;
 
         isCurrentlyOpen = isOpen;
-
-        if (audioSource != null)
-        {
-            if (isOpen && openSound != null)
-            {
-                audioSource.PlayOneShot(openSound);
-            }
-            else if (!isOpen && closeSound != null)
-            {
-                audioSource.PlayOneShot(closeSound);
-            }
-        }
 
         if (fridgeRestocker != null)
             fridgeRestocker.SetLeftDoorOpen(isOpen);

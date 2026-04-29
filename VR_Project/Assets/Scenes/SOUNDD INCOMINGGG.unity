@@ -2450,7 +2450,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -10650,7 +10650,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -10814,13 +10814,15 @@ MonoBehaviour:
   SFXSource: {fileID: 2123071104}
   grillSizzleSource: {fileID: 568486967}
   fryerSizzleSource: {fileID: 104398375}
+  fridgeHumSource: {fileID: 2143201348}
   background: {fileID: 8300000, guid: d05ff67bde98f6f4da29f24251f8ce3f, type: 3}
-  fridgeOpen: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
+  fridgeOpenCreak: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
+  fridgeHum: {fileID: 8300000, guid: 326467925767947c5908bd1c81631956, type: 3}
   fridgeClose: {fileID: 8300000, guid: cc28a4d3ef4da4c4baea87d24eaf3190, type: 3}
   pattySizzle: {fileID: 8300000, guid: d98130abe6d96479ca0af772f9e0da76, type: 3}
   fryCook: {fileID: 8300000, guid: 481721e694ae049b199be4993d5e86c9, type: 3}
   bottleSqueeze: {fileID: 8300000, guid: 741c3952ffb384f12b8a0145da8750a0, type: 3}
-  stackBurger: {fileID: 0}
+  stackBurger: {fileID: 8300000, guid: 934ca3261aa58437abfa94bee7475d85, type: 3}
 --- !u!1 &591311839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 58fa6c61ba30a7047a8df81863c3ba10, type: 3}
@@ -19483,10 +19485,6 @@ MonoBehaviour:
   exactSnapTolerance: 2
   closedTolerance: 5
   openTolerance: 2
-  audioSource: {fileID: 2143201348}
-  openSound: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
-  closeSound: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
-  audioManager: {fileID: 0}
 --- !u!59 &800014998
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -20075,12 +20073,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 883058057}
   - {fileID: 583622535}
   - {fileID: 2115892654}
   - {fileID: 2123071103}
   - {fileID: 104398374}
   - {fileID: 568486966}
+  - {fileID: 2143201347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &852459413
@@ -20915,38 +20913,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 50145237}
   m_SourcePrefab: {fileID: 100100000, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
---- !u!1 &883058056
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 883058057}
-  m_Layer: 0
-  m_Name: fridge_audio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &883058057
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883058056}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2143201347}
-  m_Father: {fileID: 850219101}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &906994546
 GameObject:
   m_ObjectHideFlags: 0
@@ -42061,10 +42027,6 @@ MonoBehaviour:
   exactSnapTolerance: 2
   closedTolerance: 5
   openTolerance: 2
-  audioSource: {fileID: 2143201348}
-  openSound: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
-  closeSound: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
-  audioManager: {fileID: 0}
 --- !u!59 &1667356258
 HingeJoint:
   m_ObjectHideFlags: 0
@@ -50779,6 +50741,7 @@ MonoBehaviour:
   - {fileID: 2015638882}
   - {fileID: 395041248}
   - {fileID: 271763595}
+  audioManager: {fileID: 583622536}
 --- !u!1 &1958573077
 GameObject:
   m_ObjectHideFlags: 0
@@ -53854,7 +53817,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -53983,7 +53946,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -54486,7 +54449,7 @@ GameObject:
   - component: {fileID: 2143201347}
   - component: {fileID: 2143201348}
   m_Layer: 0
-  m_Name: openFridge1
+  m_Name: Fridge Open
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54500,12 +54463,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143201346}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 883058057}
+  m_Father: {fileID: 850219101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2143201348
 AudioSource:
@@ -54518,8 +54481,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
-  m_PlayOnAwake: 1
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

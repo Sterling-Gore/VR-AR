@@ -7,13 +7,15 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource SFXSource;
     [SerializeField] AudioSource grillSizzleSource;
     [SerializeField] AudioSource fryerSizzleSource;
-    
-
+    [SerializeField] AudioSource fridgeHumSource;
 
     [Header("Audio Clip")]
     public AudioClip background;
-    public AudioClip fridgeOpen;
+
+    public AudioClip fridgeOpenCreak;
+    public AudioClip fridgeHum;
     public AudioClip fridgeClose;
+
     public AudioClip pattySizzle;
     public AudioClip fryCook;
     public AudioClip bottleSqueeze;
@@ -24,6 +26,7 @@ public class AudioManager : MonoBehaviour
         if (musicSource != null && background != null)
         {
             musicSource.clip = background;
+            musicSource.loop = true;
             musicSource.Play();
         }
     }
@@ -36,10 +39,32 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayFridgeHumLoop()
+    {
+        if (fridgeHumSource == null || fridgeHum == null) return;
+
+        if (fridgeHumSource.isPlaying)
+            return;
+
+        fridgeHumSource.clip = fridgeHum;
+        fridgeHumSource.loop = true;
+        fridgeHumSource.Play();
+    }
+
+    public void StopFridgeHumLoop()
+    {
+        if (fridgeHumSource == null) return;
+
+        fridgeHumSource.loop = false;
+        fridgeHumSource.Stop();
+        fridgeHumSource.clip = null;
+    }
+
     public void PlayGrillLoop(AudioClip clip)
     {
         if (grillSizzleSource == null || clip == null) return;
         if (grillSizzleSource.isPlaying && grillSizzleSource.clip == clip) return;
+
         grillSizzleSource.clip = clip;
         grillSizzleSource.loop = true;
         grillSizzleSource.Play();
@@ -48,6 +73,7 @@ public class AudioManager : MonoBehaviour
     public void StopGrillLoop()
     {
         if (grillSizzleSource == null) return;
+
         grillSizzleSource.loop = false;
         grillSizzleSource.Stop();
         grillSizzleSource.clip = null;
@@ -57,6 +83,7 @@ public class AudioManager : MonoBehaviour
     {
         if (fryerSizzleSource == null || clip == null) return;
         if (fryerSizzleSource.isPlaying && fryerSizzleSource.clip == clip) return;
+
         fryerSizzleSource.clip = clip;
         fryerSizzleSource.loop = true;
         fryerSizzleSource.Play();
@@ -65,6 +92,7 @@ public class AudioManager : MonoBehaviour
     public void StopFryerLoop()
     {
         if (fryerSizzleSource == null) return;
+
         fryerSizzleSource.loop = false;
         fryerSizzleSource.Stop();
         fryerSizzleSource.clip = null;
