@@ -19,6 +19,11 @@ public class IngredientMap : ScriptableObject
 
     public Sprite GetSprite(BurgerIngredients type)
     {
+        if (type == BurgerIngredients.Null)
+        {
+            return null; 
+        }
+
         if (atlas == null)
         {
             Debug.LogWarning($"IngredientMap atlas is missing. Could not find sprite for {type}.");
@@ -27,11 +32,11 @@ public class IngredientMap : ScriptableObject
 
         IngredientUI entry = atlas.Find(x => x.ingredient == type);
 
-        if (entry.drawing == null)
-        {
-            Debug.LogWarning($"No sprite mapped for ingredient: {type}");
-            return fallbackSprite;
-        }
+        // if (entry.drawing == null)
+        // {
+        //     Debug.LogWarning($"No sprite mapped for ingredient: {type}");
+        //     return fallbackSprite;
+        // }
 
         return entry.drawing;
     }

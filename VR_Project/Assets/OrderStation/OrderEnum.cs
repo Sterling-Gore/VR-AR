@@ -35,4 +35,5 @@ public enum BurgerIngredients
     Lettuce,
     Fries, // Strictly for the ingredient mapping to show on the TV
     CrinkleFries, //same for crinkle fries
+    Null
 }
