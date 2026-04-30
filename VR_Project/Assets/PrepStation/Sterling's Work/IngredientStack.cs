@@ -8,6 +8,10 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class IngredientStack : MonoBehaviour
 {
     public Rigidbody rb = null;
+
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     [SerializeField] [Range(0f, 0.03f)] private float maxOffsetDistance = 0.02f;
     [SerializeField] private bool updateOnStart = true;
     [SerializeField] private GameObject emptyFoodStack;
@@ -30,6 +34,8 @@ public class IngredientStack : MonoBehaviour
             rb = this.gameObject.GetComponent<Rigidbody>();  
         if(xrGrab == null)
             xrGrab = this.gameObject.GetComponent<XRGrabInteractable>(); 
+        if(audioManager == null)
+            audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     void Start()
@@ -65,6 +71,8 @@ public class IngredientStack : MonoBehaviour
         ingredientStack = _CombineLists(this.ingredientStack, otherStack.GetIngredientStack(), isAbove);
         otherStack.ReparentAndDestoryEntireStack(this.transform, isAbove);
         _RefreshXRGrab();
+
+        PlayStackConnectSound();
     }
 
     // right now this only works for top and bottom ingredient
@@ -386,6 +394,21 @@ public class IngredientStack : MonoBehaviour
         else if (interactor.transform.CompareTag("RightHand"))
         {
             rightControllerUsed = false;
+        }
+    }
+
+    private void PlayStackConnectSound()
+    {
+        if (audioManager == null)
+            audioManager = FindFirstObjectByType<AudioManager>();
+
+        if (audioManager != null)
+        {
+            audioManager.PlayStackConnect();
+        }
+        else
+        {
+            Debug.LogWarning("IngredientStack could not find AudioManager.");
         }
     }
 }

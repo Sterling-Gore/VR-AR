@@ -133,6 +133,12 @@ public class RightFridgeDoorSnap : MonoBehaviour
 
         targetLogicalAngle = (distanceToClosed <= distanceToOpen) ? closedAngle : openAngle;
 
+        if (!isCurrentlyOpen && Mathf.Abs(Mathf.DeltaAngle(targetLogicalAngle, openAngle)) <= openTolerance)
+        {
+            if (fridgeRestocker != null)
+                fridgeRestocker.PlayFridgeOpenCreak();
+        }
+        
         autoSnapping = true;
 
         if (rb != null)
