@@ -47,6 +47,9 @@ public class AudioManager : MonoBehaviour
     [Header("Delivery")]
     public AudioClipWithVolume[] deliverButtonClips;
 
+    [Header("Order Display")]
+    public AudioClipWithVolume[] orderDisplayClips;
+
     private int fridgeOpenCreakIndex = 0;
     private int fridgeCloseIndex = 0;
     private int pattySizzleIndex = 0;
@@ -55,6 +58,8 @@ public class AudioManager : MonoBehaviour
     private int stackBurgerIndex = 0;
     private int trashIndex = 0;
     private int deliverButtonIndex = 0;
+
+    private int orderDisplayIndex = 0;
 
     private void Start() 
     {
@@ -220,5 +225,10 @@ public class AudioManager : MonoBehaviour
     public void PlayDeliverButtonSound()
     {
         PlaySFX(GetNextSound(deliverButtonClips, ref deliverButtonIndex));
+    }
+
+    public void PlayOrderDisplaySound()
+    {
+        PlaySFX(GetNextSound(orderDisplayClips, ref orderDisplayIndex));
     }
 }

@@ -17,7 +17,16 @@ public class OrderDisplayManager : MonoBehaviour
     public GameObject saucePrefab;
     public GameObject friesPrefab;
 
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     private OrderSystem connectedOrderSystem;
+
+    private void Awake()
+    {
+        if (audioManager == null)
+            audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+    }
 
     // Connects this display to an OrderSystem instance
     public void ConnectToOrderSystem(OrderSystem orderSystem)
@@ -82,6 +91,7 @@ public class OrderDisplayManager : MonoBehaviour
                 }
             }
         }
+        audioManager?.PlayOrderDisplaySound();
     }
 
     private bool IsSauce(BurgerIngredients ing)

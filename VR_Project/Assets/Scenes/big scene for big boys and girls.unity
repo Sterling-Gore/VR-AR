@@ -54297,6 +54297,9 @@ MonoBehaviour:
   deliverButtonClips:
   - clip: {fileID: 8300000, guid: 752f2f5ac0fa84793ab20434a156a170, type: 3}
     volume: 0.404
+  orderDisplayClips:
+  - clip: {fileID: 8300000, guid: 532b2c5b86c614b7283b725f00f0ff3a, type: 3}
+    volume: 0.343
 --- !u!1 &2037538701
 GameObject:
   m_ObjectHideFlags: 0
