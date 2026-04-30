@@ -13,6 +13,7 @@ public class SqueezeDetector : MonoBehaviour
   [SerializeField] Transform nozzle;
   [SerializeField] InputActionReference rightControllerTrigger;
   [SerializeField] InputActionReference leftControllerTrigger;
+  [SerializeField] private AudioManager audioManager;
   private int mask; 
   private bool LeftControllerUsed = false;
   private bool rightControllerUsed = false;
@@ -24,6 +25,8 @@ public class SqueezeDetector : MonoBehaviour
     mask = ~LayerMask.GetMask("snapCollider");
     if (condimentData == null)
       condimentData = GetComponent<CondimentData>();
+
+    audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
   }
 
   private void Start()
@@ -89,6 +92,7 @@ public class SqueezeDetector : MonoBehaviour
   private void SprayCondiment()
   {
     condimentSpray.Play();
+    audioManager?.PlayBottleSqueeze();
     Ray ray = new Ray(nozzle.position, nozzle.forward);
     RaycastHit hit;
     if (Physics.Raycast(ray, out hit, rayRange, mask))

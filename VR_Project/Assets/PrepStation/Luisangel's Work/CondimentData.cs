@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CondimentData : MonoBehaviour
 {
-    [SerializeField] private string condimentName = "";
+    [SerializeField] private BurgerIngredients condimentName;
     [SerializeField] private Color32 condimentColor;
     [SerializeField] private ParticleSystem condimentSpray;
 
@@ -15,7 +15,7 @@ public class CondimentData : MonoBehaviour
 
 //---------------------------------------------------------------//
 /*                      Public Functions                        */
-    public string GetName()
+    public BurgerIngredients GetName()
     {
         return condimentName;
     }

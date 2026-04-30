@@ -46,6 +46,7 @@ public class FryItem : MonoBehaviour
 
     public FryState State => currentState;
     public float CookingProgress => cookingProgress;
+    public FoodType fryType;
 
     private void Awake()
     {

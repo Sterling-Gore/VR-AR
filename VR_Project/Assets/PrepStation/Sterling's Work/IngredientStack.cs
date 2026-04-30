@@ -8,11 +8,15 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class IngredientStack : MonoBehaviour
 {
     public Rigidbody rb = null;
+
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     [SerializeField] [Range(0f, 0.03f)] private float maxOffsetDistance = 0.02f;
     [SerializeField] private bool updateOnStart = true;
     [SerializeField] private GameObject emptyFoodStack;
     [SerializeField] private XRGrabInteractable xrGrab;
-    [SerializeField] private List<GameObject> ingredientStack;
+    [SerializeField] public List<GameObject> ingredientStack;
     [SerializeField] private IngredientSnapCollider topCollider = null;
     [SerializeField] private IngredientSnapCollider bottomCollider = null;
     [SerializeField] InputActionReference rightControllerTrigger;
@@ -30,6 +34,8 @@ public class IngredientStack : MonoBehaviour
             rb = this.gameObject.GetComponent<Rigidbody>();  
         if(xrGrab == null)
             xrGrab = this.gameObject.GetComponent<XRGrabInteractable>(); 
+        if(audioManager == null)
+            audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     void Start()
@@ -65,6 +71,8 @@ public class IngredientStack : MonoBehaviour
         ingredientStack = _CombineLists(this.ingredientStack, otherStack.GetIngredientStack(), isAbove);
         otherStack.ReparentAndDestoryEntireStack(this.transform, isAbove);
         _RefreshXRGrab();
+
+        PlayStackConnectSound();
     }
 
     // right now this only works for top and bottom ingredient
@@ -326,6 +334,16 @@ public class IngredientStack : MonoBehaviour
 
     private void _RefreshXRGrab()
     {
+        XRBaseInteractor interactor = null;
+        Vector3 savedPosition;
+        Quaternion savedRotation;
+
+        if (xrGrab.isSelected)
+            interactor = xrGrab.interactorsSelecting[0] as XRBaseInteractor;
+            savedPosition = xrGrab.transform.position;
+            savedRotation = xrGrab.transform.rotation;
+
+        xrGrab.enabled = false;
         xrGrab.colliders.Clear();
         foreach (Collider col in this.GetComponentsInChildren<Collider>())
         {
@@ -333,6 +351,21 @@ public class IngredientStack : MonoBehaviour
             {
                 xrGrab.colliders.Add(col);
             }
+        }
+        xrGrab.enabled = true;
+        
+        if (interactor != null)
+        {
+            //rb.isKinematic = true;
+            xrGrab.trackPosition = false;
+            xrGrab.trackRotation = false;
+            xrGrab.interactionManager.SelectEnter((IXRSelectInteractor)interactor, (IXRSelectInteractable)xrGrab);
+            Debug.Log("SUCCESS");
+            xrGrab.transform.SetPositionAndRotation(savedPosition, savedRotation);
+            xrGrab.trackPosition = true;
+            xrGrab.trackRotation = true;
+            //rb.isKinematic = false;
+            //xrGrab.transform.SetPositionAndRotation(savedPosition, savedRotation);
         }
     }
 
@@ -386,6 +419,21 @@ public class IngredientStack : MonoBehaviour
         else if (interactor.transform.CompareTag("RightHand"))
         {
             rightControllerUsed = false;
+        }
+    }
+
+    private void PlayStackConnectSound()
+    {
+        if (audioManager == null)
+            audioManager = FindFirstObjectByType<AudioManager>();
+
+        if (audioManager != null)
+        {
+            audioManager.PlayStackConnect();
+        }
+        else
+        {
+            Debug.LogWarning("IngredientStack could not find AudioManager.");
         }
     }
 }
