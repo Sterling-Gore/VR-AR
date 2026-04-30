@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CondimentIngredient : MonoBehaviour
 {
-    [SerializeField] private string condimentName = "";
+    [SerializeField] public BurgerIngredients condimentName = BurgerIngredients.Null;
     [SerializeField] private Renderer condimentRenderer;
     
 //---------------------------------------------------------------//
@@ -18,9 +18,9 @@ public class CondimentIngredient : MonoBehaviour
 
 //---------------------------------------------------------------//
 /*                      Public Functions                        */
-    public void SetCondiment(string recievedCondimentName, Color32 recievedCondimentColor)
+    public void SetCondiment(BurgerIngredients recievedCondimentName, Color32 recievedCondimentColor)
     {
-        condimentName = recievedCondimentName;
+        this.condimentName = recievedCondimentName;
         condimentRenderer.material.SetColor("_BaseColor", recievedCondimentColor);
     }
 
@@ -28,14 +28,14 @@ public class CondimentIngredient : MonoBehaviour
 /*                      Private Functions                        */
     private void _EraseCondiment()
     {
-        condimentName = "";
+        condimentName = BurgerIngredients.Null;
         condimentRenderer.material.SetColor("_BaseColor", new Color(0f, 0f, 0f, 0f));
     }
 
     [ContextMenu("Add Ketchup")]
     private void _TestAddKetchup()
     {
-        SetCondiment("ketchup", new Color32(207, 28, 28, 255));
+        SetCondiment(BurgerIngredients.Ketchup, new Color32(207, 28, 28, 255));
     }
 
 }
