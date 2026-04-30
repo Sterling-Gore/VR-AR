@@ -211,7 +211,6 @@ Transform:
   - {fileID: 1348525598}
   - {fileID: 1153265214}
   - {fileID: 17201863}
-  - {fileID: 1245061330}
   m_Father: {fileID: 1180135013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &17201862
@@ -361,7 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 17247775}
 --- !u!64 &17247774
 MeshCollider:
@@ -628,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 31844779}
 --- !u!64 &31844778
 MeshCollider:
@@ -1114,6 +1113,138 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f51bf41989429324abf1d82c5ea4cd9d, type: 3}
+--- !u!1 &47401425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 47401426}
+  - component: {fileID: 47401428}
+  - component: {fileID: 47401429}
+  m_Layer: 0
+  m_Name: DeliverButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &47401426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47401425}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.15, y: 0.215, z: 0.2239}
+  m_LocalScale: {x: 0.57683426, y: 0.57683426, z: 0.57683426}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1121840528}
+  - {fileID: 1069266307}
+  - {fileID: 1350896415}
+  m_Father: {fileID: 212047275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47401428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47401425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
+--- !u!114 &47401429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47401425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157b5c128d32edd4b96afe414664272f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeliverButton
+  foodReader: {fileID: 941724715}
+  buttonVisual: {fileID: 1350896415}
+  buttonRenderer: {fileID: 1350896417}
+  normalColor: {r: 0.55, g: 0.23, b: 0.18, a: 1}
+  hoverColor: {r: 0.72, g: 0.32, b: 0.25, a: 1}
+  pressedColor: {r: 0.35, g: 0.15, b: 0.12, a: 1}
+  normalScale: {x: 0.55, y: 0.28, z: 0.03}
+  hoverScale: {x: 0.58, y: 0.3, z: 0.033}
+  pressedScale: {x: 0.52, y: 0.26, z: 0.027}
+  animationSpeed: 14
 --- !u!1 &50145235 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
@@ -1912,7 +2043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 80539863}
 --- !u!64 &80539862
 MeshCollider:
@@ -2081,7 +2212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 83507963}
 --- !u!64 &83507962
 MeshCollider:
@@ -2880,7 +3011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3454590cdba7ce4e83a50b8f75bf509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentData
-  condimentName: Mustard
+  condimentName: 6
   condimentColor:
     serializedVersion: 2
     rgba: 4278759609
@@ -4253,6 +4384,40 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.4675715, y: 4.9038873, z: 17.05}
   m_Center: {x: 0.00019550337, y: -0.37310734, z: -0.00016307837}
+--- !u!1 &212047274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 212047275}
+  m_Layer: 0
+  m_Name: DeliverySystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &212047275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212047274}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.72683984, y: 0.8954201, z: 3.1955795}
+  m_LocalScale: {x: 1.7336001, y: 1.7336001, z: 1.7336001}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 47401426}
+  - {fileID: 1245061330}
+  - {fileID: 941724714}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &221847822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5037,7 +5202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 274486957}
 --- !u!64 &274486956
 MeshCollider:
@@ -5584,7 +5749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3454590cdba7ce4e83a50b8f75bf509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentData
-  condimentName: Mayo
+  condimentName: 7
   condimentColor:
     serializedVersion: 2
     rgba: 4290563020
@@ -8053,6 +8218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 599851207}
+  burgerIngredientName: 0
   meshCollider: {fileID: 813703706}
   deloadCollider: {fileID: 813703705}
   aboveSnapCollider: {fileID: 523694702}
@@ -20393,7 +20559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 852459417}
 --- !u!64 &852459416
 MeshCollider:
@@ -22062,6 +22228,72 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!1 &941724713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 941724714}
+  - component: {fileID: 941724716}
+  - component: {fileID: 941724715}
+  m_Layer: 0
+  m_Name: DeliveryBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &941724714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941724713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.238, y: 0.215, z: -0.1}
+  m_LocalScale: {x: 0.64904, y: 0.5048233, z: 0.58814}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 212047275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &941724715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941724713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07281c8949bd1314dba3055503250e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FoodReader
+--- !u!65 &941724716
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941724713}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &947288438
 GameObject:
   m_ObjectHideFlags: 0
@@ -24745,6 +24977,187 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1069266306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1069266307}
+  - component: {fileID: 1069266309}
+  - component: {fileID: 1069266308}
+  m_Layer: 0
+  m_Name: DeliverButtonText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1069266307
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069266306}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.1535}
+  m_LocalScale: {x: 0.035, y: 0.025, z: 0.05}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 47401426}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.04, y: 0.228}
+  m_SizeDelta: {x: 20, y: 5}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1069266308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069266306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshPro
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "DELIVER \nFOOD"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 30
+  m_fontSizeBase: 30
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 0
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0.5041027, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  _SortingLayer: 0
+  _SortingLayerID: 0
+  _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1069266309}
+  m_maskType: 0
+--- !u!23 &1069266309
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069266306}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1072004404
 GameObject:
   m_ObjectHideFlags: 0
@@ -25493,7 +25906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1091289984}
 --- !u!64 &1091289983
 MeshCollider:
@@ -25937,6 +26350,7 @@ MonoBehaviour:
     stateColor: {r: 0.85, g: 0.35, b: 0.05, a: 1}
   rawColor: {r: 0.8018868, g: 0.53165394, b: 0.26855645, a: 1}
   cookedColor: {r: 0.4811321, g: 0.23039415, b: 0.17475079, a: 1}
+  fryType: 2
 --- !u!1 &1121829548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
@@ -26017,6 +26431,118 @@ MonoBehaviour:
   - state: 3
     maxProgress: 100
     stateColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!1 &1121840527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1121840528}
+  - component: {fileID: 1121840531}
+  - component: {fileID: 1121840530}
+  - component: {fileID: 1121840529}
+  m_Layer: 0
+  m_Name: DeliverButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1121840528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121840527}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.04, y: 0.204, z: -1.115}
+  m_LocalScale: {x: 0.52, y: 0.24, z: 0.05}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 47401426}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1121840529
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121840527}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1121840530
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121840527}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3a09d128d47e3e843bfa98cf8d5691b4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1121840531
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121840527}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1133875509
 GameObject:
   m_ObjectHideFlags: 0
@@ -27639,6 +28165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 2022273232}
+  burgerIngredientName: 1
   meshCollider: {fileID: 964870377}
   deloadCollider: {fileID: 964870376}
   aboveSnapCollider: {fileID: 707759276}
@@ -28165,19 +28692,31 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 13371122}
+    m_TransformParent: {fileID: 212047275}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.32674706
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.024667323
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.0145345
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28213,7 +28752,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ef84e7deb53f04141892ead88a7d9ddc, type: 2}
     - target: {fileID: 919132149155446097, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
       propertyPath: m_Name
-      value: KAC-F600_OvenTray_V2
+      value: delivery Tray
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6ad91c4ec9e82024da25dd25c5403c7f, type: 3}
       propertyPath: m_Layer
@@ -29122,7 +29661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1290820703}
 --- !u!64 &1290820702
 MeshCollider:
@@ -29274,7 +29813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3454590cdba7ce4e83a50b8f75bf509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentData
-  condimentName: Ketchup
+  condimentName: 5
   condimentColor:
     serializedVersion: 2
     rgba: 4278718393
@@ -29780,6 +30319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 77526319}
+  burgerIngredientName: 0
   meshCollider: {fileID: 326235769}
   deloadCollider: {fileID: 326235768}
   aboveSnapCollider: {fileID: 2113155976}
@@ -30347,6 +30887,118 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e9e65057515629a47aaeb2f64c2347cf, type: 3}
   m_PrefabInstance: {fileID: 1350339718}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1350896414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1350896415}
+  - component: {fileID: 1350896418}
+  - component: {fileID: 1350896417}
+  - component: {fileID: 1350896416}
+  m_Layer: 0
+  m_Name: DeliverButtonBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1350896415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350896414}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.041, y: 0.202, z: -1.106}
+  m_LocalScale: {x: 0.55, y: 0.28, z: 0.03}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 47401426}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1350896416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350896414}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1350896417
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350896414}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5a64e39eb89324548919462329d9effc, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1350896418
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1350896414}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1366936205
 GameObject:
   m_ObjectHideFlags: 0
@@ -30962,6 +31614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 101763534}
+  burgerIngredientName: 2
   meshCollider: {fileID: 6856099}
   deloadCollider: {fileID: 6856098}
   aboveSnapCollider: {fileID: 2022013659}
@@ -31422,6 +32075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 1089944971}
+  burgerIngredientName: 4
   meshCollider: {fileID: 1595997954}
   deloadCollider: {fileID: 1595997953}
   aboveSnapCollider: {fileID: 86111319}
@@ -31541,7 +32195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1447929692}
 --- !u!64 &1447929691
 MeshCollider:
@@ -32647,7 +33301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1515016285}
 --- !u!64 &1515016284
 MeshCollider:
@@ -32904,7 +33558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1522264286}
 --- !u!64 &1522264285
 MeshCollider:
@@ -35329,6 +35983,7 @@ MonoBehaviour:
     stateColor: {r: 0.85, g: 0.35, b: 0.05, a: 1}
   rawColor: {r: 1, g: 0.95, b: 0.1, a: 1}
   cookedColor: {r: 0.85, g: 0.35, b: 0.05, a: 1}
+  fryType: 1
 --- !u!65 &1585764155
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35566,6 +36221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 1893871196}
+  burgerIngredientName: 8
   meshCollider: {fileID: 1118948429}
   deloadCollider: {fileID: 1118948428}
   aboveSnapCollider: {fileID: 494942525}
@@ -42385,7 +43041,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1652359137}
 --- !u!64 &1652359136
 MeshCollider:
@@ -42985,7 +43641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1695237328}
 --- !u!64 &1695237327
 MeshCollider:
@@ -48060,7 +48716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1701557505}
 --- !u!64 &1701557504
 MeshCollider:
@@ -49846,6 +50502,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6934b884696e24e4a862a5aeec6f5db8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1836350354}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6934b884696e24e4a862a5aeec6f5db8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1836350355}
   m_SourcePrefab: {fileID: 100100000, guid: 6934b884696e24e4a862a5aeec6f5db8, type: 3}
 --- !u!4 &1836350352 stripped
 Transform:
@@ -49874,10 +50533,32 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.020000009, y: 0.020000052, z: 0.020000001}
   m_Center: {x: -1.1641532e-10, y: 0.000000014901161, z: -9.313226e-10}
+--- !u!64 &1836350355
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836350353}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: 6934b884696e24e4a862a5aeec6f5db8, type: 3}
 --- !u!1 &1838419594
 GameObject:
   m_ObjectHideFlags: 0
@@ -50310,7 +50991,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1872314487}
 --- !u!64 &1872314486
 MeshCollider:
@@ -50442,6 +51123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 1257021593}
+  burgerIngredientName: 3
   meshCollider: {fileID: 1121829551}
   deloadCollider: {fileID: 1121829550}
   aboveSnapCollider: {fileID: 416722599}
@@ -50746,7 +51428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1898034433}
 --- !u!64 &1898034432
 MeshCollider:
@@ -51576,7 +52258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 1971066622}
 --- !u!64 &1971066621
 MeshCollider:
@@ -52338,6 +53020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 1055735318}
+  burgerIngredientName: 0
   meshCollider: {fileID: 1524401877}
   deloadCollider: {fileID: 1524401876}
   aboveSnapCollider: {fileID: 2023403394}
@@ -52511,6 +53194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StackableIngredient
   parentStack: {fileID: 1336181586}
+  burgerIngredientName: 0
   meshCollider: {fileID: 1674104974}
   deloadCollider: {fileID: 1674104973}
   aboveSnapCollider: {fileID: 1072004404}
@@ -52630,7 +53314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b333468efe05534a8647e4327a71f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CondimentIngredient
-  condimentName: 
+  condimentName: 0
   condimentRenderer: {fileID: 2013763435}
 --- !u!64 &2013763434
 MeshCollider:
@@ -54918,3 +55602,4 @@ SceneRoots:
   - {fileID: 2100317434}
   - {fileID: 427871383}
   - {fileID: 536497334}
+  - {fileID: 212047275}
