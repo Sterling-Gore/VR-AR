@@ -16,7 +16,7 @@ public class IngredientStack : MonoBehaviour
     [SerializeField] private bool updateOnStart = true;
     [SerializeField] private GameObject emptyFoodStack;
     [SerializeField] private XRGrabInteractable xrGrab;
-    [SerializeField] private List<GameObject> ingredientStack;
+    [SerializeField] public List<GameObject> ingredientStack;
     [SerializeField] private IngredientSnapCollider topCollider = null;
     [SerializeField] private IngredientSnapCollider bottomCollider = null;
     [SerializeField] InputActionReference rightControllerTrigger;
@@ -334,6 +334,16 @@ public class IngredientStack : MonoBehaviour
 
     private void _RefreshXRGrab()
     {
+        XRBaseInteractor interactor = null;
+        Vector3 savedPosition;
+        Quaternion savedRotation;
+
+        if (xrGrab.isSelected)
+            interactor = xrGrab.interactorsSelecting[0] as XRBaseInteractor;
+            savedPosition = xrGrab.transform.position;
+            savedRotation = xrGrab.transform.rotation;
+
+        xrGrab.enabled = false;
         xrGrab.colliders.Clear();
         foreach (Collider col in this.GetComponentsInChildren<Collider>())
         {
@@ -341,6 +351,21 @@ public class IngredientStack : MonoBehaviour
             {
                 xrGrab.colliders.Add(col);
             }
+        }
+        xrGrab.enabled = true;
+        
+        if (interactor != null)
+        {
+            //rb.isKinematic = true;
+            xrGrab.trackPosition = false;
+            xrGrab.trackRotation = false;
+            xrGrab.interactionManager.SelectEnter((IXRSelectInteractor)interactor, (IXRSelectInteractable)xrGrab);
+            Debug.Log("SUCCESS");
+            xrGrab.transform.SetPositionAndRotation(savedPosition, savedRotation);
+            xrGrab.trackPosition = true;
+            xrGrab.trackRotation = true;
+            //rb.isKinematic = false;
+            //xrGrab.transform.SetPositionAndRotation(savedPosition, savedRotation);
         }
     }
 

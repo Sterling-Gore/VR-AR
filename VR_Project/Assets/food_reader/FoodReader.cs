@@ -1,0 +1,256 @@
+using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
+using UnityEngine;
+
+public class FoodReader : MonoBehaviour
+{
+    // HashSet<Component> foodQuery;
+    // HashSet<GameObject> objectQuery;
+    public Dictionary<int, DeliverableFood> foodQuery;
+
+
+//---------------------------------------------------------------//
+/*                      Unity Functions                          */
+    public struct DeliverableFood
+    {
+        public GameObject gameObject;
+        public Component component;
+
+        public DeliverableFood(GameObject _gameObject, Component _component)
+        {
+            this.gameObject = _gameObject;
+            this.component = _component;
+        }
+    }
+    
+    void Start()
+    {
+        // foodQuery = new HashSet<Component>();
+        // objectQuery = new HashSet<GameObject>();
+        foodQuery = new();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void OnTriggerEnter(Collider item)
+    {
+        Debug.Log("ENTERED");
+        Component itemComponent = null;
+
+        itemComponent = item.GetComponentInParent<IngredientStack>();
+        if(itemComponent != null)
+        {
+            GameObject itemGameObject = itemComponent.gameObject;
+            int itemId = itemGameObject.GetInstanceID();
+            foodQuery[itemId] = new DeliverableFood(itemGameObject, itemComponent);
+            itemComponent = null;
+            return;
+            // _PrintFoodQuery();
+        }
+
+        itemComponent = item.GetComponent<FryItem>();
+        if(itemComponent != null)
+        {
+            GameObject itemGameObject = itemComponent.gameObject;
+            int itemId = itemGameObject.GetInstanceID();
+            foodQuery[itemId] = new DeliverableFood(itemGameObject, itemComponent);
+            itemComponent = null;
+            return;
+            // _PrintFoodQuery();
+        }
+        
+    }
+
+    void OnTriggerExit(Collider item)
+    {
+        Debug.Log("EXITED");
+        Component itemComponent = null;
+
+        itemComponent = item.GetComponentInParent<IngredientStack>();
+        if(itemComponent != null)
+        {
+            GameObject itemGameObject = itemComponent.gameObject;
+            int itemId = itemGameObject.GetInstanceID();
+            foodQuery.Remove(itemId);
+            itemComponent = null;
+            _PrintFoodQuery();
+        }
+        
+    }
+
+//---------------------------------------------------------------//
+/*                      Public Functions                         */
+    [ContextMenu("Deliver Food")]
+    public void DeliverFood()
+    {
+        List<ServedItem> servedItemsOrder = new List<ServedItem>();
+        if (foodQuery.Count == 0)
+        {
+            this._RaiseNoItemsError();
+            return;
+        }
+        foreach (var key in new List<int>(foodQuery.Keys))
+        {
+            DeliverableFood trackedFood = foodQuery[key];
+            if(trackedFood.component is IngredientStack ingredientStack)
+            {
+                servedItemsOrder.Add(this._GetBurgerIngredients(ingredientStack));
+            }
+            else if(trackedFood.component is FryItem fryItem)
+            {
+                servedItemsOrder.Add(this._GetFry(fryItem));
+            }
+            Destroy(trackedFood.gameObject);
+            foodQuery.Remove(key);
+        }
+
+
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.AppendLine("\n------------------------");
+        foreach (ServedItem item in servedItemsOrder)
+        {
+            sb.AppendLine("~~~~~~~~~~~~~~~~");
+            FoodType foodType = item.FoodType;
+            List<CookLevel> cookLevels = item.ActualCookLevels;
+            int pattyCount = item.ActualPattyCount;
+            List<BurgerIngredients> ingredients = item.ActualIngredients;
+
+            sb.AppendLine($"Food type: {foodType}");
+            sb.AppendLine($"num of patties: {pattyCount}");
+            sb.AppendLine("Patty cook levels: ");
+            foreach (CookLevel cookLevel in cookLevels)
+            {
+                sb.AppendLine($"cook level: {cookLevel}");
+            }
+            foreach (BurgerIngredients ingredient in ingredients)
+            {
+                sb.AppendLine($"ingredient: {ingredient}");
+            }
+            sb.AppendLine("~~~~~~~~~~~~~~~~");
+            
+        }
+        sb.AppendLine("------------------------");
+        Debug.Log(sb.ToString());
+    }
+
+//---------------------------------------------------------------//
+/*                      Private Functions                        */
+    private ServedItem _GetBurgerIngredients(IngredientStack ingredientStack)
+    {
+        List<BurgerIngredients> burgerIngredients = new List<BurgerIngredients>();
+        List<CookLevel> allCookLevels = new List<CookLevel>();
+        int numOfPatties = 0;
+
+
+        foreach (GameObject ingredientObject in ingredientStack.ingredientStack)
+        {
+            StackableIngredient ingredient = ingredientObject.GetComponent<StackableIngredient>();
+
+            if (!ingredient.ignoreBelowCondiment)
+            {
+                BurgerIngredients condiment = ingredient.belowCondiment.GetComponent<CondimentIngredient>().condimentName;
+                if (condiment != BurgerIngredients.Null)
+                    burgerIngredients.Add(condiment);
+            }
+            burgerIngredients.Add(ingredient.burgerIngredientName);
+            if (!ingredient.ignoreAboveCollider)
+            {
+                BurgerIngredients condiment = ingredient.aboveCondiment.GetComponent<CondimentIngredient>().condimentName;
+                if (condiment != BurgerIngredients.Null)
+                    burgerIngredients.Add(condiment);
+            }
+
+            if (ingredient.burgerIngredientName == BurgerIngredients.Patty)
+            {
+                numOfPatties += 1;
+                CookLevel cookLevel;
+                Patty patty = ingredient.GetComponentInChildren<Patty>();
+                if (patty != null)
+                {
+                    PattyState pattyState = patty.State;
+                    
+                    switch (pattyState)
+                    {
+                        case PattyState.Raw:
+                            cookLevel = CookLevel.Raw;
+                            break;
+                        case PattyState.Undercooked:
+                            cookLevel = CookLevel.Undercooked;
+                            break;
+                        case PattyState.Cooked:
+                            cookLevel = CookLevel.Cooked;
+                            break;
+                        case PattyState.Overcooked:
+                            cookLevel = CookLevel.Overcooked;
+                            break;
+                        default:
+                            cookLevel = CookLevel.Raw;
+                            break;
+
+                    }
+                    allCookLevels.Add(cookLevel);
+                }
+                else
+                    Debug.Log("NOT PATTY");
+            }
+        }
+        return new ServedItem(FoodType.Burger, allCookLevels, numOfPatties, burgerIngredients);
+    }
+    
+    private ServedItem _GetFry(FryItem fryItem)
+    {
+        FoodType fryType = fryItem.fryType;
+        CookLevel cookLevel;
+        
+        switch (fryItem.State)
+        {
+            case FryState.Raw:
+                cookLevel = CookLevel.Raw;
+                break;
+            case FryState.Undercooked:
+                cookLevel = CookLevel.Undercooked;
+                break;
+            case FryState.Cooked:
+                cookLevel = CookLevel.Cooked;
+                break;
+            case FryState.Overcooked:
+                cookLevel = CookLevel.Overcooked;
+                break;
+            default:
+                cookLevel = CookLevel.Raw;
+                break;
+
+        }
+        return new ServedItem(fryType, cookLevel);
+    }
+
+    [ContextMenu("No Items Error")]
+    private void _RaiseNoItemsError()
+    {
+        Debug.Log("No Items");
+        // takes a text that is not displayed and turns on the gameobject
+        // displays text for 2 seconds
+        // fades out for 1 second
+        // turn off text
+    }
+    
+    [ContextMenu("Show FoodQuery")]
+    private void _PrintFoodQuery()
+    {
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        sb.AppendLine("\n------------------------");
+        foreach (var kvp in foodQuery)
+        {
+            DeliverableFood trackedFood = kvp.Value;
+            sb.AppendLine($"ID: {kvp.Key}, GO: {trackedFood.gameObject.name}, Component: {trackedFood.component.GetType().Name}");
+        }
+        sb.AppendLine("------------------------");
+        Debug.Log(sb.ToString());
+    }
+
+}
