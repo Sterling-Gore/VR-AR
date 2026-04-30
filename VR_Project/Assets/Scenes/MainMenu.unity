@@ -3389,7 +3389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e8455c9596ab6a44a3bc07f456b9a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuButton3D
-  actionName: 
+  actionName: ClockOut
   buttonVisual: {fileID: 396182471}
   buttonRenderer: {fileID: 396182473}
   normalColor: {r: 0.6603774, g: 0.5701317, b: 0.052954797, a: 1}
