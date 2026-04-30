@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 //we still need to build order scor
@@ -9,12 +10,18 @@ public class OrderSystem
 
     private int nextOrderId = 1;
 
+    // Other systems, like the TV display, can listen for these events
+    public event Action<Order> OnOrderCreated;
+    public event Action<Order> OnOrderFinished;
+
     // Creates a new order using the generator and stores it in the active order list
     public Order CreateOrder(int mode, float startTime)
     {
         Order newOrder = orderGenerator.GenerateOrder(mode, nextOrderId, startTime);
         activeOrders.Add(newOrder);
         nextOrderId++;
+
+        OnOrderCreated?.Invoke(newOrder);
 
         return newOrder;
     }
@@ -42,6 +49,8 @@ public class OrderSystem
         }
 
         activeOrders.Remove(order);
+        OnOrderFinished?.Invoke(order);
+
         return true;
     }
 
@@ -58,6 +67,7 @@ public class OrderSystem
         {
             order.MarkExpired();
             activeOrders.Remove(order);
+            OnOrderFinished?.Invoke(order);
             return false;
         }
 
@@ -67,11 +77,13 @@ public class OrderSystem
         {
             order.MarkCompleted(completionTime, finalScore);
             activeOrders.Remove(order);
+            OnOrderFinished?.Invoke(order);
             return true;
         }
 
         order.MarkFailed(completionTime, 0);
         activeOrders.Remove(order);
+        OnOrderFinished?.Invoke(order);
         return false;
     }
 
@@ -82,8 +94,12 @@ public class OrderSystem
         {
             if (activeOrders[i].IsExpired(currentTime))
             {
-                activeOrders[i].MarkExpired();
+                Order expiredOrder = activeOrders[i];
+
+                expiredOrder.MarkExpired();
                 activeOrders.RemoveAt(i);
+
+                OnOrderFinished?.Invoke(expiredOrder);
             }
         }
     }
