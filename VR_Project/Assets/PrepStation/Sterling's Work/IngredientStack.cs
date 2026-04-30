@@ -102,6 +102,7 @@ public class IngredientStack : MonoBehaviour
         newStackObject.SetActive(true);
         newStackObject.GetComponent<IngredientStack>().InstantiateNewStack(removedIngredient, emptyFoodStack);
         _RefreshXRGrab();
+        newStackObject.GetComponent<IngredientStack>()._RefreshXRGrab();
     }
 
     /// <summary>
@@ -122,10 +123,8 @@ public class IngredientStack : MonoBehaviour
         newIngredient.transform.position = ingredientWorldPos;
         newIngredient.transform.rotation = ingredientWorldRot;
         newIngredient.GetComponent<StackableData>().SwitchPositionLock(lockedStatus:true);
-        _RefreshXRGrab();
-        xrGrab.enabled = false;
-        xrGrab.enabled = true;
         emptyFoodStack = refreshedEmptyFoodStack;
+        _RefreshXRGrab();
     }
 
     public void ReparentAndDestoryEntireStack(Transform newMergedStack, bool isAbove)
@@ -337,7 +336,7 @@ public class IngredientStack : MonoBehaviour
         return newIngredientStack;
     }
 
-    private void _RefreshXRGrab()
+    public void _RefreshXRGrab()
     {
         XRBaseInteractor interactor = null;
         Vector3 savedPosition;
