@@ -132,20 +132,18 @@ public class OrderGenerator
                 return 1;
         }
     }
-
-    // Returns the time limit for the selected mode
-    private float GetTimeLimitForMode(int mode)
+private float GetTimeLimitForMode(int mode)
     {
         switch (mode)
         {
-            case 1: return 90f;
-            case 2: return 80f;
-            case 3: return 70f;
-            case 4: return 60f;
-            case 5: return 50f;
-            case 6: return 45f;
-            case 7: return 40f;
-            default: return 90f;
+            case 1: return 999999f;
+            case 2: return 300000f;
+            case 3: return 300000f;
+            case 4: return 300000f;
+            case 5: return 300000f;
+            case 6: return 300000f;
+            case 7: return 300000f;
+            default: return 300000f;
         }
     }
 
