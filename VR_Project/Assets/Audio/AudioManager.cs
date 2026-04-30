@@ -41,13 +41,16 @@ public class AudioManager : MonoBehaviour
     public AudioClipWithVolume[] bottleSqueezeClips;
     public AudioClipWithVolume[] stackBurgerClips;
 
+    [Header("Trash")]
+    public AudioClipWithVolume[] trashClips;
+
     private int fridgeOpenCreakIndex = 0;
     private int fridgeCloseIndex = 0;
     private int pattySizzleIndex = 0;
     private int fryCookIndex = 0;
     private int bottleSqueezeIndex = 0;
     private int stackBurgerIndex = 0;
-
+    private int trashIndex = 0;
     private void Start() 
     {
         ApplyVolumes();
@@ -202,5 +205,10 @@ public class AudioManager : MonoBehaviour
         fryerSizzleSource.loop = false;
         fryerSizzleSource.Stop();
         fryerSizzleSource.clip = null;
+    }
+
+    public void PlayTrashSound()
+    {
+        PlaySFX(GetNextSound(trashClips, ref trashIndex));
     }
 }

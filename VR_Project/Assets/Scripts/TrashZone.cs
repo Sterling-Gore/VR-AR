@@ -7,11 +7,20 @@ public class TrashZone : MonoBehaviour
     [SerializeField] private bool ignoreCondimentBottles = true;
     [SerializeField] private bool ignorePlayer = true;
     [SerializeField] private string playerRootNameContains = "XR Origin";
+
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private float trashSoundCooldown = 0.1f;
+
     private Collider trashCollider;
+    private float lastTrashSoundTime = -999f;
 
     private void Awake()
     {
         trashCollider = GetComponent<Collider>();
+
+        if (audioManager == null)
+            audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,7 +52,22 @@ public class TrashZone : MonoBehaviour
 
         var target = GetTargetToDestroy(other);
         if (target != null)
+        {
+            PlayTrashSound();
             Destroy(target);
+        }
+    }
+
+    private void PlayTrashSound()
+    {
+        if (audioManager == null)
+            return;
+
+        if (Time.time - lastTrashSoundTime < trashSoundCooldown)
+            return;
+
+        lastTrashSoundTime = Time.time;
+        audioManager.PlayTrashSound();
     }
 
     private bool ShouldIgnoreTrashTarget(Collider other)
@@ -78,6 +102,7 @@ public class TrashZone : MonoBehaviour
         if (basket == null)
             return false;
 
+        PlayTrashSound();
         basket.TrashLockedFry();
         return true;
     }
@@ -87,6 +112,7 @@ public class TrashZone : MonoBehaviour
         FryItem fry = other.GetComponentInParent<FryItem>();
         if (fry != null)
         {
+            PlayTrashSound();
             Destroy(fry.gameObject);
             return true;
         }
@@ -94,6 +120,7 @@ public class TrashZone : MonoBehaviour
         Patty patty = other.GetComponentInParent<Patty>();
         if (patty != null)
         {
+            PlayTrashSound();
             Destroy(patty.gameObject);
             return true;
         }

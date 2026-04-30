@@ -1012,6 +1012,7 @@ MonoBehaviour:
   visualObject: {fileID: 1079458783}
   itemCollider: {fileID: 50145240}
   grabInteractable: {fileID: 50145238}
+  audioManager: {fileID: 0}
 --- !u!114 &50145238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1490,6 +1491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 77526320}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -2239,6 +2241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 101763535}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -3143,6 +3146,7 @@ MonoBehaviour:
   visualObject: {fileID: 1667623935}
   itemCollider: {fileID: 166119346}
   grabInteractable: {fileID: 166119344}
+  audioManager: {fileID: 0}
 --- !u!114 &166119344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3592,6 +3596,7 @@ MonoBehaviour:
   visualObject: {fileID: 1244950308}
   itemCollider: {fileID: 183764493}
   grabInteractable: {fileID: 183764491}
+  audioManager: {fileID: 0}
 --- !u!114 &183764491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3930,6 +3935,7 @@ MonoBehaviour:
   visualObject: {fileID: 632866469}
   itemCollider: {fileID: 210204979}
   grabInteractable: {fileID: 210204977}
+  audioManager: {fileID: 0}
 --- !u!114 &210204977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4666,6 +4672,7 @@ MonoBehaviour:
   visualObject: {fileID: 2090203199}
   itemCollider: {fileID: 271763598}
   grabInteractable: {fileID: 271763596}
+  audioManager: {fileID: 0}
 --- !u!114 &271763596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5826,6 +5833,7 @@ MonoBehaviour:
   visualObject: {fileID: 62342203}
   itemCollider: {fileID: 320385993}
   grabInteractable: {fileID: 320385991}
+  audioManager: {fileID: 0}
 --- !u!114 &320385991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6265,6 +6273,7 @@ MonoBehaviour:
   visualObject: {fileID: 1538511266}
   itemCollider: {fileID: 338648415}
   grabInteractable: {fileID: 338648413}
+  audioManager: {fileID: 0}
 --- !u!114 &338648413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6479,6 +6488,7 @@ MonoBehaviour:
   visualObject: {fileID: 399715527}
   itemCollider: {fileID: 350405177}
   grabInteractable: {fileID: 350405175}
+  audioManager: {fileID: 0}
 --- !u!114 &350405175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7338,6 +7348,7 @@ MonoBehaviour:
   visualObject: {fileID: 269670152}
   itemCollider: {fileID: 395041251}
   grabInteractable: {fileID: 395041249}
+  audioManager: {fileID: 0}
 --- !u!114 &395041249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7552,6 +7563,7 @@ MonoBehaviour:
   visualObject: {fileID: 256413953}
   itemCollider: {fileID: 398619808}
   grabInteractable: {fileID: 398619806}
+  audioManager: {fileID: 0}
 --- !u!114 &398619806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8148,6 +8160,7 @@ MonoBehaviour:
   visualObject: {fileID: 1821472715}
   itemCollider: {fileID: 419816419}
   grabInteractable: {fileID: 419816418}
+  audioManager: {fileID: 0}
 --- !u!114 &419816418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9720,6 +9733,7 @@ MonoBehaviour:
   visualObject: {fileID: 1388033256}
   itemCollider: {fileID: 545246315}
   grabInteractable: {fileID: 545246313}
+  audioManager: {fileID: 0}
 --- !u!114 &545246313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10120,6 +10134,7 @@ MonoBehaviour:
   visualObject: {fileID: 331411916}
   itemCollider: {fileID: 562752023}
   grabInteractable: {fileID: 562752021}
+  audioManager: {fileID: 0}
 --- !u!114 &562752021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10815,14 +10830,60 @@ MonoBehaviour:
   grillSizzleSource: {fileID: 568486967}
   fryerSizzleSource: {fileID: 104398375}
   fridgeHumSource: {fileID: 2143201348}
+  musicVolume: 0.061
+  sfxVolume: 1
+  grillVolume: 0.148
+  fryerVolume: 0.25
+  fridgeHumVolume: 0.094
   background: {fileID: 8300000, guid: d05ff67bde98f6f4da29f24251f8ce3f, type: 3}
-  fridgeOpenCreak: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
+  fridgeOpenCreakClips:
+  - clip: {fileID: 8300000, guid: af0cea59c085146e7a511c6d6b5e5e87, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 7d631a0e938bf49fd8398706896587b6, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: eb3b4d21047324b458c92da31bac8fe7, type: 3}
+    volume: 1
   fridgeHum: {fileID: 8300000, guid: 326467925767947c5908bd1c81631956, type: 3}
-  fridgeClose: {fileID: 8300000, guid: cc28a4d3ef4da4c4baea87d24eaf3190, type: 3}
-  pattySizzle: {fileID: 8300000, guid: d98130abe6d96479ca0af772f9e0da76, type: 3}
-  fryCook: {fileID: 8300000, guid: 481721e694ae049b199be4993d5e86c9, type: 3}
-  bottleSqueeze: {fileID: 8300000, guid: 741c3952ffb384f12b8a0145da8750a0, type: 3}
-  stackBurger: {fileID: 8300000, guid: 934ca3261aa58437abfa94bee7475d85, type: 3}
+  fridgeCloseClips:
+  - clip: {fileID: 8300000, guid: 5f9881ac247ee4d9ca482ecb8169abb1, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 7d8b730fb8a20405084f4e7f7d1251ba, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: cc28a4d3ef4da4c4baea87d24eaf3190, type: 3}
+    volume: 1
+  pattySizzleClips:
+  - clip: {fileID: 8300000, guid: d98130abe6d96479ca0af772f9e0da76, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 800422ca28a9645d6bf9a4176a514cf0, type: 3}
+    volume: 1
+  fryCookClips:
+  - clip: {fileID: 8300000, guid: 481721e694ae049b199be4993d5e86c9, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: cc712ee811f9d46d7811fc17f25f6a6b, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 502009f70001d430fadaadc9e53e95bb, type: 3}
+    volume: 1
+  bottleSqueezeClips:
+  - clip: {fileID: 8300000, guid: 741c3952ffb384f12b8a0145da8750a0, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: cc9b9d90504314449a28281d9dce4f91, type: 3}
+    volume: 1
+  - clip: {fileID: 8300000, guid: 3cb56b4144e2540168ebd51958a53cfc, type: 3}
+    volume: 1
+  stackBurgerClips:
+  - clip: {fileID: 8300000, guid: 934ca3261aa58437abfa94bee7475d85, type: 3}
+    volume: 0.2
+  - clip: {fileID: 8300000, guid: b9999b207982640b5931b016640c1549, type: 3}
+    volume: 0.2
+  - clip: {fileID: 8300000, guid: 7409774bcc3864fc4b5bd8ab19c09d97, type: 3}
+    volume: 0.2
+  - clip: {fileID: 8300000, guid: 7fc1c34f836ce4819858043a78a80dfa, type: 3}
+    volume: 0.2
+  trashClips:
+  - clip: {fileID: 8300000, guid: 67d8de6ceb53c4c10a21dda38916534c, type: 3}
+    volume: 0.3
+  - clip: {fileID: 8300000, guid: c058d096ec6374cadaa97a3704185bcf, type: 3}
+    volume: 0.3
 --- !u!1 &591311839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 58fa6c61ba30a7047a8df81863c3ba10, type: 3}
@@ -10850,6 +10911,7 @@ MonoBehaviour:
   visualObject: {fileID: 961726315}
   itemCollider: {fileID: 591311844}
   grabInteractable: {fileID: 591311842}
+  audioManager: {fileID: 0}
 --- !u!114 &591311842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16058,6 +16120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 599851208}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -16863,6 +16926,7 @@ MonoBehaviour:
   visualObject: {fileID: 1708681100}
   itemCollider: {fileID: 654131422}
   grabInteractable: {fileID: 654131420}
+  audioManager: {fileID: 0}
 --- !u!114 &654131420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17077,6 +17141,7 @@ MonoBehaviour:
   visualObject: {fileID: 180038145}
   itemCollider: {fileID: 664363849}
   grabInteractable: {fileID: 664363847}
+  audioManager: {fileID: 0}
 --- !u!114 &664363847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17917,6 +17982,7 @@ MonoBehaviour:
   visualObject: {fileID: 1850880224}
   itemCollider: {fileID: 721625889}
   grabInteractable: {fileID: 721625888}
+  audioManager: {fileID: 0}
 --- !u!114 &721625888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18355,6 +18421,7 @@ MonoBehaviour:
   visualObject: {fileID: 1041292642}
   itemCollider: {fileID: 745134658}
   grabInteractable: {fileID: 745134656}
+  audioManager: {fileID: 0}
 --- !u!114 &745134656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18603,6 +18670,7 @@ MonoBehaviour:
   visualObject: {fileID: 389060748}
   itemCollider: {fileID: 772716512}
   grabInteractable: {fileID: 772716510}
+  audioManager: {fileID: 0}
 --- !u!114 &772716510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18844,6 +18912,7 @@ MonoBehaviour:
   visualObject: {fileID: 1110165599}
   itemCollider: {fileID: 772774139}
   grabInteractable: {fileID: 772774138}
+  audioManager: {fileID: 0}
 --- !u!114 &772774138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21367,6 +21436,7 @@ MonoBehaviour:
   visualObject: {fileID: 1221305606}
   itemCollider: {fileID: 922459501}
   grabInteractable: {fileID: 922459499}
+  audioManager: {fileID: 0}
 --- !u!114 &922459499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21608,6 +21678,7 @@ MonoBehaviour:
   visualObject: {fileID: 125600236}
   itemCollider: {fileID: 934577048}
   grabInteractable: {fileID: 934577047}
+  audioManager: {fileID: 0}
 --- !u!114 &934577047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22710,6 +22781,7 @@ MonoBehaviour:
   visualObject: {fileID: 1756632467}
   itemCollider: {fileID: 1006155312}
   grabInteractable: {fileID: 1006155310}
+  audioManager: {fileID: 0}
 --- !u!114 &1006155310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23104,6 +23176,7 @@ MonoBehaviour:
   visualObject: {fileID: 2071769723}
   itemCollider: {fileID: 1030662354}
   grabInteractable: {fileID: 1030662352}
+  audioManager: {fileID: 0}
 --- !u!114 &1030662352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23318,6 +23391,7 @@ MonoBehaviour:
   visualObject: {fileID: 686586310}
   itemCollider: {fileID: 1032172331}
   grabInteractable: {fileID: 1032172329}
+  audioManager: {fileID: 0}
 --- !u!114 &1032172329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23911,6 +23985,7 @@ MonoBehaviour:
   visualObject: {fileID: 134999560}
   itemCollider: {fileID: 1044277352}
   grabInteractable: {fileID: 1044277351}
+  audioManager: {fileID: 0}
 --- !u!114 &1044277351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24146,6 +24221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 1055735319}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -25001,6 +25077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 1089944972}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -25797,6 +25874,7 @@ MonoBehaviour:
   visualObject: {fileID: 234354169}
   itemCollider: {fileID: 1141092678}
   grabInteractable: {fileID: 1141092676}
+  audioManager: {fileID: 0}
 --- !u!114 &1141092676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26439,6 +26517,8 @@ MonoBehaviour:
   ignoreCondimentBottles: 1
   ignorePlayer: 1
   playerRootNameContains: XR Origin
+  audioManager: {fileID: 0}
+  trashSoundCooldown: 0.1
 --- !u!1 &1180071834
 GameObject:
   m_ObjectHideFlags: 0
@@ -27923,6 +28003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 1257021594}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -29130,6 +29211,7 @@ MonoBehaviour:
   visualObject: {fileID: 1745349177}
   itemCollider: {fileID: 1319354685}
   grabInteractable: {fileID: 1319354683}
+  audioManager: {fileID: 0}
 --- !u!114 &1319354683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29457,6 +29539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 1336181587}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -30129,6 +30212,7 @@ MonoBehaviour:
   visualObject: {fileID: 239231269}
   itemCollider: {fileID: 1385843386}
   grabInteractable: {fileID: 1385843384}
+  audioManager: {fileID: 0}
 --- !u!114 &1385843384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31296,6 +31380,7 @@ MonoBehaviour:
   visualObject: {fileID: 824727187}
   itemCollider: {fileID: 1453203852}
   grabInteractable: {fileID: 1453203850}
+  audioManager: {fileID: 0}
 --- !u!114 &1453203850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31631,6 +31716,7 @@ MonoBehaviour:
   visualObject: {fileID: 1995822544}
   itemCollider: {fileID: 1475974472}
   grabInteractable: {fileID: 1475974470}
+  audioManager: {fileID: 0}
 --- !u!114 &1475974470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31872,6 +31958,7 @@ MonoBehaviour:
   visualObject: {fileID: 1026819713}
   itemCollider: {fileID: 1511071137}
   grabInteractable: {fileID: 1511071136}
+  audioManager: {fileID: 0}
 --- !u!114 &1511071136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32868,6 +32955,7 @@ MonoBehaviour:
   visualObject: {fileID: 1260339727}
   itemCollider: {fileID: 1529659057}
   grabInteractable: {fileID: 1529659055}
+  audioManager: {fileID: 0}
 --- !u!114 &1529659055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33448,6 +33536,7 @@ MonoBehaviour:
   visualObject: {fileID: 1909427582}
   itemCollider: {fileID: 1540024256}
   grabInteractable: {fileID: 1540024254}
+  audioManager: {fileID: 0}
 --- !u!114 &1540024254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33914,6 +34003,7 @@ MonoBehaviour:
   visualObject: {fileID: 89708914}
   itemCollider: {fileID: 1567245904}
   grabInteractable: {fileID: 1567245903}
+  audioManager: {fileID: 0}
 --- !u!114 &1567245903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34218,6 +34308,7 @@ MonoBehaviour:
   visualObject: {fileID: 1816701752}
   itemCollider: {fileID: 1576386340}
   grabInteractable: {fileID: 1576386338}
+  audioManager: {fileID: 0}
 --- !u!114 &1576386338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34432,6 +34523,7 @@ MonoBehaviour:
   visualObject: {fileID: 629908608}
   itemCollider: {fileID: 1580777952}
   grabInteractable: {fileID: 1580777950}
+  audioManager: {fileID: 0}
 --- !u!114 &1580777950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40928,6 +41020,7 @@ MonoBehaviour:
   visualObject: {fileID: 352698673}
   itemCollider: {fileID: 1636123326}
   grabInteractable: {fileID: 1636123325}
+  audioManager: {fileID: 0}
 --- !u!114 &1636123325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41243,6 +41336,7 @@ MonoBehaviour:
   visualObject: {fileID: 1624781909}
   itemCollider: {fileID: 1638629854}
   grabInteractable: {fileID: 1638629853}
+  audioManager: {fileID: 0}
 --- !u!114 &1638629853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48228,6 +48322,7 @@ MonoBehaviour:
   visualObject: {fileID: 127407920}
   itemCollider: {fileID: 1763942961}
   grabInteractable: {fileID: 1763942959}
+  audioManager: {fileID: 0}
 --- !u!114 &1763942959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48442,6 +48537,7 @@ MonoBehaviour:
   visualObject: {fileID: 713414618}
   itemCollider: {fileID: 1791330722}
   grabInteractable: {fileID: 1791330720}
+  audioManager: {fileID: 0}
 --- !u!114 &1791330720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49966,6 +50062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 1893871197}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -51403,6 +51500,7 @@ MonoBehaviour:
   visualObject: {fileID: 846799512}
   itemCollider: {fileID: 1995451318}
   grabInteractable: {fileID: 1995451316}
+  audioManager: {fileID: 0}
 --- !u!114 &1995451316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52131,6 +52229,7 @@ MonoBehaviour:
   visualObject: {fileID: 293285158}
   itemCollider: {fileID: 2015638885}
   grabInteractable: {fileID: 2015638883}
+  audioManager: {fileID: 0}
 --- !u!114 &2015638883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52469,6 +52568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IngredientStack
   rb: {fileID: 2022273233}
+  audioManager: {fileID: 0}
   maxOffsetDistance: 0.0192
   updateOnStart: 1
   emptyFoodStack: {fileID: 26833108}
@@ -52854,6 +52954,7 @@ MonoBehaviour:
   visualObject: {fileID: 1392659769}
   itemCollider: {fileID: 2068745340}
   grabInteractable: {fileID: 2068745339}
+  audioManager: {fileID: 0}
 --- !u!114 &2068745339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53436,6 +53537,7 @@ MonoBehaviour:
   visualObject: {fileID: 1466742538}
   itemCollider: {fileID: 2095454905}
   grabInteractable: {fileID: 2095454903}
+  audioManager: {fileID: 0}
 --- !u!114 &2095454903
 MonoBehaviour:
   m_ObjectHideFlags: 0
