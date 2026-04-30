@@ -119,6 +119,7 @@ public class DeliverButton : MonoBehaviour
 
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
+        Debug.Log("OnSelectEntered triggered");
         PressAndHandleAction();
     }
 
@@ -130,6 +131,7 @@ public class DeliverButton : MonoBehaviour
 
     private void PressAndHandleAction()
     {
+        Debug.Log("PressAndHandleAction called");
         targetScale = pressedScale;
         targetColor = pressedColor;
         HandleAction();
@@ -137,12 +139,15 @@ public class DeliverButton : MonoBehaviour
 
     private void HandleAction()
     {
+        Debug.Log("HandleAction called - checking displayManager");
+        
         if (displayManager == null)
         {
             Debug.LogError("DisplayManager is not assigned on DeliverButton.");
             return;
         }
 
+        Debug.Log("DisplayManager found. Calling SubmitCurrentOrder()");
         displayManager.SubmitCurrentOrder();
     }
 }

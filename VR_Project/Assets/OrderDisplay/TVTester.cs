@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Text; // Needed for StringBuilder
+using System.Text;
 
 public class TVTester : MonoBehaviour
 {
     public OrderDisplayManager displayManager;
+    public DisplayManager displayManager_script; 
     private OrderSystem orderSystem;
     private Order currentOrder;
 
@@ -12,7 +13,18 @@ public class TVTester : MonoBehaviour
 
     private void Start()
     {
-        orderSystem = new OrderSystem();
+        // Use DisplayManager's OrderSystem instead of creating a new one
+        if (displayManager_script != null)
+        {
+            orderSystem = displayManager_script.GetOrderSystem();
+            Debug.Log("TVTester using DisplayManager's OrderSystem");
+        }
+        else
+        {
+            orderSystem = new OrderSystem();
+            Debug.LogWarning("DisplayManager script not assigned on TVTester. Creating a separate OrderSystem.");
+        }
+
         if (displayManager != null)
         {
             displayManager.ConnectToOrderSystem(orderSystem);
@@ -27,21 +39,21 @@ public class TVTester : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("<color=cyan><b>Generating New Test Order...</b></color>");
-            currentOrder = orderSystem.CreateOrder(currentMode, Time.time);
-            LogOrderDetails(currentOrder);
-        }
+        // if (Input.GetKeyDown(KeyCode.T))
+        // {
+        //     Debug.Log("<color=cyan><b>Generating New Test Order...</b></color>");
+        //     currentOrder = orderSystem.CreateOrder(currentMode, Time.time);
+        //     LogOrderDetails(currentOrder);
+        // }
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            if (currentOrder != null)
-            {
-                List<ServedItem> servedItems = BuildPerfectSubmission(currentOrder);
-                orderSystem.SubmitOrder(currentOrder.OrderId, servedItems, Time.time);
-            }
-        }
+        // if (Input.GetKeyDown(KeyCode.Y))
+        // {
+        //     if (currentOrder != null)
+        //     {
+        //         List<ServedItem> servedItems = BuildPerfectSubmission(currentOrder);
+        //         orderSystem.SubmitOrder(currentOrder.OrderId, servedItems, Time.time);
+        //     }
+        // }
     }
 
     private void HandleOrderFinished(Order finishedOrder)
