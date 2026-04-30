@@ -198,8 +198,13 @@ public class IngredientStack : MonoBehaviour
 
         foreach (Transform childIngredient in this.transform)
         {
-            childIngredient.GetComponent<StackableIngredient>().parentStack = this;
-            newIngredientStack.Add(childIngredient.gameObject);
+            Debug.Log(childIngredient.gameObject);
+            StackableIngredient childIngredientScript = childIngredient.GetComponent<StackableIngredient>();
+            if (childIngredientScript != null)
+            {
+                childIngredientScript.parentStack = this;
+                newIngredientStack.Add(childIngredient.gameObject);
+            }
         }
         ingredientStack = newIngredientStack;
     }
