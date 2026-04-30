@@ -25,7 +25,6 @@ public enum OrderStatus
 
 public enum BurgerIngredients
 {
-    Null,
     BottomBun,
     TopBun,
     Patty,
