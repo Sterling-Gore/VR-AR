@@ -1249,6 +1249,7 @@ MonoBehaviour:
   hoverScale: {x: 0.58, y: 0.3, z: 0.033}
   pressedScale: {x: 0.52, y: 0.26, z: 0.027}
   animationSpeed: 14
+  audioManager: {fileID: 0}
 --- !u!1 &50145235 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e4f62e4341c86d54592d5ff898e7ddca, type: 3}
@@ -54293,6 +54294,9 @@ MonoBehaviour:
     volume: 0.3
   - clip: {fileID: 8300000, guid: c058d096ec6374cadaa97a3704185bcf, type: 3}
     volume: 0.3
+  deliverButtonClips:
+  - clip: {fileID: 8300000, guid: 752f2f5ac0fa84793ab20434a156a170, type: 3}
+    volume: 0.404
 --- !u!1 &2037538701
 GameObject:
   m_ObjectHideFlags: 0

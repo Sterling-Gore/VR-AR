@@ -23,6 +23,9 @@ public class DeliverButton : MonoBehaviour
     [Header("Animation")]
     public float animationSpeed = 14f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioManager audioManager;
+
     private XRSimpleInteractable interactable;
     private Material runtimeMaterial;
     private Vector3 targetScale;
@@ -32,6 +35,9 @@ public class DeliverButton : MonoBehaviour
     private void Awake()
     {
         interactable = GetComponent<XRSimpleInteractable>();
+
+        if (audioManager == null)
+            audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
 
         if (buttonVisual == null)
             buttonVisual = transform;
@@ -134,6 +140,9 @@ public class DeliverButton : MonoBehaviour
         Debug.Log("PressAndHandleAction called");
         targetScale = pressedScale;
         targetColor = pressedColor;
+
+        audioManager?.PlayDeliverButtonSound();
+
         HandleAction();
     }
 
