@@ -54,6 +54,8 @@ public class DisplayManager : MonoBehaviour
 
     public void SubmitCurrentOrder()
     {
+        Debug.Log("SubmitCurrentOrder called");
+        
         if (currentOrder == null)
         {
             Debug.LogWarning("No current order to submit.");
@@ -66,6 +68,7 @@ public class DisplayManager : MonoBehaviour
             return;
         }
 
+        Debug.Log("Calling foodReader.DeliverFood()");
         List<ServedItem> servedItems = foodReader.DeliverFood();
 
         if (servedItems == null || servedItems.Count == 0)
@@ -90,5 +93,11 @@ public class DisplayManager : MonoBehaviour
         Debug.Log($"Order {finishedOrder.OrderId} finished with status {finishedOrder.Status}. Creating next order...");
 
         currentOrder = orderSystem.CreateOrder(currentMode, Time.time);
+    }
+
+    // Public method to access the OrderSystem
+    public OrderSystem GetOrderSystem()
+    {
+        return orderSystem;
     }
 }
