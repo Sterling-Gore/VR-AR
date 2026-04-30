@@ -5,6 +5,7 @@ public class DisplayManager : MonoBehaviour
 {
     [Header("References")]
     public OrderDisplayManager orderDisplayManager;
+    public ScoreDisplayManager scoreDisplayManager;
     public FoodReader foodReader;
 
     private OrderSystem orderSystem;
@@ -23,6 +24,15 @@ public class DisplayManager : MonoBehaviour
         else
         {
             Debug.LogError("OrderDisplayManager is not assigned on DisplayManager.");
+        }
+
+        if (scoreDisplayManager != null)
+        {
+            scoreDisplayManager.ConnectToOrderSystem(orderSystem);
+        }
+        else
+        {
+            Debug.LogWarning("ScoreDisplayManager is not assigned on DisplayManager.");
         }
 
         orderSystem.OnOrderFinished += HandleOrderFinished;
