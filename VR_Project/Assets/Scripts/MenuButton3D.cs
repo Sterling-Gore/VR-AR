@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -8,6 +9,10 @@ public class MenuButton3D : MonoBehaviour
 {
     [Header("Button Type")]
     public string actionName;
+
+    [Header("Audio")]
+    [SerializeField] private MainMenuAudioManager audioManager;
+    [SerializeField] private float soundDelay = 0.75f;
 
     [Header("Visuals")]
     public Transform buttonVisual;
@@ -31,10 +36,14 @@ public class MenuButton3D : MonoBehaviour
     private Vector3 targetScale;
     private Color targetColor;
     private bool isHovered = false;
+    private bool actionStarted = false;
 
     private void Awake()
     {
         interactable = GetComponent<XRSimpleInteractable>();
+
+        if (audioManager == null)
+            audioManager = FindFirstObjectByType<MainMenuAudioManager>();
 
         if (buttonVisual == null)
             buttonVisual = transform;
@@ -100,8 +109,6 @@ public class MenuButton3D : MonoBehaviour
             );
         }
 
-        // desktop fallback test:
-        // if the button is hovered and you press space, trigger the action
         if (isHovered && Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("space pressed while hovering on " + gameObject.name);
@@ -140,6 +147,11 @@ public class MenuButton3D : MonoBehaviour
 
     private void PressAndHandleAction()
     {
+        if (actionStarted)
+            return;
+
+        actionStarted = true;
+
         targetScale = pressedScale;
         targetColor = pressedColor;
         HandleAction();
@@ -152,25 +164,47 @@ public class MenuButton3D : MonoBehaviour
         switch (actionName)
         {
             case "StartShift":
-                Debug.Log("loading via loading screen");
-
-                LoadingData.sceneToLoad = "big scene for big boys and girls";
-                SceneManager.LoadScene("LoadingScene");
-
+                StartCoroutine(StartShiftAfterSound());
                 break;
 
             case "Settings":
                 Debug.Log("open settings/help panels here later");
+                actionStarted = false;
                 break;
 
             case "ClockOut":
-                Debug.Log("load credits scene here later");
-                Application.Quit();
+                StartCoroutine(ClockOutAfterSound());
                 break;
 
             default:
                 Debug.LogWarning("no action assigned for button: " + gameObject.name);
+                actionStarted = false;
                 break;
         }
+    }
+
+    private IEnumerator StartShiftAfterSound()
+    {
+        audioManager?.PlayStartShiftClick();
+
+        yield return new WaitForSeconds(soundDelay);
+
+        Debug.Log("loading via loading screen");
+        LoadingData.sceneToLoad = "big scene for big boys and girls";
+        SceneManager.LoadScene("LoadingScene");
+    }
+
+    private IEnumerator ClockOutAfterSound()
+    {
+        audioManager?.PlayClockOutClick();
+
+        yield return new WaitForSeconds(soundDelay);
+
+        Debug.Log("quitting game");
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
