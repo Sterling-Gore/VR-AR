@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 //we still need to build order scor
 public class OrderSystem
@@ -9,12 +10,18 @@ public class OrderSystem
 
     private int nextOrderId = 1;
 
+    // Other systems, like the TV display, can listen for these events
+    public event Action<Order> OnOrderCreated;
+    public event Action<Order> OnOrderFinished;
+
     // Creates a new order using the generator and stores it in the active order list
     public Order CreateOrder(int mode, float startTime)
     {
         Order newOrder = orderGenerator.GenerateOrder(mode, nextOrderId, startTime);
         activeOrders.Add(newOrder);
         nextOrderId++;
+
+        OnOrderCreated?.Invoke(newOrder);
 
         return newOrder;
     }
@@ -42,31 +49,42 @@ public class OrderSystem
         }
 
         activeOrders.Remove(order);
+        OnOrderFinished?.Invoke(order);
+
         return true;
     }
-
 
     public bool SubmitOrder(int orderId, List<ServedItem> servedItems, float completionTime)
     {
         Order order = GetOrderById(orderId);
-        if (order == null || order.IsExpired(completionTime)) return false;
 
-        // Use the flexible matching scorer
+        if (order == null)
+        {
+            return false;
+        }
+
+        if (order.IsExpired(completionTime))
+        {
+            order.MarkExpired();
+            activeOrders.Remove(order);
+            OnOrderFinished?.Invoke(order);
+            return false;
+        }
+
         int finalScore = OrderScorer.CalculateScore(order, servedItems, completionTime);
 
-        if (finalScore > 0) // If they earned any points order is counted as completed
+        if (finalScore > 0)
         {
             order.MarkCompleted(completionTime, finalScore);
             activeOrders.Remove(order);
+            OnOrderFinished?.Invoke(order);
             return true;
         }
-        else
-        {
-            // 0 points means they failed
-            order.MarkFailed(completionTime, 0);
-            activeOrders.Remove(order);
-            return false;
-        }
+
+        order.MarkFailed(completionTime, 0);
+        activeOrders.Remove(order);
+        OnOrderFinished?.Invoke(order);
+        return false;
     }
 
     // Checks all active orders and expires any that run out of time
@@ -76,87 +94,13 @@ public class OrderSystem
         {
             if (activeOrders[i].IsExpired(currentTime))
             {
-                activeOrders[i].MarkExpired();
+                Order expiredOrder = activeOrders[i];
+
+                expiredOrder.MarkExpired();
                 activeOrders.RemoveAt(i);
+
+                OnOrderFinished?.Invoke(expiredOrder);
             }
         }
-    }
-
-    // Compares a submitted order against the requested order
-    // This is the first simple validation version
-    private bool ValidateOrder(Order order, List<ServedItem> servedItems)
-    {
-        if (servedItems == null)
-        {
-            return false;
-        }
-
-        if (order.RequestedItems.Count != servedItems.Count)
-        {
-            return false;
-        }
-
-        for (int i = 0; i < order.RequestedItems.Count; i++)
-        {
-            OrderItemRequest requested = order.RequestedItems[i];
-            ServedItem served = servedItems[i];
-
-            if (requested.FoodType != served.FoodType)
-            {
-                return false;
-            }
-
-            if (requested.RequiredCookLevel != served.ActualCookLevel)
-            {
-                return false;
-            }
-
-            if (requested.PattyCount != served.ActualPattyCount)
-            {
-                return false;
-            }
-
-            if (!IngredientsMatch(requested.Ingredients, served.ActualIngredients))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    // Checks whether two ingredient lists match exactly
-    private bool IngredientsMatch(List<BurgerIngredients> requestedIngredients, List<BurgerIngredients> servedIngredients)
-    {
-        if (requestedIngredients == null)
-        {
-            requestedIngredients = new List<BurgerIngredients>();
-        }
-
-        if (servedIngredients == null)
-        {
-            servedIngredients = new List<BurgerIngredients>();
-        }
-
-        if (requestedIngredients.Count != servedIngredients.Count)
-        {
-            return false;
-        }
-
-        List<BurgerIngredients> requestedCopy = new List<BurgerIngredients>(requestedIngredients);
-        List<BurgerIngredients> servedCopy = new List<BurgerIngredients>(servedIngredients);
-
-        requestedCopy.Sort();
-        servedCopy.Sort();
-
-        for (int i = 0; i < requestedCopy.Count; i++)
-        {
-            if (requestedCopy[i] != servedCopy[i])
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

@@ -1,8 +1,8 @@
 public enum FoodType
 {
     Burger,
-    Fries
-    //Will need more food types for sure as other stations grow
+    Fries,
+    CrinkleFries
 }
 
 public enum CookLevel
@@ -33,5 +33,6 @@ public enum BurgerIngredients
     Mustard,
     Mayo,
     Lettuce,
-    Tomato
+    Fries, // Strictly for the ingredient mapping to show on the TV
+    CrinkleFries, //same for crinkle fries
 }
