@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class DeliverButton : MonoBehaviour
 {
-    public FoodReader foodReader;
+    public DisplayManager displayManager;
 
     [Header("Visuals")]
     public Transform buttonVisual;
@@ -73,7 +73,6 @@ public class DeliverButton : MonoBehaviour
 
         if (runtimeMaterial != null)
             runtimeMaterial.color = normalColor;
-
     }
 
     private void Update()
@@ -138,6 +137,12 @@ public class DeliverButton : MonoBehaviour
 
     private void HandleAction()
     {
-        foodReader.DeliverFood();
+        if (displayManager == null)
+        {
+            Debug.LogError("DisplayManager is not assigned on DeliverButton.");
+            return;
+        }
+
+        displayManager.SubmitCurrentOrder();
     }
 }
