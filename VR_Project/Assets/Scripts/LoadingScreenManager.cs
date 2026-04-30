@@ -8,7 +8,7 @@ public class LoadingScreenManager : MonoBehaviour
 
     private IEnumerator Start()
     {
-        yield return new WaitForSeconds(minimumLoadingTime);
+        yield return new WaitForSecondsRealtime(minimumLoadingTime);
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(LoadingData.sceneToLoad);
 

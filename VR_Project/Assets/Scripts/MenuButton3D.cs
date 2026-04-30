@@ -160,11 +160,21 @@ public class MenuButton3D : MonoBehaviour
                 break;
 
             case "Settings":
-                Debug.Log("open settings/help panels here later");
-                break;
+                Debug.Log("opening settings panel");
 
+                OpenSettingsButton openSettings = GetComponent<OpenSettingsButton>();
+
+                if (openSettings != null)
+                {
+                    openSettings.ToggleSettings();
+                }
+                else
+                {
+                    Debug.LogWarning("OpenSettingsButton script missing on " + gameObject.name);
+                }
+
+                break;
             case "ClockOut":
-                Debug.Log("load credits scene here later");
                 Application.Quit();
                 break;
 
