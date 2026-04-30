@@ -8918,6 +8918,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 908723193279676764, guid: 31a30bfdf6c754f21a73a87e3bb13201, type: 3}
+      propertyPath: m_ReverseArrangement
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1800704356509182009, guid: 31a30bfdf6c754f21a73a87e3bb13201, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

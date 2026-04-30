@@ -1,12 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
-
-// IF YOU WANT TO TEST THE TV UNCOMMENT THIS CODE
+using System.Text; // Needed for StringBuilder
 
 public class TVTester : MonoBehaviour
 {
     public OrderDisplayManager displayManager;
-
     private OrderSystem orderSystem;
     private Order currentOrder;
 
@@ -15,39 +13,29 @@ public class TVTester : MonoBehaviour
     private void Start()
     {
         orderSystem = new OrderSystem();
-
         if (displayManager != null)
         {
             displayManager.ConnectToOrderSystem(orderSystem);
         }
 
         orderSystem.OnOrderFinished += HandleOrderFinished;
-
         currentOrder = orderSystem.CreateOrder(currentMode, Time.time);
-    }
-
-    private void OnDestroy()
-    {
-        if (orderSystem != null)
-        {
-            orderSystem.OnOrderFinished -= HandleOrderFinished;
-        }
+        
+        // Log the initial order
+        LogOrderDetails(currentOrder);
     }
 
     private void Update()
     {
-        // Press T while the game is running to manually create a new test order
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log("Testing TV with a random order...");
+            Debug.Log("<color=cyan><b>Generating New Test Order...</b></color>");
             currentOrder = orderSystem.CreateOrder(currentMode, Time.time);
+            LogOrderDetails(currentOrder);
         }
 
-        // Press Y while the game is running to simulate turning in the current order correctly
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            Debug.Log("Simulating correct order submission...");
-
             if (currentOrder != null)
             {
                 List<ServedItem> servedItems = BuildPerfectSubmission(currentOrder);
@@ -58,35 +46,53 @@ public class TVTester : MonoBehaviour
 
     private void HandleOrderFinished(Order finishedOrder)
     {
-        Debug.Log($"Order {finishedOrder.OrderId} finished with status {finishedOrder.Status}. Creating next order...");
-
+        Debug.Log($"Order {finishedOrder.OrderId} finished. Status: {finishedOrder.Status}");
         currentOrder = orderSystem.CreateOrder(currentMode, Time.time);
+        LogOrderDetails(currentOrder);
+    }
+    private void LogOrderDetails(Order order)
+    {
+        if (order == null) return;
+
+        StringBuilder sb = new StringBuilder();
+        // Color coding the header for visibility
+        sb.AppendLine($"<color=cyan><b>[ORDER LOG] ID: {order.OrderId}</b></color>");
+
+        foreach (var item in order.RequestedItems)
+        {
+            if (item.FoodType == FoodType.Burger)
+            {
+                string ingredientsList = string.Join(", ", item.Ingredients);
+                sb.AppendLine($"- <color=orange><b>{item.FoodType}</b></color> | Cook: {item.RequiredCookLevel} | Ingredients: [{ingredientsList}]");
+            }
+            else if (item.FoodType == FoodType.Fries || item.FoodType == FoodType.CrinkleFries)
+            {
+                // Highlighting fries in a different color to distinguish them from the main burger
+                sb.AppendLine($"- <color=yellow><b>{item.FoodType}</b></color> | Cook: {item.RequiredCookLevel} | (Side Dish)");
+            }
+            else
+            {
+                sb.AppendLine($"- <b>{item.FoodType}</b> | Cook: {item.RequiredCookLevel}");
+            }
+        }
+
+        Debug.Log(sb.ToString());
     }
 
     private List<ServedItem> BuildPerfectSubmission(Order order)
     {
         List<ServedItem> servedItems = new List<ServedItem>();
-
         foreach (OrderItemRequest request in order.RequestedItems)
         {
             if (request.FoodType == FoodType.Burger)
             {
-                servedItems.Add(new ServedItem(
-                    request.FoodType,
-                    request.RequiredCookLevel,
-                    request.PattyCount,
-                    request.Ingredients
-                ));
+                servedItems.Add(new ServedItem(request.FoodType, request.RequiredCookLevel, request.PattyCount, request.Ingredients));
             }
             else
             {
-                servedItems.Add(new ServedItem(
-                    request.FoodType,
-                    request.RequiredCookLevel
-                ));
+                servedItems.Add(new ServedItem(request.FoodType, request.RequiredCookLevel));
             }
         }
-
         return servedItems;
     }
 }
